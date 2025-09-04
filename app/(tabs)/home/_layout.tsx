@@ -18,6 +18,11 @@ export default function HomeDrawerLayout() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          drawerType: 'front',
+          drawerStyle: {
+            backgroundColor: '#fff',
+            width: 240,
+          },
         }}
       >
       <Drawer.Screen
