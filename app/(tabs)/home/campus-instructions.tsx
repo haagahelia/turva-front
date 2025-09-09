@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-
-
-export default function ProfileScreen() {
+// Kampuskohtaiset ohjeet screen
+export default function CampusInstructionsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profiili</Text>
+      <Text style={styles.title}>Kampuskohtaiset ohjeet</Text>
     </View>
   );
 }

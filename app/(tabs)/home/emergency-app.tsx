@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-
-
-export default function ProfileScreen() {
+// Lataa 112-sovellus screen
+export default function EmergencyAppScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profiili</Text>
+      <Text style={styles.title}>Lataa 112-sovellus</Text>
     </View>
   );
 }

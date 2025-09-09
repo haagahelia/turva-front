@@ -1,15 +1,47 @@
 import { Ionicons } from '@expo/vector-icons';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { useRouter } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, View } from 'react-native';
+
+
+// Closes the drawer navigation panel
+// Not necessary for functionality, but included to match the prototype
+function CustomDrawerContent(props: any) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+      }}>
+        <Pressable
+          onPress={() => props.navigation.closeDrawer()}
+          hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+          accessibilityRole="button"
+          accessibilityLabel="Close menu"
+        >
+          <Ionicons name="close" size={24} color="#111827" />
+        </Pressable>
+      </View>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+}
 
 export default function HomeDrawerLayout() {
+  const router = useRouter();
   return (
     <>
       <StatusBar style="dark" />
       <Drawer
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           headerShown: true,
+          headerTitle: () => null, // Removing this will show the screen title in the header
           drawerActiveTintColor: '#007AFF',
           drawerInactiveTintColor: '#666',
           headerStyle: {
@@ -18,58 +50,103 @@ export default function HomeDrawerLayout() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerRight: () => (
+            <Pressable
+              onPress={() => router.push('/(tabs)/home/profile')}
+              hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+              style={{ marginRight: 12 }}
+            >
+              <Ionicons name="person-circle-outline" size={26} color="#007AFF" />
+            </Pressable>
+          ),
           drawerType: 'front',
           drawerStyle: {
             backgroundColor: '#fff',
-            width: 240,
+            minWidth: 250,
           },
         }}
       >
       <Drawer.Screen
+        name="profile"
+        options={{
+          // Hide from drawer menu but keep it as a route
+          drawerItemStyle: { display: 'none' },
+          title: 'Profiili',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
         name="index"
         options={{
-          title: 'Index',
+          title: 'Koti',
           drawerIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="profile"
+        name="news"
         options={{
-          title: 'Profile',
+          title: 'Ajankohtaista',
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
-          ),// headerRight is needed for adding icons to the header these can be made functional later
-          headerRight: () => (
-            <View style={styles.headerRight}>
-              <TouchableOpacity style={styles.headerButton}>
-                <Ionicons name="share" size={24} color="#007AFF" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.headerButton}>
-                <Ionicons name="ellipsis-horizontal" size={24} color="#007AFF" />
-              </TouchableOpacity>
-            </View>
+            <Ionicons name="newspaper" size={size} color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="settings"
+        name="safe-haaga-helia"
         options={{
-          title: 'Settings',
+          title: 'Turvallinen Haaga-Helia',
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
+            <Ionicons name="shield-checkmark" size={size} color={color} />
           ),
         }}
       />
       <Drawer.Screen
-        name="notifications"
+        name="rules"
         options={{
-          title: 'Notifications',
+          title: 'Järjestyssäännöt',
           drawerIcon: ({ color, size }) => (
-            <Ionicons name="notifications" size={size} color={color} />
+            <Ionicons name="document-text" size={size} color={color} />
           ),
-         
+        }}
+      />
+      <Drawer.Screen
+        name="crisis-team-contact"
+        options={{
+          title: 'Kriisiryhmän yhteystiedot',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="people" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="campus-instructions"
+        options={{
+          title: 'Kampuskohtaiset ohjeet',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="school" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="emergency-app"
+        options={{
+          title: 'Lataa 112-sovellus',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="call" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="about-app"
+        options={{
+          title: 'Tietoa sovelluksesta',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="information-circle" size={size} color={color} />
+          ),
         }}
       />
     </Drawer>
@@ -77,14 +154,4 @@ export default function HomeDrawerLayout() {
   );
 }
 
-const styles = StyleSheet.create({
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  headerButton: {
-    marginLeft: 15,
-    padding: 5,
-  },
-});
+ 

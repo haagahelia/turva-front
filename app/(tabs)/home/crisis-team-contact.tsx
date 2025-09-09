@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-
-
-export default function ProfileScreen() {
+// Kriisiryhmän yhteystiedot screen
+export default function CrisisTeamContactScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profiili</Text>
+      <Text style={styles.title}>Kriisiryhmän yhteystiedot</Text>
     </View>
   );
 }

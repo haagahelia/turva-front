@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-
-
-export default function ProfileScreen() {
+// Tietoa sovelluksesta screen
+export default function AboutAppScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profiili</Text>
+      <Text style={styles.title}>Tietoa sovelluksesta</Text>
     </View>
   );
 }
