@@ -1,17 +1,8 @@
+// store.ts
 import { create } from "zustand";
+import { createThemeSlice } from "./themeSlice";
+import { StoreState } from "./types";
 
-type Theme = 'light' | 'dark';
-
-type ThemeStore = {
-    theme: Theme; // theme state
-    setTheme: (theme: Theme) => void; // sets theme
-    toggleTheme: () => void; // changes theme
-}
-
-export const useThemeStore = create<ThemeStore>((set, get) => ({
-    theme: 'light', // default theme
-    setTheme: (theme) => set({ theme }),
-    toggleTheme: () => 
-    set({theme: get().theme === 'light' ? 'dark' : 'light'} )
-     
+export const useThemeStore = create<StoreState>()((...a) => ({
+  ...createThemeSlice(...a),
 }));
