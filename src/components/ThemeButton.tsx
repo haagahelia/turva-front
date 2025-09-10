@@ -1,5 +1,4 @@
-import { Text, TouchableOpacity } from "react-native";
-import { useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import { useThemeStore } from "../store";
 
 const ThemeButton = () => {
@@ -7,14 +6,16 @@ const ThemeButton = () => {
   const paperTheme = useTheme();
 
   return (
-    <TouchableOpacity
+    <Button
+      mode="contained"
       onPress={toggleTheme}
-      style={{ padding: 10, backgroundColor: paperTheme.colors.surface }}
+      icon={theme === "light" ? "weather-night" : "weather-sunny"}
+      buttonColor={paperTheme.colors.primary}
+      textColor={paperTheme.colors.onPrimary}
+      style={{ marginVertical: 8 }}
     >
-      <Text style={{ color: paperTheme.colors.primary }}>
-        {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
-      </Text>
-    </TouchableOpacity>
+      {theme === "light" ? "Dark" : "Light"}
+    </Button>
   );
 };
 

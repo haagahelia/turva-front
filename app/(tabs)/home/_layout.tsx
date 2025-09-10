@@ -1,22 +1,30 @@
+import ThemeButton from '@/src/components/ThemeButton';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 
 
 // Closes the drawer navigation panel
 // Not necessary for functionality, but included to match the prototype
 function CustomDrawerContent(props: any) {
+  const theme = useTheme();
+
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView 
+      {...props}
+      style={{ backgroundColor: theme.colors.surface }}
+    >
       <View style={{
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
         paddingHorizontal: 16,
         paddingVertical: 12,
+        backgroundColor: theme.colors.surface,
       }}>
         <Pressable
           onPress={() => props.navigation.closeDrawer()}
@@ -24,44 +32,57 @@ function CustomDrawerContent(props: any) {
           accessibilityRole="button"
           accessibilityLabel="Close menu"
         >
-          <Ionicons name="close" size={24} color="#111827" />
+          <Ionicons name="close" size={24} color={theme.colors.onSurface} />
         </Pressable>
       </View>
       <DrawerItemList {...props} />
+      <View style={{ 
+        paddingHorizontal: 16, 
+        paddingVertical: 12,
+        borderTopWidth: 1,
+        borderTopColor: theme.colors.outlineVariant,
+        marginTop: 8
+      }}>
+        <ThemeButton />
+      </View>
     </DrawerContentScrollView>
   );
 }
 
 export default function HomeDrawerLayout() {
   const router = useRouter();
+  const theme = useTheme();
+
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style={theme.dark ? "light" : "dark"} />
       <Drawer
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           headerShown: true,
           headerTitle: () => null, // Removing this will show the screen title in the header
-          drawerActiveTintColor: '#007AFF',
-          drawerInactiveTintColor: '#666',
+          drawerActiveTintColor: theme.colors.primary,
+          drawerInactiveTintColor: theme.colors.onSurfaceVariant,
           headerStyle: {
-            backgroundColor: '#fff',
+            backgroundColor: theme.colors.surface,
           },
           headerTitleStyle: {
             fontWeight: 'bold',
+            color: theme.colors.onSurface,
           },
+          headerTintColor: theme.colors.onSurface,
           headerRight: () => (
             <Pressable
               onPress={() => router.push('/(tabs)/home/profile')}
               hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
               style={{ marginRight: 12 }}
             >
-              <Ionicons name="person-circle-outline" size={26} color="#007AFF" />
+              <Ionicons name="person-circle-outline" size={26} color={theme.colors.primary} />
             </Pressable>
           ),
           drawerType: 'front',
           drawerStyle: {
-            backgroundColor: '#fff',
+            backgroundColor: theme.colors.surface,
             minWidth: 250,
           },
         }}
