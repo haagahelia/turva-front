@@ -2,10 +2,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 
 
-export default function ProfileScreen() {
+// Turvallinen Haaga-Helia screen
+export default function SafeHaagaHeliaScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profiili</Text>
+      <Text style={styles.title}>Turvallinen Haaga-Helia</Text>
     </View>
   );
 }

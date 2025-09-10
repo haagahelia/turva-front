@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-
-
-export default function ProfileScreen() {
+// Ajankohtaista screen
+export default function NewsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profiili</Text>
+      <Text style={styles.title}>Ajankohtaista</Text>
     </View>
   );
 }
