@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity } from "react-native";
-import { useThemeStore } from "../store";
+import { useThemeStore } from ".././store";
 
 const ThemeButton = () => {
   const { theme, toggleTheme } = useThemeStore();

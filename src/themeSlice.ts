@@ -1,6 +1,15 @@
 // themeSlice.ts
 import { StateCreator } from "zustand";
-import { ThemeSlice } from "./types";
+
+export type Theme = 'light' | 'dark';
+
+export interface ThemeSlice {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
+}
+
+export type StoreState = ThemeSlice;
 
 export const createThemeSlice: StateCreator<ThemeSlice, [], [], ThemeSlice> = (
   set,
