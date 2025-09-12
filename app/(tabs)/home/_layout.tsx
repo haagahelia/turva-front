@@ -1,9 +1,11 @@
 import ThemeButton from '@/src/components/ThemeButton';
 import { Ionicons } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import { StatusBar } from 'expo-status-bar';
+import { useCallback } from 'react';
 import { Pressable, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
@@ -52,6 +54,14 @@ function CustomDrawerContent(props: any) {
 export default function HomeDrawerLayout() {
   const router = useRouter();
   const theme = useTheme();
+
+  // Reset to index screen whenever the home tab becomes focused
+  useFocusEffect(
+    useCallback(() => {
+      // Navigate to the index screen when the home tab is focused
+      router.navigate('/(tabs)/home/');
+    }, [router])
+  );
 
   return (
     <>
