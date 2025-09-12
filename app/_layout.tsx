@@ -7,12 +7,16 @@ import { PaperProvider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function RootLayout() {
-  // SafeAreaProvider is used to ensure that the content is displayed within the safe area of the device
-  // Each screen should be wrapped in a SafeAreaView
-  const currentThemeState = useThemeStore(state => state.theme)
 
+  // Checking the theme state and conditionally setting the theme and passing it to the PaperProvider
+  const currentThemeState = useThemeStore((state) => state.theme);
   const paperTheme = currentThemeState === "light" ? LightTheme : DarkTheme;
 
+
+
+
+  // SafeAreaProvider is used to ensure that the content is displayed within the safe area of the device
+  // Each screen should be wrapped in a SafeAreaView
   return (
     <SafeAreaProvider>
       <StatusBar style="dark" />

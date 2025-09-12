@@ -1,10 +1,7 @@
-import ThemeButton from '@/src/components/ThemeButton';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useTheme, Button, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-//import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { useRouter, router } from 'expo-router';
-//import { Drawer } from 'expo-router/drawer';
 
 // Koti screen (Index is always the default first screen)
 export default function Index() {
@@ -15,7 +12,7 @@ export default function Index() {
   const envTest = process.env.EXPO_PUBLIC_NAME;
 
   // Added this in anticipation for new screens (where the buttons take us)
-  const handleButtonPress = (screen: string) => {};
+  //const handleButtonPress = (screen: string) => {};
 
   return (
       <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -63,10 +60,6 @@ export default function Index() {
               Ilmoita epäasiallisesta kohtelusta
             </Button>
           </View>
-
-        <View style={styles.themeButtonContainer}>
-          <ThemeButton />
-        </View>
         </ScrollView>
       </SafeAreaView>
     );
