@@ -1,4 +1,3 @@
-import ThemeButton from '@/src/components/ThemeButton';
 import { StyleSheet, Text } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,7 +15,6 @@ export default function Index() {
       <Text style={[styles.title, { color: theme.colors.onBackground }]}>Koti</Text>
       <Text style={[styles.description, { color: theme.colors.onBackground }]}>The name is testing the environment variables</Text>
       <Text style={[styles.name, { color: theme.colors.primary }]}>{envTest}</Text>
-      <ThemeButton></ThemeButton>
     </SafeAreaView>
   );
 }

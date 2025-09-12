@@ -1,10 +1,13 @@
 import { StyleSheet, Text } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CameraScreen() {
+  const theme = useTheme();
+  
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Camera</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <Text style={[styles.title, { color: theme.colors.onBackground }]}>Camera</Text>
     </SafeAreaView>
   );
 }
@@ -15,12 +18,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f5f5f5',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#333',
   },
 });
