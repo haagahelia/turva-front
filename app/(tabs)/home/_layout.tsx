@@ -116,6 +116,7 @@ export default function HomeDrawerLayout() {
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
+      />
        <Drawer.Screen
         name="settings"
         options={{
@@ -127,6 +128,14 @@ export default function HomeDrawerLayout() {
           ),
         }}
       />
+      <Drawer.Screen
+        name="rewards"
+        options={{
+          // Hide from drawer menu but keep it as a route
+          drawerItemStyle: { display: 'none' },
+          title: 'Rewards',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="gift" size={size} color={color} />
           ),
         }}
       />
