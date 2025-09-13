@@ -116,6 +116,19 @@ export default function HomeDrawerLayout() {
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
+       <Drawer.Screen
+        name="settings"
+        options={{
+          // Hide from drawer menu but keep it as a route
+          drawerItemStyle: { display: 'none' },
+          title: 'Asetukset',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
+          ),
+        }}
+      />
+          ),
+        }}
       />
       <Drawer.Screen
         name="news"
