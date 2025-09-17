@@ -97,13 +97,12 @@ const styles = StyleSheet.create({
   contactHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 12,
   },
   name: {
     fontWeight: '700',
     letterSpacing: 0.2,
-    flex: 1,
-    marginLeft: 12,
   },
   roleChip: {
     borderRadius: 16,
