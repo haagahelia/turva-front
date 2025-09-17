@@ -8,7 +8,7 @@ export default function NewsScreen() {
   const theme = useTheme();
 
   const openWebsite = async () => {
-    const url = "https://www.haaga-helia.fi/fi/haku?keywords=turvallisuus";
+    const url = "https://www.haaga-helia.fi/fi/avainsana/turvallisuus";
     try {
       await WebBrowser.openBrowserAsync(url); // opens in the system browser
     } catch (error) {
@@ -37,6 +37,9 @@ export default function NewsScreen() {
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
+          <Text style={[styles.title, { color: theme.colors.onBackground }]}>
+            Haaga-Helian turvallisuusuutiset
+          </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
             Lue uusimmat turvallisuusteeman uutiset Haaga-Helian sivuilta.🎉
           </Text>
