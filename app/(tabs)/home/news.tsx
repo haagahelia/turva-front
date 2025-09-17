@@ -8,7 +8,7 @@ export default function NewsScreen() {
   const theme = useTheme();
 
   const openWebsite = async () => {
-    const url = "https://www.haaga-helia.fi/fi/ohjaus-ja-hyvinvointi/turvallisuus";
+    const url = "https://www.haaga-helia.fi/fi/haku?keywords=turvallisuus";
     try {
       await WebBrowser.openBrowserAsync(url); // opens in the system browser
     } catch (error) {
