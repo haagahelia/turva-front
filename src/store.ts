@@ -14,3 +14,28 @@ export const useThemeStore = create<StoreState>()(
     }
   )
 );
+
+type SafetyState = {
+  completed: string[];
+  markCompleted: (route: string) => void;
+  resetSafety: () => void;
+};
+
+export const useSafetyStore = create<SafetyState>()(
+  persist(
+    (set) => ({
+      completed: [],
+      markCompleted: (route) =>
+        set((state) => ({
+          completed: state.completed.includes(route)
+            ? state.completed
+            : [...state.completed, route],
+        })),
+      resetSafety: () => set({ completed: [] }),
+    }),
+    {
+      name: "safety-storage", // safety key
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
