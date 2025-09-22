@@ -5,7 +5,7 @@ describe('Theme', () => {
     it('Displays correct theme', () => {
         // describe test here
     });
-    it('Saves theme', () => {
+    it('Theme persists', () => {
 
     })
 });
