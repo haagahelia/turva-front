@@ -82,7 +82,7 @@ export default function BriefingItem() {
 
   const handleComplete = () => {
     markCompleted(`/home/briefing-item?item=${item}`);
-    router.back();
+    router.navigate('/home/safety-briefing');
   };
 
   return (
