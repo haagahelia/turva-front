@@ -26,7 +26,7 @@ export default function Index() {
           <View style={styles.buttonStack}>
             <Button
               mode="contained"
-              onPress={() => router.navigate('/(tabs)/home/ddd')}
+              onPress={() => router.push('/(tabs)/home/safety-briefing')}
               style={[styles.button, { backgroundColor: theme.colors.primary }]}
               labelStyle={styles.buttonLabel}
             >
