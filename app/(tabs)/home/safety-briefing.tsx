@@ -3,7 +3,7 @@ import { useTheme, Button, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useSafetyStore } from "../../src/store";
+import { useSafetyStore } from "../../../src/store";
 
 
 export default function SafetyBriefing() {
@@ -11,19 +11,18 @@ export default function SafetyBriefing() {
   const { completed } = useSafetyStore();
 
   const briefingItems = [
-    { label: 'Turvallinen Haaga-Helia', route: '/safety/???' },
-    { label: 'Toimi Vastuullisesti', route: '/safety/???' },
-    { label: 'Turvallisuushavaintoilmoitus', route: '/safety/???' },
-    { label: 'Turvallisuuskävely', route: '/safety/???' },
-    { label: 'Toiminta Häiriötilanteessa', route: '/safety/???' },
-    { label: 'Pelastussuunnitelma', route: '/safety/???' },
-    { label: 'Poistuminen Rakennuksesta', route: '/safety/???' },
-    { label: 'Sisälle Suojautuminen 1', route: '/safety/???' },
-    { label: 'Sisälle Suojautuminen 2', route: '/safety/???' },
-    { label: 'Äärimmäinen Väkivaltatilanne', route: '/safety/???' },
-    { label: 'Oman Työn Riskit', route: '/safety/???' },
+    { label: 'Turvallinen Haaga-Helia', route: '/home/briefing-item?item=turvallinen-hh' },
+    { label: 'Toimi Vastuullisesti', route: '/home/briefing-item?item=toimi-vastuullisesti' },
+    { label: 'Turvallisuushavaintoilmoitus', route: '/home/briefing-item?item=havaintoilmoitus' },
+    { label: 'Turvallisuuskävely', route: '/home/briefing-item?item=turvallisuuskavely' },
+    { label: 'Toiminta Häiriötilanteessa', route: '/home/briefing-item?item=hairiotilanne' },
+    { label: 'Pelastussuunnitelma', route: '/home/briefing-item?item=pelastussuunnitelma' },
+    { label: 'Poistuminen Rakennuksesta', route: '/home/briefing-item?item=poistuminen' },
+    { label: 'Sisälle Suojautuminen 1', route: '/home/briefing-item?item=suojautuminen-1' },
+    { label: 'Sisälle Suojautuminen 2', route: '/home/briefing-item?item=suojautuminen-2' },
+    { label: 'Äärimmäinen Väkivaltatilanne', route: '/home/briefing-item?item=vakivaltatilanne' },
+    { label: 'Oman Työn Riskit', route: '/home/briefing-item?item=oman-tyon-riskit' },
   ];
-
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
