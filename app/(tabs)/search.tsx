@@ -12,7 +12,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SearchHeaderInput from "../../src/components/SearchHeaderInput";
 import SearchResultItem from "../../src/components/SearchResultItem";
 
+
+// At this point we dont have a working search functionality
+// Since API is not implemented, we are using sample data
+
 // Sample data for search results
+// This should be removed when the API is implemented
 const searchData = [
   {
     id: "1",
@@ -131,7 +136,8 @@ export default function SearchScreen() {
       description={item.description}
       tags={item.tags}
       onPress={() => {
-        // Handle item press - you can navigate to detail screen here
+        // Later we will navigate to the details screen from here which will
+        // Show all the information about the item in this case the article
         console.log("Pressed item:", item.title);
       }}
     />
@@ -205,7 +211,11 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   resultsCount: {
-    // Text variant handles styling
+    fontSize: 14,
+    fontWeight: '500',
+    opacity: 0.8,
+    letterSpacing: 0.25,
+    textTransform: 'lowercase',
   },
   listContainer: {
     paddingHorizontal: 20,
