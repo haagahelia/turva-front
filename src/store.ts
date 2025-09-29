@@ -28,13 +28,13 @@ export const useSafetyStore = create<SafetyState>()(
       markCompleted: (route) =>
         set((state) => ({
           completed: state.completed.includes(route)
-            ? state.completed
+            ? state.completed.filter(item => item !== route)
             : [...state.completed, route],
         })),
       resetSafety: () => set({ completed: [] }),
     }),
     {
-      name: "safety-storage", // safety key
+      name: "safety-storage",
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

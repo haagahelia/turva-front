@@ -11,7 +11,7 @@ export const createSafetySlice: StateCreator<SafetyState> = (set) => ({
   markCompleted: (route) =>
     set((state) => ({
       completed: state.completed.includes(route)
-        ? state.completed
+        ? state.completed.filter(item => item !== route)
         : [...state.completed, route],
     })),
   resetSafety: () => set({ completed: [] }),

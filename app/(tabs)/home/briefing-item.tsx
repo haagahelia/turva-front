@@ -16,11 +16,11 @@ import {
   SisaileSuojautuminen2Content,
   AarinmaineVakivaltatilanneContent,
   OmanTyonRiskitContent
-} from './briefing-content';
+} from '../../../src/components/briefing-content';
 
 export default function BriefingItem() {
   const theme = useTheme();
-  const { markCompleted } = useSafetyStore();
+  const { markCompleted, completed } = useSafetyStore();
   const { item } = useLocalSearchParams();
 
   const contentMap = {
@@ -71,6 +71,8 @@ export default function BriefingItem() {
   };
 
   const currentItem = contentMap[item as keyof typeof contentMap];
+  const currentRoute = `/home/briefing-item?item=${item}`;
+  const isCompleted = completed.includes(currentRoute);
 
   if (!currentItem) {
     return (
@@ -81,7 +83,7 @@ export default function BriefingItem() {
   }
 
   const handleComplete = () => {
-    markCompleted(`/home/briefing-item?item=${item}`);
+    markCompleted(currentRoute);
     router.navigate('/home/safety-briefing');
   };
 
@@ -91,7 +93,7 @@ export default function BriefingItem() {
         <Text style={[styles.title, { color: theme.colors.onBackground }]}>
           {currentItem.title}
         </Text>
-        
+
         {currentItem.component}
 
         <Button
@@ -100,10 +102,14 @@ export default function BriefingItem() {
           style={[styles.button, { backgroundColor: theme.colors.primary }]}
           labelStyle={styles.buttonLabel}
           icon={({ size, color }) => (
-            <MaterialCommunityIcons name="check-circle" size={size} color={color} />
+            <MaterialCommunityIcons
+              name={isCompleted ? "close-circle" : "check-circle"}
+              size={size}
+              color={color}
+            />
           )}
         >
-          Merkitse luetuksi
+          {isCompleted ? "Merkitse lukemattomaksi" : "Merkitse luetuksi"}
         </Button>
       </ScrollView>
     </SafeAreaView>
