@@ -29,8 +29,14 @@ export default function NewsScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+    <SafeAreaView
+      style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
+      edges={[]}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        contentInsetAdjustmentBehavior="never"
+      >
         {/* 1. Image */}
         <MotiImage
           key={`image-${key}`}
@@ -80,18 +86,20 @@ export default function NewsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
   },
   scrollContent: {
-    alignItems: "center",
-    padding: 16,
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   Image: {
     width: "100%",
     height: 300,
     borderRadius: 16,
     marginBottom: 16,
+    marginTop: 70,
   },
   title: {
     fontSize: 22,
