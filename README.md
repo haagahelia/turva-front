@@ -31,8 +31,11 @@ A security application developed for **Haaga-Helia University of Applied Science
    ```bash
    npm install
    ```
-
-3. Start the development server
+3. Run tests
+   ```bash
+   npm test
+   ```
+4. Start the development server
    ```bash
    npx expo start
    ```
