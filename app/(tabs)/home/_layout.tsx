@@ -202,6 +202,22 @@ export default function HomeDrawerLayout() {
           ),
         }}
       />
+      <Drawer.Screen
+              name="safety-briefing"
+              options={{
+                // Hide from drawer menu but keep it as a route
+                drawerItemStyle: { display: 'none' },
+                title: 'Turvallisuusperehdytys',
+              }}
+            />
+      <Drawer.Screen
+        name="briefing-item"
+        options={{
+          // Hide from drawer menu but keep it as a route
+          drawerItemStyle: { display: 'none' },
+          title: 'Briefing Item',
+        }}
+      />
     </Drawer>
     </>
   );
