@@ -1,10 +1,11 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons"; // arrow icon
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
-import { MotiImage, MotiView } from "moti"; // for smooth animations
+import { AnimatePresence, MotiImage, MotiView } from "moti"; // for smooth animations
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { Easing } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -109,13 +110,14 @@ export default function CampusInstructionsScreen() {
           </Text>
         </MotiView>
 
-        {/* 3a. Guidelines Dropdown */}
+        {/* 3. Guidelines Dropdown with buttons as children */}
         <MotiView
           from={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", delay: 600 }}
+          style={{ width: "100%" }}
         >
-          <View style={[styles.dropdown, { backgroundColor: theme.colors.surface, }]}>
+          <View style={[styles.dropdown, { backgroundColor: theme.colors.surface }]}>
             <TouchableOpacity
               style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%" }}
               onPress={() => setShowGuidelines(!showGuidelines)}
@@ -142,39 +144,44 @@ export default function CampusInstructionsScreen() {
                 />
               </MotiView>
             </TouchableOpacity>
+
+            {/* Guidelines Buttons */}
+            <AnimatePresence>
+              {showGuidelines && (
+                <MotiView
+                  from={{ opacity: 0, translateY: -10 }}
+                  animate={{ opacity: 1, translateY: 0 }}
+                  exit={{ opacity: 0, translateY: -10 }}
+                  transition={{ type: "timing", duration: 0, easing: Easing.out(Easing.ease) }}
+                  style={{ width: "100%", alignItems: "center", marginTop: 12 }}
+                >
+                  {generalLinks.map((item, index) => (
+                    <Button
+                      key={`guideline-${index}`}
+                      mode={index === 3 ? "outlined" : "contained"}
+                      icon={index < 3 ? "file-document" : "youtube"}
+                      style={[styles.guidelinebuttons, index === 3 && styles.youtubeButton]}
+                      labelStyle={index === 3 ? styles.youtubeLabel : undefined}
+                      onPress={() => openWebsite(item.url)}
+                    >
+                      {item.title}
+                    </Button>
+                  ))}
+                </MotiView>
+              )}
+            </AnimatePresence>
           </View>
         </MotiView>
 
-        {/* 3b. Guidelines Links Buttons */}
-        {showGuidelines && (
-          <MotiView
-            from={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            transition={{ type: "timing", duration: 300 }}
-            style={{ width: "100%", alignItems: "center", marginTop: 12 }}
-          >
-            {generalLinks.map((item, index) => (
-              <Button
-                key={`guideline-${index}`}
-                mode={index === 3 ? "outlined" : "contained"}
-                icon={index < 3 ? "file-document" : "youtube"}
-                style={[styles.guidelinebuttons, index === 3 && styles.youtubeButton]}
-                labelStyle={index === 3 ? styles.youtubeLabel : undefined}
-                onPress={() => openWebsite(item.url)}
-              >
-                {item.title}
-              </Button>
-            ))}
-          </MotiView>
-        )}
 
-        {/* 4a. Campuses Secure Plans Dropdown */}
+        {/* 4. Campuses Dropdown with buttons*/}
         <MotiView
           from={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", delay: 900 }}
+          style={{ width: "100%" }}
         >
-          <View style={[styles.dropdown, { backgroundColor: theme.colors.surface, }]}>
+          <View style={[styles.dropdown, { backgroundColor: theme.colors.surface }]}>
             <TouchableOpacity
               style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%" }}
               onPress={() => setShowCampuses(!showCampuses)}
@@ -201,30 +208,34 @@ export default function CampusInstructionsScreen() {
                 />
               </MotiView>
             </TouchableOpacity>
+
+            {/* Campus buttons */}
+            <AnimatePresence>
+              {showCampuses && (
+                <MotiView
+                  from={{ opacity: 0, translateY: -10 }}
+                  animate={{ opacity: 1, translateY: 0 }}
+                  exit={{ opacity: 0, translateY: -10 }}
+                  transition={{ type: "timing", duration: 0, easing: Easing.out(Easing.ease) }}
+                  style={{ width: "100%", alignItems: "center", marginTop: 12 }}
+                >
+                  {campusLinks.map((item, index) => (
+                    <Button
+                      key={`campus-${index}`}
+                      mode="outlined"
+                      style={[styles.campusbuttons, { borderColor: theme.colors.secondary }]}
+                      labelStyle={{ fontWeight: "700" }}
+                      onPress={() => openWebsite(item.url)}
+                    >
+                      {item.title}
+                    </Button>
+                  ))}
+                </MotiView>
+              )}
+            </AnimatePresence>
           </View>
         </MotiView>
 
-        {/* 4b. Campus Secure Plans Buttons */}
-        {showCampuses && (
-          <MotiView
-            from={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            transition={{ type: "timing", duration: 300 }}
-            style={{ width: "100%", alignItems: "center", marginTop: 12 }}
-          >
-            {campusLinks.map((item, index) => (
-              <Button
-                key={`campus-${index}`}
-                mode="outlined"
-                style={[styles.campusbuttons, { borderColor: theme.colors.secondary }]}
-                labelStyle={{ fontWeight: "700" }}
-                onPress={() => openWebsite(item.url)}
-              >
-                {item.title}
-              </Button>
-            ))}
-          </MotiView>
-        )}
 
       </ScrollView >
     </SafeAreaView>
@@ -275,7 +286,7 @@ const styles = StyleSheet.create({
   campusbuttons: {
     borderRadius: 24,
     marginTop: 12,
-    minWidth: 320,
+    width: "85%"
   },
   dropdown: {
     width: "100%",

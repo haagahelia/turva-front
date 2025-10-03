@@ -15,4 +15,27 @@ export const useThemeStore = create<StoreState>()(
   )
 );
 
-export { StoreState };
+type SafetyState = {
+  completed: string[];
+  markCompleted: (route: string) => void;
+  resetSafety: () => void;
+};
+
+export const useSafetyStore = create<SafetyState>()(
+  persist(
+    (set) => ({
+      completed: [],
+      markCompleted: (route) =>
+        set((state) => ({
+          completed: state.completed.includes(route)
+            ? state.completed.filter(item => item !== route)
+            : [...state.completed, route],
+        })),
+      resetSafety: () => set({ completed: [] }),
+    }),
+    {
+      name: "safety-storage",
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
