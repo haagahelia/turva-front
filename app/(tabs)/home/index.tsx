@@ -1,7 +1,7 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { useTheme, Button, Text } from 'react-native-paper';
+import { router } from 'expo-router';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter, router } from 'expo-router';
 
 // Koti screen (Index is always the default first screen)
 export default function Index() {
@@ -35,7 +35,7 @@ export default function Index() {
 
             <Button
               mode="contained"
-              onPress={() => router.navigate('/(tabs)/home/ccc')}
+              onPress={() => router.navigate('/(tabs)/home/quiz')}
               style={[styles.button, { backgroundColor: theme.colors.primary }]}
               labelStyle={styles.buttonLabel}
             >
