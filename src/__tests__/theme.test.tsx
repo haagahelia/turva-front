@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StoreState, useThemeStore } from "../store";
+import { StoreState, useThemeStore } from "../zustand/store";
 
 
 describe("theme store with persistence", () => {
