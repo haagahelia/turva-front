@@ -3,12 +3,12 @@ import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import {
-  Button,
-  Card,
-  Checkbox,
-  Divider,
-  Text,
-  useTheme,
+    Button,
+    Card,
+    Checkbox,
+    Divider,
+    Text,
+    useTheme,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { safetyBriefingData } from "../../../src/mockData";
@@ -76,10 +76,7 @@ export default function SafetyInfo() {
             {briefingItem.title}
           </Text>
           <Text
-            style={[
-              styles.subtitle,
-              { color: theme.colors.onSurfaceVariant },
-            ]}
+            style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
           >
             Turvallisuusohjeet
           </Text>

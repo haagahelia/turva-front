@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Card, Checkbox, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import FeedbackModal from "../../../src/components/FeedbackModal";
 import { briefingItems } from "../../../src/mockData";
 import { useSafetyStore } from "../../../src/zustand/store";
 
@@ -11,6 +12,8 @@ export default function SafetyBriefing() {
   const theme = useTheme();
   const { completed, readCount, markCompleted, initializeReadCount } =
     useSafetyStore();
+
+  const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
 
   // Initialize read count on component mount
   useEffect(() => {
@@ -27,6 +30,11 @@ export default function SafetyBriefing() {
     event.stopPropagation();
     const routeStr = `/(tabs)/home/safety-info?itemId=${itemId}`;
     markCompleted(routeStr);
+  };
+
+  // This function will be used to submit the feedback to the server
+  const handleFeedbackSubmit = (rating: number, description: string) => {
+    console.log("Rating:", rating, "Description:", description);
   };
 
   return (
@@ -60,7 +68,12 @@ export default function SafetyBriefing() {
                 { color: theme.colors.onSurface },
               ]}
             >
-              🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä! 
+              🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen
+              kampuksella työskentelevä, opiskeleva tai vieraileva henkilö
+              tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa
+              turvallista ja viihtyisää työ- ja oppimisympäristöä sekä
+              hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi
+              tehdään fiksummin yhdessä!
             </Text>
             <View style={styles.progressContainer}>
               <MaterialCommunityIcons
@@ -135,32 +148,39 @@ export default function SafetyBriefing() {
           })}
         </View>
 
-         {/* Feedback Button (distinct styling) */}
-         <View style={styles.feedbackContainer}>
-           <Button
-             mode="contained"
-             onPress={() => router.push("/(tabs)/home/about-app")}
-             style={[
-               styles.feedbackButton,
-               { backgroundColor: theme.colors.errorContainer }
-             ]}
-             contentStyle={styles.feedbackContent}
-             labelStyle={[
-               styles.feedbackLabel,
-               { color: theme.colors.onErrorContainer }
-             ]}
-             icon={() => (
-               <MaterialCommunityIcons
-                 name="comment-text-outline"
-                 size={18}
-                 color={theme.colors.onErrorContainer}
-               />
-             )}
-           >
-             Anna palautetta (tulossa)
-           </Button>
-         </View>
+        {/* Feedback Button */}
+        <View style={styles.feedbackContainer}>
+          <Button
+            mode="contained"
+            onPress={() => setFeedbackModalVisible(true)}
+            style={[
+              styles.feedbackButton,
+              { backgroundColor: theme.colors.errorContainer },
+            ]}
+            contentStyle={styles.feedbackContent}
+            labelStyle={[
+              styles.feedbackLabel,
+              { color: theme.colors.onErrorContainer },
+            ]}
+            icon={() => (
+              <MaterialCommunityIcons
+                name="comment-text-outline"
+                size={18}
+                color={theme.colors.onErrorContainer}
+              />
+            )}
+          >
+            Anna palautetta
+          </Button>
+        </View>
       </ScrollView>
+
+      {/* Feedback Modal */}
+      <FeedbackModal
+        visible={feedbackModalVisible}
+        onDismiss={() => setFeedbackModalVisible(false)}
+        onSubmit={handleFeedbackSubmit}
+      />
     </SafeAreaView>
   );
 }
