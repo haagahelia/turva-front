@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import {
+    Keyboard,
+    StyleSheet,
+    TouchableNativeFeedback,
+    View,
+} from "react-native";
 import {
     Button,
     Modal,
@@ -50,110 +55,112 @@ export default function FeedbackModal({
           { backgroundColor: theme.colors.surface },
         ]}
       >
-        <View style={styles.modalContent}>
-          {/* Header */}
-          <View style={styles.header}>
-            <Text style={[styles.title, { color: theme.colors.onSurface }]}>
-              Anna palautetta
-            </Text>
-            <Text
-              style={[
-                styles.subtitle,
-                { color: theme.colors.onSurfaceVariant },
-              ]}
-            >
-              Arvioi turvallisuusperehdytyksen kokemus asteikolla 1-10
-            </Text>
-          </View>
+        <TouchableNativeFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.modalContent}>
+            {/* Header */}
+            <View style={styles.header}>
+              <Text style={[styles.title, { color: theme.colors.onSurface }]}>
+                Anna palautetta
+              </Text>
+              <Text
+                style={[
+                  styles.subtitle,
+                  { color: theme.colors.onSurfaceVariant },
+                ]}
+              >
+                Arvioi turvallisuusperehdytyksen kokemus asteikolla 1-10
+              </Text>
+            </View>
 
-          {/* Rating Section */}
-          <View style={styles.ratingSection}>
-            <View style={styles.ratingContainer}>
-              <View style={styles.ratingButtons}>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-                  <Button
-                    key={value}
-                    mode={rating === value ? "contained" : "outlined"}
-                    onPress={() => setRating(value)}
-                    style={[
-                      styles.ratingButton,
-                      rating === value && {
-                        backgroundColor: theme.colors.primary,
-                      },
-                    ]}
-                    labelStyle={[
-                      styles.ratingButtonLabel,
-                      {
-                        color:
-                          rating === value
-                            ? theme.colors.onPrimary
-                            : theme.colors.primary,
-                      },
-                    ]}
-                    compact
-                  >
-                    {value}
-                  </Button>
-                ))}
+            {/* Rating Section */}
+            <View style={styles.ratingSection}>
+              <View style={styles.ratingContainer}>
+                <View style={styles.ratingButtons}>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+                    <Button
+                      key={value}
+                      mode={rating === value ? "contained" : "outlined"}
+                      onPress={() => setRating(value)}
+                      style={[
+                        styles.ratingButton,
+                        rating === value && {
+                          backgroundColor: theme.colors.primary,
+                        },
+                      ]}
+                      labelStyle={[
+                        styles.ratingButtonLabel,
+                        {
+                          color:
+                            rating === value
+                              ? theme.colors.onPrimary
+                              : theme.colors.primary,
+                        },
+                      ]}
+                      compact
+                    >
+                      {value}
+                    </Button>
+                  ))}
+                </View>
               </View>
             </View>
-          </View>
 
-          {/* Description Section */}
-          <View style={styles.descriptionSection}>
-            <Text
-              style={[
-                styles.descriptionLabel,
-                { color: theme.colors.onSurface },
-              ]}
-            >
-              Kuvaus (valinnainen)
-            </Text>
-            <TextInput
-              mode="outlined"
-              multiline
-              numberOfLines={3}
-              placeholder="Kerro lisää kokemuksestasi..."
-              value={description}
-              onChangeText={setDescription}
-              style={styles.textInput}
-              outlineColor={theme.colors.outline}
-              activeOutlineColor={theme.colors.primary}
-              textColor={theme.colors.onSurface}
-              placeholderTextColor={theme.colors.onSurfaceVariant}
-              contentStyle={styles.textInputContent}
-              textAlignVertical="center"
-            />
-          </View>
+            {/* Description Section */}
+            <View style={styles.descriptionSection}>
+              <Text
+                style={[
+                  styles.descriptionLabel,
+                  { color: theme.colors.onSurface },
+                ]}
+              >
+                Kuvaus (valinnainen)
+              </Text>
+              <TextInput
+                mode="outlined"
+                multiline
+                numberOfLines={3}
+                placeholder="Kerro lisää kokemuksestasi..."
+                value={description}
+                onChangeText={setDescription}
+                style={styles.textInput}
+                outlineColor={theme.colors.outline}
+                activeOutlineColor={theme.colors.primary}
+                textColor={theme.colors.onSurface}
+                placeholderTextColor={theme.colors.onSurfaceVariant}
+                contentStyle={styles.textInputContent}
+                textAlignVertical="center"
+              />
+            </View>
 
-          {/* Action Buttons */}
-          <View style={styles.actionsContainer}>
-            <Button
-              mode="outlined"
-              onPress={handleCancel}
-              style={[styles.actionButton, styles.cancelButton]}
-              labelStyle={[
-                styles.actionButtonLabel,
-                { color: theme.colors.onSurface },
-              ]}
-              contentStyle={styles.actionButtonContent}
-            >
-              Peruuta
-            </Button>
-            <Button
-              mode="contained"
-              onPress={handleSubmit}
-              style={[styles.actionButton, styles.submitButton]}
-              labelStyle={[
-                styles.actionButtonLabel,
-                { color: theme.colors.onPrimary },
-              ]}
-              contentStyle={styles.actionButtonContent}
-            >
-              Lähetä
-            </Button>
+            {/* Action Buttons */}
+            <View style={styles.actionsContainer}>
+              <Button
+                mode="outlined"
+                onPress={handleCancel}
+                style={[styles.actionButton, styles.cancelButton]}
+                labelStyle={[
+                  styles.actionButtonLabel,
+                  { color: theme.colors.onSurface },
+                ]}
+                contentStyle={styles.actionButtonContent}
+              >
+                Peruuta
+              </Button>
+              <Button
+                mode="contained"
+                onPress={handleSubmit}
+                style={[styles.actionButton, styles.submitButton]}
+                labelStyle={[
+                  styles.actionButtonLabel,
+                  { color: theme.colors.onPrimary },
+                ]}
+                contentStyle={styles.actionButtonContent}
+              >
+                Lähetä
+              </Button>
+            </View>
           </View>
-        </View>
+        </TouchableNativeFeedback>
       </Modal>
     </Portal>
   );
