@@ -3,13 +3,12 @@ import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import {
-    Button,
-    Card,
-    Checkbox,
-    Divider,
-    IconButton,
-    Text,
-    useTheme,
+  Button,
+  Card,
+  Checkbox,
+  Divider,
+  Text,
+  useTheme,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { safetyBriefingData } from "../../../src/mockData";
@@ -56,7 +55,7 @@ export default function SafetyInfo() {
           <Button
             mode="contained"
             onPress={() => router.navigate("/(tabs)/home/safety-briefing")}
-            style={styles.backButton}
+            style={styles.errorButton}
             icon="arrow-left"
           >
             Takaisin
@@ -71,27 +70,19 @@ export default function SafetyInfo() {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <ScrollView style={styles.scrollView}>
-        {/* Header */}
-        <View style={styles.header}>
-          <IconButton
-            icon="arrow-left"
-            onPress={() => router.navigate("/(tabs)/home/safety-briefing")}
-            style={styles.backButton}
-            iconColor={theme.colors.primary}
-          />
-          <View style={styles.titleContainer}>
-            <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-              {briefingItem.title}
-            </Text>
-            <Text
-              style={[
-                styles.subtitle,
-                { color: theme.colors.onSurfaceVariant },
-              ]}
-            >
-              Turvallisuusohjeet
-            </Text>
-          </View>
+        {/* Title Section */}
+        <View style={styles.titleSection}>
+          <Text style={[styles.title, { color: theme.colors.onBackground }]}>
+            {briefingItem.title}
+          </Text>
+          <Text
+            style={[
+              styles.subtitle,
+              { color: theme.colors.onSurfaceVariant },
+            ]}
+          >
+            Turvallisuusohjeet
+          </Text>
         </View>
 
         {/* Divider */}
@@ -141,11 +132,6 @@ export default function SafetyInfo() {
                 <View style={styles.sectionContent}>
                   {section.content.map((item, itemIndex) => (
                     <View key={itemIndex} style={styles.contentItem}>
-                      <MaterialCommunityIcons
-                        name="check-circle"
-                        size={16}
-                        color={theme.colors.primary}
-                      />
                       <Text
                         style={[
                           styles.contentText,
@@ -169,11 +155,10 @@ export default function SafetyInfo() {
             style={[
               styles.completionCard,
               {
-                backgroundColor: theme.colors.surface,
-                borderColor: isCompleted
-                  ? theme.colors.primary
-                  : theme.colors.outline,
-                borderWidth: 1,
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+                borderWidth: 0,
+                elevation: 0,
               },
             ]}
           >
@@ -184,7 +169,7 @@ export default function SafetyInfo() {
                   { color: theme.colors.onSurfaceVariant },
                 ]}
               >
-                {isCompleted ? "Luettu" : "Merkitse luetuksi"}
+                {"Olen lukenut ja sisäistänyt tämän osion"}
               </Text>
 
               <Checkbox
@@ -207,18 +192,9 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "flex-start",
+  titleSection: {
     padding: 20,
     paddingTop: 10,
-  },
-  backButton: {
-    marginRight: 16,
-    marginTop: 4,
-  },
-  titleContainer: {
-    flex: 1,
   },
   title: {
     fontSize: 26,
@@ -234,14 +210,16 @@ const styles = StyleSheet.create({
   },
   completionSection: {
     marginTop: 20,
+    marginBottom: 24,
   },
   completionDivider: {
     marginBottom: 20,
   },
   completionCard: {
-    margin: 20,
-    borderRadius: 12,
-    elevation: 1,
+    marginHorizontal: 20,
+    marginVertical: 0,
+    borderRadius: 0,
+    elevation: 0,
   },
   completionContent: {
     flexDirection: "row",
@@ -320,5 +298,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 32,
     opacity: 0.7,
+  },
+  errorButton: {
+    marginTop: 16,
   },
 });

@@ -1,15 +1,16 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import React, { useEffect } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Card, Checkbox, Text, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { briefingItems } from '../../../src/mockData';
-import { useSafetyStore } from '../../../src/zustand/store';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import React, { useEffect } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { Button, Card, Checkbox, Text, useTheme } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { briefingItems } from "../../../src/mockData";
+import { useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyBriefing() {
   const theme = useTheme();
-  const { completed, readCount, markCompleted, initializeReadCount } = useSafetyStore();
+  const { completed, readCount, markCompleted, initializeReadCount } =
+    useSafetyStore();
 
   // Initialize read count on component mount
   useEffect(() => {
@@ -29,33 +30,47 @@ export default function SafetyBriefing() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Header */}
         <View style={styles.header}>
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
             Turvallisuusperehdytys
           </Text>
-          <Text style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}>
+          <Text
+            style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
+          >
             Valitse aihe tutustuaksesi turvallisuusohjeisiin
           </Text>
         </View>
 
         {/* Description */}
-        <Card style={[styles.descriptionCard, { backgroundColor: theme.colors.surface }]}>
+        <Card
+          style={[
+            styles.descriptionCard,
+            { backgroundColor: theme.colors.surface },
+          ]}
+        >
           <Card.Content>
-            <Text style={[styles.descriptionText, { color: theme.colors.onSurface }]}>
-              Haaga-Helia haluaa tarjota ja varmistaa korkeakouluyhteisöllemme turvallisen ja
-              viihtyisän ympäristön opiskella ja työskennellä. Ympäristön, jossa on hyvä olla, 
-              osallistua ja oppia.
+            <Text
+              style={[
+                styles.descriptionText,
+                { color: theme.colors.onSurface },
+              ]}
+            >
+              🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä! 
             </Text>
             <View style={styles.progressContainer}>
-              <MaterialCommunityIcons 
-                name="chart-line" 
-                size={20} 
-                color={theme.colors.primary} 
+              <MaterialCommunityIcons
+                name="chart-line"
+                size={20}
+                color={theme.colors.primary}
               />
-              <Text style={[styles.progressText, { color: theme.colors.primary }]}>
+              <Text
+                style={[styles.progressText, { color: theme.colors.primary }]}
+              >
                 {readCount} / {briefingItems.length} suoritettu
               </Text>
             </View>
@@ -67,17 +82,19 @@ export default function SafetyBriefing() {
           {briefingItems.map((item) => {
             const routeStr = `/(tabs)/home/safety-info?itemId=${item.id}`;
             const isCompleted = completed.includes(routeStr);
-            
+
             return (
-              <Card 
-                key={item.id} 
+              <Card
+                key={item.id}
                 style={[
                   styles.itemCard,
-                  { 
-                    backgroundColor: theme.colors.surface,
-                    borderColor: isCompleted ? theme.colors.primary : theme.colors.outline,
-                    borderWidth: 1
-                  }
+                  {
+                    backgroundColor: theme.colors.tertiaryContainer,
+                    borderColor: isCompleted
+                      ? theme.colors.primary
+                      : "transparent",
+                    borderWidth: 2,
+                  },
                 ]}
               >
                 <Card.Content style={styles.cardContent}>
@@ -87,34 +104,62 @@ export default function SafetyBriefing() {
                     style={styles.itemButton}
                     contentStyle={styles.itemButtonContent}
                     labelStyle={[
-                      styles.itemLabel, 
-                      { color: theme.colors.onSurface }
+                      styles.itemLabel,
+                      { color: theme.colors.onSurface },
                     ]}
                   >
                     <View style={styles.itemTextContainer}>
-                      <Text style={[
-                        styles.itemTitle, 
-                        { 
-                          color: isCompleted ? theme.colors.primary : theme.colors.onSurface 
-                        }
-                      ]}>
+                      <Text
+                        style={[
+                          styles.itemTitle,
+                          {
+                            color: isCompleted
+                              ? theme.colors.primary
+                              : theme.colors.onSurface,
+                          },
+                        ]}
+                      >
                         {item.title}
                       </Text>
                     </View>
                   </Button>
-                  
-                  
-                    <Checkbox
-                      status={isCompleted ? 'checked' : 'unchecked'}
-                      onPress={(event) => handleCheckmarkPress(item.id, event)}
-                      color={theme.colors.primary}
-                    />
-               
+
+                  <Checkbox
+                    status={isCompleted ? "checked" : "unchecked"}
+                    onPress={(event) => handleCheckmarkPress(item.id, event)}
+                    color={theme.colors.primary}
+                  />
                 </Card.Content>
               </Card>
             );
           })}
         </View>
+
+         {/* Feedback Button (distinct styling) */}
+         <View style={styles.feedbackContainer}>
+           <Button
+             mode="contained"
+             onPress={() => router.push("/(tabs)/home/about-app")}
+             style={[
+               styles.feedbackButton,
+               { backgroundColor: theme.colors.errorContainer }
+             ]}
+             contentStyle={styles.feedbackContent}
+             labelStyle={[
+               styles.feedbackLabel,
+               { color: theme.colors.onErrorContainer }
+             ]}
+             icon={() => (
+               <MaterialCommunityIcons
+                 name="comment-text-outline"
+                 size={18}
+                 color={theme.colors.onErrorContainer}
+               />
+             )}
+           >
+             Anna palautetta (tulossa)
+           </Button>
+         </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -130,17 +175,17 @@ const styles = StyleSheet.create({
   },
   header: {
     marginBottom: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     opacity: 0.7,
   },
   descriptionCard: {
@@ -153,33 +198,49 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   progressContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   progressText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginLeft: 8,
   },
   itemsContainer: {
     gap: 12,
   },
+  feedbackContainer: {
+    marginTop: 24,
+    alignItems: "center",
+  },
+  feedbackButton: {
+    borderRadius: 24,
+    paddingHorizontal: 8,
+  },
+  feedbackContent: {
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+  },
+  feedbackLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
   itemCard: {
     elevation: 1,
   },
   cardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 16,
   },
   itemButton: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     flex: 1,
   },
   itemButtonContent: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     paddingHorizontal: 0,
   },
   itemLabel: {
@@ -187,15 +248,14 @@ const styles = StyleSheet.create({
   },
   itemTextContainer: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   itemTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 4,
   },
   itemShortTitle: {
     fontSize: 14,
   },
-
 });

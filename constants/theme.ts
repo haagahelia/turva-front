@@ -65,7 +65,7 @@ export const DarkTheme = {
         "onTertiaryContainer": "rgb(211, 228, 255)",
         "error": "rgb(255, 180, 171)",
         "onError": "rgb(105, 0, 5)",
-        "errorContainer": "rgb(147, 0, 10)",
+        "errorContainer": "rgb(151, 66, 72)",
         "onErrorContainer": "rgb(255, 180, 171)",
         "background": "rgb(26, 28, 30)",
         "onBackground": "rgb(226, 226, 230)",

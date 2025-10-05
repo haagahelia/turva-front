@@ -1,14 +1,16 @@
-import ThemeButton from '@/src/components/ThemeButton';
-import { Ionicons } from '@expo/vector-icons';
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import { useFocusEffect } from '@react-navigation/native';
-import { useRouter } from 'expo-router';
-import { Drawer } from 'expo-router/drawer';
-import { StatusBar } from 'expo-status-bar';
-import { useCallback } from 'react';
-import { Pressable, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
-
+import ThemeButton from "@/src/components/ThemeButton";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import { useFocusEffect } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import { Drawer } from "expo-router/drawer";
+import { StatusBar } from "expo-status-bar";
+import { useCallback } from "react";
+import { Pressable, View } from "react-native";
+import { useTheme } from "react-native-paper";
 
 // Closes the drawer navigation panel
 // Not necessary for functionality, but included to match the prototype
@@ -16,18 +18,20 @@ function CustomDrawerContent(props: any) {
   const theme = useTheme();
 
   return (
-    <DrawerContentScrollView 
+    <DrawerContentScrollView
       {...props}
       style={{ backgroundColor: theme.colors.surface }}
     >
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        backgroundColor: theme.colors.surface,
-      }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          backgroundColor: theme.colors.surface,
+        }}
+      >
         <Pressable
           onPress={() => props.navigation.closeDrawer()}
           hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
@@ -38,13 +42,15 @@ function CustomDrawerContent(props: any) {
         </Pressable>
       </View>
       <DrawerItemList {...props} />
-      <View style={{ 
-        paddingHorizontal: 16, 
-        paddingVertical: 12,
-        borderTopWidth: 1,
-        borderTopColor: theme.colors.outlineVariant,
-        marginTop: 8
-      }}>
+      <View
+        style={{
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          borderTopWidth: 1,
+          borderTopColor: theme.colors.outlineVariant,
+          marginTop: 8,
+        }}
+      >
         <ThemeButton />
       </View>
     </DrawerContentScrollView>
@@ -59,7 +65,7 @@ export default function HomeDrawerLayout() {
   useFocusEffect(
     useCallback(() => {
       // Navigate to the index screen when the home tab is focused
-      router.navigate('/(tabs)/home/');
+      router.navigate("/(tabs)/home");
     }, [router])
   );
 
@@ -77,151 +83,165 @@ export default function HomeDrawerLayout() {
             backgroundColor: theme.colors.surface,
           },
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontWeight: "bold",
             color: theme.colors.onSurface,
           },
           headerTintColor: theme.colors.onSurface,
           headerRight: () => (
             <Pressable
-              onPress={() => router.push('/(tabs)/home/profile')}
+              onPress={() => router.push("/(tabs)/home/profile")}
               hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
               style={{ marginRight: 12 }}
             >
-              <Ionicons name="person-circle-outline" size={26} color={theme.colors.primary} />
+              <Ionicons
+                name="person-circle-outline"
+                size={26}
+                color={theme.colors.primary}
+              />
             </Pressable>
           ),
-          drawerType: 'front',
+          drawerType: "front",
           drawerStyle: {
             backgroundColor: theme.colors.surface,
             minWidth: 250,
           },
         }}
       >
-      <Drawer.Screen
-        name="profile"
-        options={{
-          // Hide from drawer menu but keep it as a route
-          drawerItemStyle: { display: 'none' },
-          title: 'Profiili',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="index"
-        options={{
-          title: 'Koti',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
-          ),
-        }}
-      />
-       <Drawer.Screen
-        name="settings"
-        options={{
-          // Hide from drawer menu but keep it as a route
-          drawerItemStyle: { display: 'none' },
-          title: 'Asetukset',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="rewards"
-        options={{
-          // Hide from drawer menu but keep it as a route
-          drawerItemStyle: { display: 'none' },
-          title: 'Rewards',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="gift" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="news"
-        options={{
-          title: 'Ajankohtaista',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="newspaper" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="safe-haaga-helia"
-        options={{
-          title: 'Turvallinen Haaga-Helia',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="shield-checkmark" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="rules"
-        options={{
-          title: 'Järjestyssäännöt',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="document-text" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="crisis-team-contact"
-        options={{
-          title: 'Kriisiryhmän yhteystiedot',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="people" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="campus-instructions"
-        options={{
-          title: 'Kampuskohtaiset ohjeet',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="school" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="emergency-app"
-        options={{
-          title: 'Lataa 112-sovellus',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="call" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="about-app"
-        options={{
-          title: 'Tietoa sovelluksesta',
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="information-circle" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-              name="safety-briefing"
-              options={{
-                // Hide from drawer menu but keep it as a route
-                drawerItemStyle: { display: 'none' },
-                title: 'Turvallisuusperehdytys',
-              }}
-            />
-            <Drawer.Screen
-              name="safety-info"
-              options={{
-                // Hide from drawer menu but keep it as a route
-                drawerItemStyle: { display: 'none' },
-                title: 'Safety Info',
-              }}
-            />
-    
-    </Drawer>
+        <Drawer.Screen
+          name="profile"
+          options={{
+            // Hide from drawer menu but keep it as a route
+            drawerItemStyle: { display: "none" },
+            title: "Profiili",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="person" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="index"
+          options={{
+            title: "Koti",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="settings"
+          options={{
+            // Hide from drawer menu but keep it as a route
+            drawerItemStyle: { display: "none" },
+            title: "Asetukset",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="settings" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="rewards"
+          options={{
+            // Hide from drawer menu but keep it as a route
+            drawerItemStyle: { display: "none" },
+            title: "Rewards",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="gift" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="news"
+          options={{
+            title: "Ajankohtaista",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="newspaper" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="safe-haaga-helia"
+          options={{
+            title: "Turvallinen Haaga-Helia",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="shield-checkmark" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="rules"
+          options={{
+            title: "Järjestyssäännöt",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="document-text" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="crisis-team-contact"
+          options={{
+            title: "Kriisiryhmän yhteystiedot",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="people" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="campus-instructions"
+          options={{
+            title: "Kampuskohtaiset ohjeet",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="school" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="emergency-app"
+          options={{
+            title: "Lataa 112-sovellus",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="call" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="about-app"
+          options={{
+            title: "Tietoa sovelluksesta",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="information-circle" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="safety-briefing"
+          options={{
+            // Hide from drawer menu but keep it as a route
+            drawerItemStyle: { display: "none" },
+            title: "Turvallisuusperehdytys",
+          }}
+        />
+        <Drawer.Screen
+          name="safety-info"
+          options={{
+            // Hide from drawer menu but keep it as a route
+            drawerItemStyle: { display: "none" },
+            title: "Safety Info",
+            headerLeft: () => (
+              <Pressable
+                onPress={() => router.navigate("/(tabs)/home/safety-briefing")}
+                hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                style={{ marginLeft: 12 }}
+              >
+                <Ionicons
+                  name="arrow-back"
+                  size={24}
+                  color={theme.colors.primary}
+                />
+              </Pressable>
+            ),
+          }}
+        />
+      </Drawer>
     </>
   );
 }
-
- 

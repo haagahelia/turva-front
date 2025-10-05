@@ -11,362 +11,290 @@ export interface BriefingItem {
 export const safetyBriefingData: Record<string, BriefingItem> = {
   "safe-haaga-helia": {
     id: "safe-haaga-helia",
-    title: "Safe Haaga-Helia",
+    title: "Turvallinen Haaga-Helia",
     shortTitle: "Safe HH",
     sections: [
       {
-        title: "Overview",
+        title: "Yleiskatsaus",
         content: [
-          "Welcome to Haaga-Helia University of Applied Sciences",
-          "We strive to provide a safe and secure environment for all students and staff",
-          "Your safety is our top priority"
+          "Tervetuloa turvallisuusperehdytykselle!",
+          "Haaga-Helia tarjoaa turvallisen ja viihtyisän ympäristön opiskeluun ja työskentelyyn.",
+          "Turvallisuusperehdytyksen tavoitteena on vahvistaa opiskelijoiden turvallisuusosaamista ja edistää yhteistä turvallisuuskulttuuria."
         ]
       },
       {
-        title: "Emergency Contacts",
+        title: "Sisältö",
         content: [
-          "Emergency Services: 112",
-          "Security: +358 40 123 4567",
-          "Maintenance: +358 40 987 6543"
+          "Tässä turvallisuusperehdytyksessä saat tietoa näistä turvallisuuteen liittyvistä asioista:",
+          "turvallisuuskävely",
+          "valmius- ja kriisiryhmä",
+          "turvaopas",
+          "pelastussuunnitelma",
+          "järjestyssäännöt",
+          "turvallisuushavaintoilmoitus",
+          "poistuminen rakennuksesta",
+          "sisälle suojautuminen"
         ]
       }
     ]
   },
+
   "act-responsibly": {
     id: "act-responsibly",
-    title: "Act Responsibly",
+    title: "Toimi Vastuullisesti",
     shortTitle: "Be Responsible",
     sections: [
       {
-        title: "Personal Responsibility",
+        title: "Järjestyssäännöt ja vastuut",
         content: [
-          "Follow all safety guidelines and protocols",
-          "Report any hazards or unsafe conditions immediately",
-          "Take care of yourself and others around you"
+          "Tutustu Haaga-Helian järjestyssääntöihin ja noudata niitä.",
+          "Järjestyssääntöjen tarkoituksena on varmistaa turvallinen ja esteetön oppimisympäristö.",
+          "Rikkomuksista voi seurata kurinpidollisia toimenpiteitä."
         ]
       },
       {
-        title: "Academic Responsibility",
+        title: "Hyvät käytänteet opinnoissa",
         content: [
-          "Maintain academic integrity",
-          "Respect fellow students and staff",
-          "Follow campus rules and regulations"
+          "Noudata hyviä opintokäytäntöjä ja vältä vilppiä.",
+          "Kunnioita opiskeluyhteisön jäseniä ja yhteisiä tiloja.",
+          "Tehtävä: Perehdy järjestyssääntöihin ja tutkintosääntöön."
         ]
       }
     ]
   },
+
   "safety-observation-report": {
     id: "safety-observation-report",
-    title: "Safety Observation Report",
-    shortTitle: "Safety Report",
+    title: "Turvallisuushavaintoilmoitus",
+    shortTitle: "Havaintoilmoitus",
     sections: [
       {
-        title: "What to Report",
+        title: "Miksi havaintoja tehdään?",
         content: [
-          "Unsafe conditions or hazards",
-          "Near-miss incidents",
-          "Equipment malfunctions",
-          "Security concerns"
+          "Ilmoitukset auttavat kehittämään turvallisuutta kampuksilla.",
+          "Voit ilmoittaa vaaranpaikoista, läheltä piti -tilanteista tai positiivisista havainnoista.",
+          "Turvallisuushavainto ei ole valitus, vaan kehitysehdotus."
         ]
       },
       {
-        title: "How to Report",
+        title: "Miten ilmoitan?",
         content: [
-          "Use the official reporting system",
-          "Provide detailed descriptions",
-          "Include photos if safe to take",
-          "Follow up if additional information is needed"
+          "Tee ilmoitus palveluportaalissa (kirjautuminen vaaditaan).",
+          "Kaikki ilmoitukset käsitellään luottamuksellisesti.",
+          "Lisätietoa: www.haaga-helia.fi/turvallisuus"
         ]
       }
     ]
   },
+
   "safety-walk": {
     id: "safety-walk",
-    title: "Safety Walk: The Safety Walk Checklist",
+    title: "Turvallisuuskävely",
     shortTitle: "Safety Walk",
     sections: [
       {
-        title: "Safety Walk Procedure",
+        title: "Turvallisuuskävelyn tarkoitus",
         content: [
-          "Conduct regular safety walks in your area",
-          "Check for blocked exits and pathways",
-          "Verify emergency equipment accessibility",
-          "Document any issues found"
+          "Perehdy kampuksesi turvallisuusasioihin.",
+          "Opit poistumisreitit, ensiapuvälineiden ja sammuttimien sijainnit.",
+          "Harjoittelu vahvistaa valmiutta toimia häiriötilanteissa."
         ]
       },
       {
-        title: "What to Look For",
+        title: "Toimintaohjeet",
         content: [
-          "Clear emergency exits",
-          "Working fire extinguishers",
-          "Proper lighting",
-          "Clean and clear walkways"
+          "Lue turvallisuuskävelyohje opiskelijoille.",
+          "Katso oman kampuksesi turvallisuuskävelyvideo.",
+          "Osallistu fyysiselle turvallisuuskävelylle tutorien ja opettajien johdolla."
         ]
       }
     ]
   },
+
   "actions-disruptive-situations": {
     id: "actions-disruptive-situations",
-    title: "Actions in Disruptive Situations",
-    shortTitle: "Disruptive Situations",
+    title: "Toiminta Häiriötilanteissa",
+    shortTitle: "Häiriötilanteet",
     sections: [
       {
-        title: "Initial Response",
+        title: "Varautuminen",
         content: [
-          "Stay calm and assess the situation",
-          "Ensure your own safety first",
-          "Call for help if needed",
-          "Follow established procedures"
+          "Varautuminen ehkäisee kriisitilanteita ja luo edellytykset hallintaan.",
+          "Toimintaohjeet käydään läpi ja harjoitellaan säännöllisesti.",
+          "Valmius- ja kriisiryhmä huolehtii toiminnasta poikkeustilanteissa."
         ]
       },
       {
-        title: "Types of Disruptions",
+        title: "Hätätilanteessa",
         content: [
-          "Fire or evacuation",
-          "Medical emergency",
-          "Security threat",
-          "Weather-related emergency"
+          "Soita hätänumeroon 112.",
+          "Ilmoita turvallisuuspäällikölle tai kriisiryhmälle.",
+          "Lataa Suomi 112 -sovellus nopeaa avunsaantia varten."
         ]
       }
     ]
   },
+
   "rescue-plan": {
     id: "rescue-plan",
-    title: "Rescue Plan",
-    shortTitle: "Rescue Plan",
+    title: "Pelastussuunnitelma",
+    shortTitle: "Pelastussuunnitelma",
     sections: [
       {
-        title: "Rescue Coordination",
+        title: "Sisältö ja tarkoitus",
         content: [
-          "Emergency response team activation",
-          "Clear communication channels",
-          "Designated meeting points",
-          "Accountability procedures"
+          "Pelastussuunnitelma kertoo, miten vaaratilanteita ehkäistään ja hallitaan.",
+          "Tutustu oman kampuksesi suunnitelmaan ja kokoontumispaikkaan.",
+          "Tiedä, miten toimia tulipalon tai onnettomuuden sattuessa."
         ]
       },
       {
-        title: "Your Role",
+        title: "Materiaalit",
         content: [
-          "Follow evacuation plans",
-          "Assist others when safe",
-          "Report to designated areas",
-          "Follow instructions from authorities"
+          "Löydät suunnitelmat SharePointista (kirjautuminen vaaditaan).",
+          "Perehdy turvaoppaaseen ja toimintaohjeisiin eri tilanteissa.",
+          "Harjoittele poistumista ja kokoontumista vuosittain."
         ]
       }
     ]
   },
+
   "evacuation-building": {
     id: "evacuation-building",
-    title: "Evacuation from the Building",
-    shortTitle: "Building Evacuation",
+    title: "Poistuminen Rakennuksesta",
+    shortTitle: "Poistuminen",
     sections: [
       {
-        title: "Evacuation Signals",
+        title: "Toiminta hätätilanteessa",
         content: [
-          "Fire alarm activation",
-          "Visual strobe lights",
-          "Public address announcements",
-          "Emergency alerts"
+          "Kun palokello soi, poistu lähintä reittiä pitkin.",
+          "Sulje ikkunat ja ovet, älä käytä hissiä.",
+          "Siirry kokoontumispaikalle ja noudata ohjeita."
         ]
       },
       {
-        title: "Evacuation Routes",
+        title: "Turvalaatikko ja kartat",
         content: [
-          "Primary exit routes",
-          "Alternative exit routes",
-          "Disabled access routes",
-          "Assembly points"
+          "Etsi oman kampuksesi turvalaatikko ja tutustu sisältöön.",
+          "Katso poistumisopasteet ja kokoontumispaikat kartasta.",
+          "Tee poistumisen turvallisuuskävely kampuksella."
         ]
       }
     ]
   },
+
   "sheltering-indoors-1": {
     id: "sheltering-indoors-1",
-    title: "Sheltering in Place",
-    shortTitle: "Basic Shelter",
+    title: "Sisälle Suojautuminen 1",
+    shortTitle: "Suojautuminen 1",
     sections: [
       {
-        title: "When to Shelter",
+        title: "Milloin suojaudutaan sisälle?",
         content: [
-          "Severe weather warnings",
-          "Air quality concerns",
-          "Security threats",
-          "Chemical spills"
+          "Yleisen vaaramerkin tai viranomaisen ohjeen mukaisesti.",
+          "Esimerkkejä: tulipalo, kaasuvuoto tai säteilyvaara.",
+          "Suojaudu lähimpiin sisätiloihin ja sulje ilmanvaihto."
         ]
       },
       {
-        title: "Shelter Locations",
+        title: "Toimintaohjeet",
         content: [
-          "Designated safe rooms",
-          "Interior rooms without windows",
-          "Lower floors of buildings",
-          "Away from exterior walls"
+          "Sulje ovet, ikkunat ja ilmanvaihto.",
+          "Kuuntele viranomaistiedotteita.",
+          "Vältä puhelimen käyttöä ja odota lisäohjeita."
         ]
       }
     ]
   },
+
   "sheltering-indoors-2": {
     id: "sheltering-indoors-2",
-    title: "Sheltering in Place",
-    shortTitle: "Advanced Shelter",
+    title: "Sisälle Suojautuminen 2",
+    shortTitle: "Suojautuminen 2",
     sections: [
       {
-        title: "Extended Shelter Protocol",
+        title: "Väestönsuoja",
         content: [
-          "Communication with authorities",
-          "Resource management",
-          "Group organization",
-          "Regular updates"
+          "Väestönsuojat suojaavat säteilyltä, räjähdyksiltä ja paineaalloilta.",
+          "Ne otetaan käyttöön viranomaismääräyksellä 72 tunnin sisällä.",
+          "Yleinen vaaramerkki kertoo suojautumistarpeesta."
         ]
       },
       {
-        title: "Essential Supplies",
+        title: "Yleinen vaaramerkki",
         content: [
-          "Water and non-perishable food",
-          "First aid supplies",
-          "Communication devices",
-          "Important documents"
+          "Yksi minuutti nouseva ja laskeva äänimerkki.",
+          "‘Vaara ohi’ -merkki on tasainen ääni minuutin ajan.",
+          "Harjoitusmerkki testataan joka kuun ensimmäisenä maanantaina klo 12."
         ]
       }
     ]
   },
+
   "extreme-violence-situation": {
     id: "extreme-violence-situation",
-    title: "Actions in a Dangerous Situation: Threatening Behavior",
-    shortTitle: "Violence Response",
+    title: "Äärimmäinen Väkivaltatilanne",
+    shortTitle: "Väkivaltatilanne",
     sections: [
       {
-        title: "Run, Hide, Fight Protocol",
+        title: "Toimintaohjeet",
         content: [
-          "RUN: Immediate evacuation if possible",
-          "HIDE: Find secure shelter if evacuation impossible",
-          "FIGHT: Last resort defense if life is threatened",
-          "Report situation to authorities immediately"
+          "Jos kuulet uhasta, ilmoita heti poliisille (112).",
+          "Pakene, piiloudu tai hälytä tilanteen mukaan.",
+          "Lukitse ovet, sammuta valot ja pysy poissa näkyvistä."
         ]
       },
       {
-        title: "Warning Signs",
+        title: "Kun kohtaat uhkaavan henkilön",
         content: [
-          "Aggressive behavior",
-          "Threats or intimidation",
-          "Unusual weapons or objects",
-          "Escalating conflicts"
+          "Pidä kädet näkyvillä ja säilytä rauhallisuus.",
+          "Älä provosoi, vältä äkkinäisiä liikkeitä.",
+          "Jos tilanne muuttuu väkivaltaiseksi, soita 112 ja toimi ohjeiden mukaan."
         ]
       }
     ]
   },
+
   "risks-own-work": {
     id: "risks-own-work",
-    title: "Work Place Safety",
-    shortTitle: "Work Risks",
+    title: "Oman Työn Riskit",
+    shortTitle: "Työn Riskit",
     sections: [
       {
-        title: "Risk Assessment",
+        title: "Riskien tunnistaminen",
         content: [
-          "Identify potential hazards in your work area",
-          "Evaluate risk levels",
-          "Implement control measures",
-          "Regular review and updates"
+          "Tunnista vaarat, uhat ja riskit omassa työssäsi.",
+          "Riski = todennäköisyys × vaikutus.",
+          "Kirjaa kolme merkittävintä riskiä ja pohdi, miten voit ehkäistä niitä."
         ]
       },
       {
-        title: "Common Workplace Risks",
+        title: "Esimerkkejä riskeistä",
         content: [
-          "Slips, trips, and falls",
-          "Musculoskeletal injuries",
-          "Chemical exposure",
-          "Fire and electrical hazards"
+          "Liukastumiset ja kompastumiset.",
+          "Kemikaalien käyttö ja sähkötyöt.",
+          "Kuormittavat työasennot ja kiire.",
+          "Puutteellinen viestintä tai ohjeistus."
         ]
       }
     ]
   },
-  "give-feedback": {
-    id: "give-feedback",
-    title: "Give Feedback",
-    shortTitle: "Feedback",
-    sections: [
-      {
-        title: "Feedback Channels",
-        content: [
-          "Anonymous online reporting system",
-          "Direct contact with safety officers",
-          "Student union representatives",
-          "Staff feedback forms"
-        ]
-      },
-      {
-        title: "What Feedback Helps",
-        content: [
-          "Improvement of safety protocols",
-          "Identification of new risks",
-          "Training needs assessment",
-          "Communication effectiveness"
-        ]
-      }
-    ]
-  }
+
+  
 };
 
-// Export array of briefing items for the briefing screen
+// Array for screen navigation
 export const briefingItems = [
-  {
-    id: "safe-haaga-helia",
-    title: "Turvallinen Haaga-Helia",
-    shortTitle: "Turvallinen HH"
-  },
-  {
-    id: "act-responsibly",
-    title: "Toimi Vastuullisesti",
-    shortTitle: "Toimi Vastuullisesti"
-  },
-  {
-    id: "safety-observation-report",
-    title: "Turvallisuushavaintoilmoitus",
-    shortTitle: "Havaintoilmoitus"
-  },
-  {
-    id: "safety-walk",
-    title: "Turvallisuuskävely",
-    shortTitle: "Turvallisuuskävely"
-  },
-  {
-    id: "actions-disruptive-situations",
-    title: "Toiminta Häiriötilanteessa",
-    shortTitle: "Häiriötilanne"
-  },
-  {
-    id: "rescue-plan",
-    title: "Pelastussuunnitelma",
-    shortTitle: "Pelastussuunnitelma"
-  },
-  {
-    id: "evacuation-building",
-    title: "Poistuminen Rakennuksesta",
-    shortTitle: "Poistuminen"
-  },
-  {
-    id: "sheltering-indoors-1",
-    title: "Sisälle Suojautuminen 1",
-    shortTitle: "Suojautuminen 1"
-  },
-  {
-    id: "sheltering-indoors-2",
-    title: "Sisälle Suojautuminen 2",
-    shortTitle: "Suojautuminen 2"
-  },
-  {
-    id: "extreme-violence-situation",
-    title: "Äärimmäinen Väkivaltatilanne",
-    shortTitle: "Väkivaltatilanne"
-  },
-  {
-    id: "risks-own-work",
-    title: "Oman Työn Riskit",
-    shortTitle: "Työn Riskit"
-  },
-  {
-    id: "give-feedback",
-    title: "Anna Palautetta",
-    shortTitle: "Anna Palautetta"
-  }
+  { id: "safe-haaga-helia", title: "Turvallinen Haaga-Helia", shortTitle: "Safe HH" },
+  { id: "act-responsibly", title: "Toimi Vastuullisesti", shortTitle: "Be Responsible" },
+  { id: "safety-observation-report", title: "Turvallisuushavaintoilmoitus", shortTitle: "Havaintoilmoitus" },
+  { id: "safety-walk", title: "Turvallisuuskävely", shortTitle: "Safety Walk" },
+  { id: "actions-disruptive-situations", title: "Toiminta Häiriötilanteissa", shortTitle: "Häiriötilanteet" },
+  { id: "rescue-plan", title: "Pelastussuunnitelma", shortTitle: "Pelastussuunnitelma" },
+  { id: "evacuation-building", title: "Poistuminen Rakennuksesta", shortTitle: "Poistuminen" },
+  { id: "sheltering-indoors-1", title: "Sisälle Suojautuminen 1", shortTitle: "Suojautuminen 1" },
+  { id: "sheltering-indoors-2", title: "Sisälle Suojautuminen 2", shortTitle: "Suojautuminen 2" },
+  { id: "extreme-violence-situation", title: "Äärimmäinen Väkivaltatilanne", shortTitle: "Väkivaltatilanne" },
+  { id: "risks-own-work", title: "Oman Työn Riskit", shortTitle: "Työn Riskit" },
+  
 ];
