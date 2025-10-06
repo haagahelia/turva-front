@@ -1,4 +1,5 @@
 import mock_json from "@/static/mock_quiz_1.json";
+import { View } from "moti";
 import { ScrollView, StyleSheet } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 interface QuizType {
 	id: number;
 	sections: Question[];
-};
+}
 
 interface Question {
 	id: number;
@@ -15,7 +16,7 @@ interface Question {
 	en_text: string;
 	fin_text: string;
 	answers: Answer[];
-};
+}
 
 interface InfoSegment {
 	id: number;
@@ -23,7 +24,7 @@ interface InfoSegment {
 	order: number;
 	en_text: string;
 	fin_text: string;
-};
+}
 
 type Section = Question | InfoSegment;
 
@@ -32,9 +33,25 @@ interface Answer {
 	en_text: string;
 	fin_text: string;
 	is_correct: boolean;
+}
+
+const SectionComponent = ({ section }: { section: Question }) => {
+	return (
+		<>
+			<Text>This text shows for each section?? </Text>
+			<Text>{section.en_text}</Text>
+		</>
+	);
 };
 
-
+const AnswerComponent = ({ answer }: { answer: Answer }) => {
+	return (
+		<>
+			<Text>This is an answer?? </Text>
+			<Text>{answer.en_text}</Text>
+		</>
+	);
+};
 
 export default function Quiz() {
 	const theme = useTheme();
@@ -49,21 +66,41 @@ export default function Quiz() {
 	// GO THROUGH EACH SECTION
 	for (let index = 0; index < sectionsToCheck.length; index++) {
 		counter += 1;
-		const section:Section = sectionsToCheck[index];
+		const section: Section = sectionsToCheck[index];
 
 		// IF IT'S A QUESTION
 		if (section.type == "quiz_question") {
 			const question = section as Question;
-			sections.push(question) // ADD QUESTION TO SECTIONS LIST
-
-			// PROCESS QUESTION'S ANSWERS
-			// const answers: Answer[] = question.answers;
-			// for (let index = 0; index < answers.length; index++) {
-			// 	const answer = question.answers[index];
-			// }
-			
+			sections.push(question); // ADD QUESTION TO SECTIONS LIST
 		}
 	}
+
+	const sectionComponents = sections.map((section, index) => {
+		const sect = section as Question;
+
+		return (
+			<View key={section.id}>
+				<SectionComponent section={sect} />
+
+				{sect.answers &&
+					sect.answers.map((answer) => (
+						<View key={answer.id}>
+							<Text>{answer.en_text}</Text>
+						</View>
+					))}
+			</View>
+		);
+	});
+
+	const answersToQuestion = (question: Question) => {
+		question.answers.map((answer) => {
+			return (
+				<View key={answer.id}>
+					<AnswerComponent answer={answer} />
+				</View>
+			);
+		});
+	};
 
 	return (
 		<SafeAreaView
@@ -75,13 +112,7 @@ export default function Quiz() {
 				contentInsetAdjustmentBehavior="never"
 			>
 				<Text>Hello world this is quiz</Text>
-
-				{sections.map((section, index) => {
-					return <>
-					<Text>This text shows for each section?? </Text>
-					<Text>{section.en_text}</Text>
-					</>;
-				})}
+				{sectionComponents}
 			</ScrollView>
 		</SafeAreaView>
 	);
