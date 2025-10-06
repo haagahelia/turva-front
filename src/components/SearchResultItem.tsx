@@ -84,14 +84,14 @@ export default function SearchResultItem({
 
 const styles = StyleSheet.create({
   resultItem: {
-    marginBottom: 12,
+    marginBottom: 8,
   },
   imageContainer: {
     width: "100%",
     height: 160,
     borderRadius: 8,
     overflow: "hidden",
-    marginBottom: 12,
+    marginBottom: 8,
     position: "relative",
   },
   image: {
@@ -102,24 +102,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    marginBottom: 8,
+    marginBottom: 4,
   },
   description: {
-    marginBottom: 12,
+    marginBottom: 8,
+    fontSize: 13,
+    lineHeight: 16,
   },
   tagsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 6,
+    gap: 4,
   },
   tag: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
   },
   tagText: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
   },
   chevronOverlay: {
     position: "absolute",
