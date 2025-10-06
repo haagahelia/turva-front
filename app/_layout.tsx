@@ -1,6 +1,6 @@
 import { DarkTheme, LightTheme } from "@/constants/theme";
 
-import { useThemeStore } from "@/src/store";
+import { useThemeStore } from "@/src/zustand/store";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { PaperProvider } from "react-native-paper";

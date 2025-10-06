@@ -1,5 +1,5 @@
 import { Button, useTheme } from "react-native-paper";
-import { useThemeStore } from "../store";
+import { useThemeStore } from "../zustand/store";
 
 const ThemeButton = () => {
   const { theme, toggleTheme } = useThemeStore();
