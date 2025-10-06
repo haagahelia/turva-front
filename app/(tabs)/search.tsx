@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
+  Animated,
   FlatList,
   Keyboard,
   StyleSheet,
@@ -104,6 +105,7 @@ interface SearchResult {
 export default function SearchScreen() {
   const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   const filteredResults = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -127,6 +129,20 @@ export default function SearchScreen() {
   const clearSearch = () => {
     setSearchQuery("");
   };
+
+  // Create animated value for header opacity
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
+  // Create animated value for header translateY
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -50],
+    extrapolate: 'clamp',
+  });
 
   const renderSearchResult = ({ item }: { item: SearchResult }) => (
     <SearchResultItem
@@ -165,15 +181,26 @@ export default function SearchScreen() {
     >
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
-          {/* Header with Search Input */}
-          <SearchHeaderInput
-            title="Haaga-Helia"
-            showLogo={true}
-            placeholder="Hae artikkeleita..."
-            value={searchQuery}
-            onChangeText={handleSearch}
-            onClear={clearSearch}
-          />
+          {/* Animated Header with Search Input */}
+          <Animated.View
+            style={[
+              styles.animatedHeader,
+              {
+                opacity: headerOpacity,
+                transform: [{ translateY: headerTranslateY }],
+              },
+            ]}
+          >
+            <SearchHeaderInput
+              title="Haaga-Helia"
+              showLogo={true}
+              placeholder="Haku"
+              description="Hae turvallisuustietoa ja ohjeita hätätilanteisiin"
+              value={searchQuery}
+              onChangeText={handleSearch}
+              onClear={clearSearch}
+            />
+          </Animated.View>
 
           {/* Results Count */}
           {searchQuery.length > 0 && (
@@ -195,6 +222,11 @@ export default function SearchScreen() {
             ListEmptyComponent={
               searchQuery.length > 0 ? renderEmptyState : null
             }
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: false }
+            )}
+            scrollEventThrottle={16}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -205,6 +237,14 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  animatedHeader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    backgroundColor: 'transparent',
   },
   resultsCountContainer: {
     paddingHorizontal: 20,
@@ -219,6 +259,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingHorizontal: 20,
+    paddingTop: 130, 
     paddingBottom: 20,
   },
   emptyState: {

@@ -6,6 +6,7 @@ interface SearchHeaderInputProps {
   title?: string;
   showLogo?: boolean;
   placeholder?: string;
+  description?: string;
   value: string;
   onChangeText: (text: string) => void;
   onClear?: () => void;
@@ -15,6 +16,7 @@ const SearchHeaderInput: React.FC<SearchHeaderInputProps> = ({
   title = "Haku",
   showLogo = true,
   placeholder = "Hae artikkeleita...",
+  description,
   value,
   onChangeText,
   onClear,
@@ -52,6 +54,11 @@ const SearchHeaderInput: React.FC<SearchHeaderInputProps> = ({
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
             {title}
           </Text>
+          {description && (
+            <Text style={[styles.description, { color: theme.colors.onSurfaceVariant }]}>
+              {description}
+            </Text>
+          )}
         </View>
       </View>
 
@@ -84,14 +91,14 @@ export default SearchHeaderInput;
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 16,
+    paddingBottom: 8,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 8,
+    paddingTop: 8,
+    paddingBottom: 4,
   },
   logoContainer: {
     marginRight: 16,
@@ -104,21 +111,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 4,
+    marginBottom: 2,
+  },
+  description: {
+    fontSize: 13,
+    lineHeight: 16,
+    opacity: 0.8,
   },
   searchContainer: {
     paddingHorizontal: 20,
-    paddingTop: 0,
+    paddingTop: 2,
   },
   searchInput: {
-    height: 45,
+    height: 38,
   },
   inputContent: {
     fontSize: 14,
     paddingVertical: 0,
     paddingHorizontal: 8,
-    minHeight: 36,
+    minHeight: 30,
   },
 });
