@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StoreState, useThemeStore } from "../zustand/store";
+import { useThemeStore } from "../zustand/store";
+import type { StoreState } from "../zustand/themeSlice";
 
 
 describe("theme store with persistence", () => {
@@ -44,7 +45,7 @@ it("should restore the theme from AsyncStorage", async () => {
   );
 
   jest.resetModules();
-  const { useThemeStore: recreatedStore } = require("../store");
+  const { useThemeStore: recreatedStore } = require("../zustand/store");
 
   // Wait until the store updates its theme
   await new Promise<void>((resolve) => {
