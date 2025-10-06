@@ -217,7 +217,7 @@ export default function HomeDrawerLayout() {
              title: "Safety Info",
              headerLeft: () => (
                <Pressable
-                 onPress={() => router.back()}
+                 onPress={() => router.navigate("/(tabs)/home/safety-briefing")}
                  hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
                  style={{ marginLeft: 12 }}
                >

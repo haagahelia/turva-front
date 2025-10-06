@@ -3,14 +3,14 @@ import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import {
-    Button,
-    Card,
-    Checkbox,
-    Divider,
-    Text,
-    useTheme,
+  Button,
+  Card,
+  Divider,
+  Text,
+  useTheme,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Checkmark from "../../../src/components/Checkmark";
 import { safetyBriefingData } from "../../../src/mockData";
 import { useSafetyStore } from "../../../src/zustand/store";
 
@@ -169,10 +169,9 @@ export default function SafetyInfo() {
                 {"Olen lukenut ja sisäistänyt tämän osion"}
               </Text>
 
-              <Checkbox
-                status={isCompleted ? "checked" : "unchecked"}
+              <Checkmark
+                checked={isCompleted}
                 onPress={toggleCompleted}
-                color={theme.colors.primary}
               />
             </View>
           </View>

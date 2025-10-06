@@ -2,8 +2,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Button, Card, Checkbox, Text, useTheme } from "react-native-paper";
+import { Button, Card, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Checkmark from "../../../src/components/Checkmark";
 import FeedbackModal from "../../../src/components/FeedbackModal";
 import { briefingItems } from "../../../src/mockData";
 import { useSafetyStore } from "../../../src/zustand/store";
@@ -25,9 +26,7 @@ export default function SafetyBriefing() {
     router.navigate(`/(tabs)/home/safety-info?itemId=${itemId}`);
   };
 
-  const handleCheckmarkPress = (itemId: string, event: any) => {
-    // Prevent navigation when clicking checkmark
-    event.stopPropagation();
+  const handleCheckmarkPress = (itemId: string) => {
     const routeStr = `/(tabs)/home/safety-info?itemId=${itemId}`;
     markCompleted(routeStr);
   };
@@ -137,10 +136,9 @@ export default function SafetyBriefing() {
                     </View>
                   </Button>
 
-                  <Checkbox
-                    status={isCompleted ? "checked" : "unchecked"}
-                    onPress={(event) => handleCheckmarkPress(item.id, event)}
-                    color={theme.colors.primary}
+                  <Checkmark
+                    checked={isCompleted}
+                    onPress={() => handleCheckmarkPress(item.id)}
                   />
                 </Card.Content>
               </Card>
