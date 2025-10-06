@@ -1,5 +1,7 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Text, TextInput, useTheme } from "react-native-paper";
 
 interface SearchHeaderInputProps {
@@ -22,6 +24,7 @@ const SearchHeaderInput: React.FC<SearchHeaderInputProps> = ({
   onClear,
 }) => {
   const theme = useTheme();
+  const router = useRouter();
 
   const handleClear = () => {
     if (onClear) {
@@ -55,11 +58,30 @@ const SearchHeaderInput: React.FC<SearchHeaderInputProps> = ({
             {title}
           </Text>
           {description && (
-            <Text style={[styles.description, { color: theme.colors.onSurfaceVariant }]}>
+            <Text
+              style={[
+                styles.description,
+                { color: theme.colors.onSurfaceVariant },
+              ]}
+            >
               {description}
             </Text>
           )}
         </View>
+
+        <Pressable
+          onPress={() => {
+            router.push("/(tabs)/home/profile");
+          }}
+          hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+          style={styles.profileButton}
+        >
+          <Ionicons
+            name="person-circle-outline"
+            size={26}
+            color={theme.colors.primary}
+          />
+        </Pressable>
       </View>
 
       {/* Search Input Section */}
@@ -119,6 +141,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 16,
     opacity: 0.8,
+  },
+  profileButton: {
+    marginLeft: 12,
   },
   searchContainer: {
     paddingHorizontal: 20,
