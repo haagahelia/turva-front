@@ -46,6 +46,37 @@
 					"is_correct": false
 				}
 			]
+		},
+
+
+		{
+			"id": "question_c",
+			"order": 2,
+			"type": "quiz_question",
+
+			"en_text": "Which of these is proper lifting technique?",
+			"fin_text": "Mikä on oikea nostamisen tapa?",
+
+			"answers": [
+				{
+					"id": "b1",
+					"en_text": "Bend at the waist and lift with your back",
+					"fin_text": "Nosta selällä",
+					"is_correct": false
+				},
+				{
+					"id": "b2",
+					"en_text": "Bend your knees and lift with your legs",
+					"fin_text": "Nosta jaloilla",
+					"is_correct": true
+				},
+				{
+					"id": "b3",
+					"en_text": "Twist your body while lifting",
+					"fin_text": "Kierrä kehoa nostaessa",
+					"is_correct": false
+				}
+			]
 		}
 	]
 }

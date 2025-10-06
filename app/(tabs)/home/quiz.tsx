@@ -68,11 +68,13 @@ export default function Quiz() {
 		counter += 1;
 		const section: Section = sectionsToCheck[index];
 
+		sections.push(section as Question);
+
 		// IF IT'S A QUESTION
-		if (section.type == "quiz_question") {
-			const question = section as Question;
-			sections.push(question); // ADD QUESTION TO SECTIONS LIST
-		}
+		// if (section.type == "quiz_question") {
+		// 	const question = section as Question;
+		// 	sections.push(question); // ADD QUESTION TO SECTIONS LIST
+		// }
 	}
 
 	const sectionComponents = sections.map((section, index) => {
@@ -88,6 +90,7 @@ export default function Quiz() {
 							<Text>{answer.en_text}</Text>
 						</View>
 					))}
+				<Text>_____________________________________</Text>
 			</View>
 		);
 	});
