@@ -23,6 +23,7 @@ const Onboarding = () => {
           transition={{ type: "timing", duration: 500 }}
           resizeMode="contain"
         />
+      {/* Change it so all onboarding texts are rendered in here instead of always uploading new screen*/}
       <Text 
       variant="headlineMedium" 
       style={[styles.title, { color: theme.colors.onBackground }]}>
