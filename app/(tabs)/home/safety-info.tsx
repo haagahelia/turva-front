@@ -68,6 +68,7 @@ export default function SafetyInfo() {
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
+      edges={[]}
     >
       <ScrollView style={styles.scrollView}>
         {/* Title Section */}
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
   titleSection: {
     padding: 20,
     paddingTop: 10,
+    marginTop: 40,
   },
   title: {
     fontSize: 26,
