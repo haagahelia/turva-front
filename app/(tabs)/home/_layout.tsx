@@ -4,11 +4,9 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { StatusBar } from "expo-status-bar";
-import { useCallback } from "react";
 import { Pressable, View } from "react-native";
 import { useTheme } from "react-native-paper";
 
@@ -60,15 +58,6 @@ function CustomDrawerContent(props: any) {
 export default function HomeDrawerLayout() {
   const router = useRouter();
   const theme = useTheme();
-
-  // Reset to index screen whenever the home tab becomes focused
-  useFocusEffect(
-    useCallback(() => {
-      // Navigate to the index screen when the home tab is focused
-      router.navigate("/(tabs)/home");
-    }, [router])
-  );
-
   return (
     <>
       <StatusBar style={theme.dark ? "light" : "dark"} />
@@ -211,37 +200,37 @@ export default function HomeDrawerLayout() {
               <Ionicons name="information-circle" size={size} color={color} />
             ),
           }}
-        />
-        <Drawer.Screen
-          name="safety-briefing"
-          options={{
-            // Hide from drawer menu but keep it as a route
-            drawerItemStyle: { display: "none" },
-            title: "Turvallisuusperehdytys",
-          }}
-        />
-        <Drawer.Screen
-          name="safety-info"
-          options={{
-            // Hide from drawer menu but keep it as a route
-            drawerItemStyle: { display: "none" },
-            title: "Safety Info",
-            headerLeft: () => (
-              <Pressable
-                onPress={() => router.navigate("/(tabs)/home/safety-briefing")}
-                hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
-                style={{ marginLeft: 12 }}
-              >
-                <Ionicons
-                  name="arrow-back"
-                  size={24}
-                  color={theme.colors.primary}
-                />
-              </Pressable>
-            ),
-          }}
-        />
-      </Drawer>
+         />
+         <Drawer.Screen
+           name="safety-briefing"
+           options={{
+             // Hide from drawer menu but keep it as a route
+             drawerItemStyle: { display: "none" },
+             title: "Turvallisuusperehdytys",
+           }}
+         />
+         <Drawer.Screen
+           name="safety-info"
+           options={{
+             // Hide from drawer menu but keep it as a route
+             drawerItemStyle: { display: "none" },
+             title: "Safety Info",
+             headerLeft: () => (
+               <Pressable
+                 onPress={() => router.navigate("/(tabs)/home/safety-briefing")}
+                 hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                 style={{ marginLeft: 12 }}
+               >
+                 <Ionicons
+                   name="arrow-back"
+                   size={24}
+                   color={theme.colors.primary}
+                 />
+               </Pressable>
+             ),
+           }}
+         />
+       </Drawer>
     </>
   );
 }
