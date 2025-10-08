@@ -43,20 +43,20 @@ export default function CrisisTeamContactScreen() {
   const theme = useTheme();
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}>
       <View style={styles.header}>
-        <Text 
-          variant="headlineLarge" 
+        <Text
+          variant="headlineLarge"
           style={[styles.title, { color: theme.colors.onBackground }]}
         >
           Haaga-Helian valmius- ja kriisiryhmä
         </Text>
-        <Text 
-          variant="bodyLarge" 
+        <Text
+          variant="bodyLarge"
           style={[styles.description, { color: theme.colors.onSurfaceVariant }]}
         >
-          Haaga-Heliassa on valmius- ja kriisiryhmä, jonka tehtävänä on huolehtia 
-          häiriötilanteisiin varautumisesta sekä toiminnasta häiriötilanteissa, 
+          Haaga-Heliassa on valmius- ja kriisiryhmä, jonka tehtävänä on huolehtia
+          häiriötilanteisiin varautumisesta sekä toiminnasta häiriötilanteissa,
           jotka koskevat koko Haaga-Heliaa.
         </Text>
       </View>
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 16,
     lineHeight: 32,
+    marginTop: 40,
   },
   description: {
     lineHeight: 24,

@@ -3,12 +3,12 @@ import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import {
-    Button,
-    Card,
-    Checkbox,
-    Divider,
-    Text,
-    useTheme,
+  Button,
+  Card,
+  Checkbox,
+  Divider,
+  Text,
+  useTheme,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { safetyBriefingData } from "../../../src/mockData";
@@ -68,6 +68,7 @@ export default function SafetyInfo() {
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
+      edges={[]}
     >
       <ScrollView style={styles.scrollView}>
         {/* Title Section */}
@@ -192,6 +193,7 @@ const styles = StyleSheet.create({
   titleSection: {
     padding: 20,
     paddingTop: 10,
+    marginTop: 40,
   },
   title: {
     fontSize: 26,

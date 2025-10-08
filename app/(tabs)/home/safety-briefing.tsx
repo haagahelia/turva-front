@@ -39,7 +39,7 @@ export default function SafetyBriefing() {
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
+      style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Header */}
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
     textAlign: "center",
+    marginTop: 30,
   },
   subtitle: {
     fontSize: 16,
