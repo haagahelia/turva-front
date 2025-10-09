@@ -1,6 +1,6 @@
 import mock_json from "@/static/mock_quiz_1.json";
 import { View } from "moti";
-import { ScrollView, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -85,16 +85,7 @@ export default function Quiz() {
 	const sectionComponents = sections.map((section, index) => {
 		const sect = section as Question;
 
-		return (
-			//<View key={section.id}>
-			<SectionComponent key={section.id} section={sect} />
-
-			//{sect.answers &&
-			//sect.answers.map((answer) => (
-			//<AnswerComponent key={answer.id} answer={answer}/>
-			//))}
-			//</View>
-		);
+		return <SectionComponent key={section.id} section={sect} />;
 	});
 
 	return (
@@ -102,13 +93,19 @@ export default function Quiz() {
 			style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
 			edges={[]}
 		>
-			<ScrollView
-				contentContainerStyle={styles.scrollContent}
-				contentInsetAdjustmentBehavior="never"
-			>
-				<Text>Hello world this is a quiz</Text>
-				{sectionComponents}
-			</ScrollView>
+			<FlatList
+				style={styles.quizSectionsList}
+				data={sections}
+				renderItem={({ item }) => {
+					const sect = item as Question;
+					return (
+						<>
+							<SectionComponent section={sect} />
+							<View style={{height: 10}} />
+						</>
+					);
+				}}
+			/>
 		</SafeAreaView>
 	);
 }
@@ -122,13 +119,16 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		width: "90%",
 	},
-		quizAnswer: {
+	quizAnswer: {
 		justifyContent: "center",
 		backgroundColor: "aliceblue",
 		paddingVertical: 10,
 		paddingHorizontal: 10,
 		borderRadius: 25,
 		width: "90%",
+	},
+	quizSectionsList: {
+		flex: 1
 	},
 
 	safeArea: {
