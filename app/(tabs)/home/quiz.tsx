@@ -38,9 +38,10 @@ interface Answer {
 const SectionComponent = ({ section }: { section: Question }) => {
 	return (
 		<View style={styles.quizSection}>
-			<Text>This text shows for each section?? </Text>
+			<Text>{section.id} </Text>
 			<Text>{section.en_text}</Text>
 
+			{/* IF SECTION HAS ANSWERS (IT'S QUESTION), SHOW ANSWERS */}
 			{section.answers &&
 				section.answers.map((answer) => (
 					<AnswerComponent key={answer.id} answer={answer} />
@@ -52,7 +53,7 @@ const SectionComponent = ({ section }: { section: Question }) => {
 const AnswerComponent = ({ answer }: { answer: Answer }) => {
 	return (
 		<View style={styles.quizAnswer}>
-			<Text>This is an answer?? </Text>
+			<Text>{answer.id} </Text>
 			<Text>{answer.en_text}</Text>
 		</View>
 	);
@@ -60,42 +61,17 @@ const AnswerComponent = ({ answer }: { answer: Answer }) => {
 
 export default function Quiz() {
 	const theme = useTheme();
-
 	const quiz_object = mock_json as unknown as QuizType;
-	//const quiz_str = quiz_object.toString();
-
-	const sectionsToCheck = quiz_object.sections;
-	let sections: Question | InfoSegment[] = [];
-	let counter = 0;
-
-	// GO THROUGH EACH SECTION
-	for (let index = 0; index < sectionsToCheck.length; index++) {
-		counter += 1;
-		const section: Section = sectionsToCheck[index];
-
-		sections.push(section as Question);
-
-		// IF IT'S A QUESTION
-		// if (section.type == "quiz_question") {
-		// 	const question = section as Question;
-		// 	sections.push(question); // ADD QUESTION TO SECTIONS LIST
-		// }
-	}
-
-	const sectionComponents = sections.map((section, index) => {
-		const sect = section as Question;
-
-		return <SectionComponent key={section.id} section={sect} />;
-	});
 
 	return (
 		<SafeAreaView
 			style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
 			edges={[]}
 		>
+			{/* Show each section of this page on a scrollable FlatList */}
 			<FlatList
 				style={styles.quizSectionsList}
-				data={sections}
+				data={quiz_object.sections}
 				renderItem={({ item }) => {
 					const sect = item as Question;
 					return (
