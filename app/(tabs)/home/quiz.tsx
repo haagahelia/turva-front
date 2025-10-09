@@ -37,19 +37,24 @@ interface Answer {
 
 const SectionComponent = ({ section }: { section: Question }) => {
 	return (
-		<>
+		<View style={styles.quizSection}>
 			<Text>This text shows for each section?? </Text>
 			<Text>{section.en_text}</Text>
-		</>
+
+			{section.answers &&
+				section.answers.map((answer) => (
+					<AnswerComponent key={answer.id} answer={answer} />
+				))}
+		</View>
 	);
 };
 
 const AnswerComponent = ({ answer }: { answer: Answer }) => {
 	return (
-		<>
+		<View style={styles.quizAnswer}>
 			<Text>This is an answer?? </Text>
 			<Text>{answer.en_text}</Text>
-		</>
+		</View>
 	);
 };
 
@@ -81,29 +86,16 @@ export default function Quiz() {
 		const sect = section as Question;
 
 		return (
-			<View key={section.id}>
-				<SectionComponent section={sect} />
+			//<View key={section.id}>
+			<SectionComponent key={section.id} section={sect} />
 
-				{sect.answers &&
-					sect.answers.map((answer) => (
-						<View key={answer.id}>
-							<Text>{answer.en_text}</Text>
-						</View>
-					))}
-				<Text>_____________________________________</Text>
-			</View>
+			//{sect.answers &&
+			//sect.answers.map((answer) => (
+			//<AnswerComponent key={answer.id} answer={answer}/>
+			//))}
+			//</View>
 		);
 	});
-
-	const answersToQuestion = (question: Question) => {
-		question.answers.map((answer) => {
-			return (
-				<View key={answer.id}>
-					<AnswerComponent answer={answer} />
-				</View>
-			);
-		});
-	};
 
 	return (
 		<SafeAreaView
@@ -114,7 +106,7 @@ export default function Quiz() {
 				contentContainerStyle={styles.scrollContent}
 				contentInsetAdjustmentBehavior="never"
 			>
-				<Text>Hello world this is quiz</Text>
+				<Text>Hello world this is a quiz</Text>
 				{sectionComponents}
 			</ScrollView>
 		</SafeAreaView>
@@ -122,6 +114,23 @@ export default function Quiz() {
 }
 
 const styles = StyleSheet.create({
+	quizSection: {
+		justifyContent: "center",
+		backgroundColor: "antiquewhite",
+		paddingVertical: 10,
+		paddingHorizontal: 10,
+		borderRadius: 25,
+		width: "90%",
+	},
+		quizAnswer: {
+		justifyContent: "center",
+		backgroundColor: "aliceblue",
+		paddingVertical: 10,
+		paddingHorizontal: 10,
+		borderRadius: 25,
+		width: "90%",
+	},
+
 	safeArea: {
 		flex: 1,
 	},
