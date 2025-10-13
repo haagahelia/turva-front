@@ -1,7 +1,12 @@
 import mock_json from "@/static/mock_quiz_1.json";
 import { View } from "moti";
 import { useState } from "react";
-import { SectionList, StyleSheet, TouchableOpacity } from "react-native";
+import {
+	FlatList,
+	SectionList,
+	StyleSheet,
+	TouchableOpacity,
+} from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -37,6 +42,10 @@ export default function Quiz() {
 	const theme = useTheme();
 	const quiz_object = mock_json as unknown as QuizType;
 
+	const [displayQuiz, setDisplayQuiz] = useState<boolean>();
+
+	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
+
 	const SectionComponent = ({ section }: { section: Question }) => {
 		return (
 			<View style={styles.quizSection}>
@@ -52,7 +61,6 @@ export default function Quiz() {
 				<TouchableOpacity
 					style={styles.quizAnswer}
 					onPress={() => toggleSelected(answer)}
-					disabled={isAnswerSelected(answer)}
 				>
 					<Text>{answer.id} </Text>
 					<Text>{answer.en_text}</Text>
@@ -61,15 +69,24 @@ export default function Quiz() {
 		);
 	};
 
-	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
+	const ToggleQuizButton = () => {
+		return (
+			<>
+				<TouchableOpacity
+					style={styles.quizAnswer}
+					onPress={() => setDisplayQuiz(!displayQuiz)}
+				>
+					<Text>End the quiz!</Text>
+				</TouchableOpacity>
+			</>
+		);
+	};
 
 	const toggleSelected = (answer: Answer) => {
-
-		console.log("Pressed button:")
-		console.log(answer.en_text)
-		console.log("Selected answers:")
-		console.log(selectedAnswers)
-
+		console.log("Pressed button:");
+		console.log(answer.en_text);
+		console.log("Selected answers:");
+		console.log(selectedAnswers);
 
 		setSelectedAnswers((prev) => {
 			const exists = prev.find(
@@ -77,14 +94,15 @@ export default function Quiz() {
 					item.question_id === answer.question_id && item.id === answer.id
 			) as Answer;
 
+			// Unselect - remove from array
 			if (exists) {
-				// Unselect - remove from array
 				return prev.filter(
 					(item) =>
 						!(item.question_id === answer.question_id && item.id === answer.id)
 				) as Answer[];
-			} else {
+
 				// Select - add to array
+			} else {
 				return [...prev, answer];
 			}
 		});
@@ -104,7 +122,10 @@ export default function Quiz() {
 			({
 				question: section,
 				title: section.id, // SectionList requires 'title'
-				data: section.answers || [], // SectionList requires 'data'
+				data: (section.answers || []).map((answer) => ({
+					...answer,
+					question_id: section.id,
+				})),
 			} as SectionListItem)
 	);
 
@@ -113,14 +134,34 @@ export default function Quiz() {
 			style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
 			edges={[]}
 		>
-			<SectionList
-				sections={sectionListData}
-				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => <AnswerComponent answer={item} />}
-				renderSectionHeader={({ section }) => (
-					<SectionComponent section={section.question} />
-				)}
-			/>
+			{displayQuiz && (
+				<SectionList
+					sections={sectionListData}
+					keyExtractor={(item) => item.id}
+					renderItem={({ item }) => <AnswerComponent answer={item} />}
+					renderSectionHeader={({ section }) => (
+						<SectionComponent section={section.question} />
+					)}
+				/>
+			)}
+
+			{!displayQuiz && (
+				<FlatList
+					style={styles.quizSectionsList}
+					data={selectedAnswers}
+					keyExtractor={(item) => item.id + item.question_id}
+					renderItem={({ item }) => {
+						return (
+							<>
+								<AnswerComponent answer={item} />
+								<View style={{ height: 10 }} />
+							</>
+						);
+					}}
+				/>
+			)}
+
+			<ToggleQuizButton />
 		</SafeAreaView>
 	);
 }
