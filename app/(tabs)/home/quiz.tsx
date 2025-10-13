@@ -59,7 +59,12 @@ export default function Quiz() {
 		return (
 			<>
 				<TouchableOpacity
-					style={styles.quizAnswer}
+					style={[
+						styles.quizAnswer,
+						isAnswerSelected(answer)
+							? styles.selectedQuizAnswer
+							: styles.unselectedQuizAnswer,
+					]}
 					onPress={() => toggleSelected(answer)}
 				>
 					<Text>{answer.id} </Text>
@@ -73,10 +78,10 @@ export default function Quiz() {
 		return (
 			<>
 				<TouchableOpacity
-					style={styles.quizAnswer}
+					style={[styles.quizAnswer, styles.unselectedQuizAnswer]}
 					onPress={() => setDisplayQuiz(!displayQuiz)}
 				>
-					<Text>End the quiz!</Text>
+					{displayQuiz ? <Text>End the quiz!</Text> : <Text>Show quiz!</Text>}
 				</TouchableOpacity>
 			</>
 		);
@@ -111,7 +116,7 @@ export default function Quiz() {
 	// IS THIS ANSWER IN THE SELECTED ANSWERS LIST?
 	const isAnswerSelected = (answer: Answer) => {
 		return selectedAnswers.some(
-			(item) => item.id === answer.question_id && item.id === answer.id
+			(item) => item.question_id === answer.question_id && item.id === answer.id
 		);
 	};
 
@@ -146,19 +151,22 @@ export default function Quiz() {
 			)}
 
 			{!displayQuiz && (
-				<FlatList
-					style={styles.quizSectionsList}
-					data={selectedAnswers}
-					keyExtractor={(item) => item.id + item.question_id}
-					renderItem={({ item }) => {
-						return (
-							<>
-								<AnswerComponent answer={item} />
-								<View style={{ height: 10 }} />
-							</>
-						);
-					}}
-				/>
+				<>
+					<Text>You selected these answers:</Text>
+					<FlatList
+						style={styles.quizSectionsList}
+						data={selectedAnswers}
+						keyExtractor={(item) => item.id + item.question_id}
+						renderItem={({ item }) => {
+							return (
+								<>
+									<AnswerComponent answer={item} />
+									<View style={{ height: 10 }} />
+								</>
+							);
+						}}
+					/>
+				</>
 			)}
 
 			<ToggleQuizButton />
@@ -169,19 +177,30 @@ export default function Quiz() {
 const styles = StyleSheet.create({
 	quizSection: {
 		justifyContent: "center",
-		backgroundColor: "antiquewhite",
+		backgroundColor: "powderblue",
 		paddingVertical: 10,
 		paddingHorizontal: 10,
 		borderRadius: 25,
 		width: "100%",
+		borderWidth: 1,
+		borderColor: "antiquewhite",
 	},
 	quizAnswer: {
 		justifyContent: "center",
-		backgroundColor: "aliceblue",
 		paddingVertical: 10,
 		paddingHorizontal: 10,
 		borderRadius: 25,
 		width: "90%",
+	},
+	unselectedQuizAnswer: {
+		backgroundColor: "aliceblue",
+		borderWidth: 1,
+		borderColor: "paleturquoise",
+	},
+	selectedQuizAnswer: {
+		backgroundColor: "moccasin",
+		borderWidth: 2,
+		borderColor: "orange",
 	},
 	quizSectionsList: {
 		flex: 1,
