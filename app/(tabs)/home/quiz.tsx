@@ -1,16 +1,17 @@
 import mock_json from "@/static/mock_quiz_1.json";
 import { View } from "moti";
-import { FlatList, StyleSheet } from "react-native";
+import { useState } from "react";
+import { SectionList, StyleSheet } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface QuizType {
-	id: number;
+	id: string;
 	sections: Question[];
 }
 
 interface Question {
-	id: number;
+	id: string;
 	type: string;
 	order: number;
 	en_text: string;
@@ -18,21 +19,18 @@ interface Question {
 	answers: Answer[];
 }
 
-interface InfoSegment {
-	id: number;
-	type: string;
-	order: number;
-	en_text: string;
-	fin_text: string;
-}
-
-type Section = Question | InfoSegment;
-
 interface Answer {
-	id: number;
+	id: string;
+	question_id: string;
 	en_text: string;
 	fin_text: string;
 	is_correct: boolean;
+}
+
+interface SectionListItem {
+	question: Question;
+	title: string;
+	data: Answer[];
 }
 
 const SectionComponent = ({ section }: { section: Question }) => {
@@ -40,12 +38,6 @@ const SectionComponent = ({ section }: { section: Question }) => {
 		<View style={styles.quizSection}>
 			<Text>{section.id} </Text>
 			<Text>{section.en_text}</Text>
-
-			{/* IF SECTION HAS ANSWERS (IT'S QUESTION), SHOW ANSWERS */}
-			{section.answers &&
-				section.answers.map((answer) => (
-					<AnswerComponent key={answer.id} answer={answer} />
-				))}
 		</View>
 	);
 };
@@ -63,24 +55,41 @@ export default function Quiz() {
 	const theme = useTheme();
 	const quiz_object = mock_json as unknown as QuizType;
 
+	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
+
+	//const sectionListItems: SectionListItem[]
+
+	const sectionListData = quiz_object.sections.map(
+		(section) =>
+			({
+				question: section,
+				title: section.id, // SectionList requires 'title'
+				data: section.answers || [], // SectionList requires 'data'
+			} as SectionListItem)
+	);
+
+	// 	const isAnswerSelected = (questionId: string, answerId: string) => {
+	//     return selectedAnswers.some(
+	//         item => item.id === questionId && item.answerId === answerId
+	//     );
+	// };
+
 	return (
 		<SafeAreaView
 			style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
 			edges={[]}
 		>
-			{/* Show each section of this page on a scrollable FlatList */}
-			<FlatList
-				style={styles.quizSectionsList}
-				data={quiz_object.sections}
-				renderItem={({ item }) => {
-					const sect = item as Question;
-					return (
-						<>
-							<SectionComponent section={sect} />
-							<View style={{height: 10}} />
-						</>
-					);
-				}}
+			<SectionList
+				sections={sectionListData}
+				keyExtractor={(item) => item.id}
+				renderItem={({ item }) => (
+					<View style={styles.quizAnswer}>
+						<AnswerComponent answer={item} />
+					</View>
+				)}
+				renderSectionHeader={({ section }) => (
+					<SectionComponent section={section.question} />
+				)}
 			/>
 		</SafeAreaView>
 	);
@@ -93,7 +102,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		paddingHorizontal: 10,
 		borderRadius: 25,
-		width: "90%",
+		width: "100%",
 	},
 	quizAnswer: {
 		justifyContent: "center",
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
 		width: "90%",
 	},
 	quizSectionsList: {
-		flex: 1
+		flex: 1,
 	},
 
 	safeArea: {
