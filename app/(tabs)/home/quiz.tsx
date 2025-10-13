@@ -1,7 +1,7 @@
 import mock_json from "@/static/mock_quiz_1.json";
 import { View } from "moti";
 import { useState } from "react";
-import { SectionList, StyleSheet } from "react-native";
+import { SectionList, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -33,29 +33,69 @@ interface SectionListItem {
 	data: Answer[];
 }
 
-const SectionComponent = ({ section }: { section: Question }) => {
-	return (
-		<View style={styles.quizSection}>
-			<Text>{section.id} </Text>
-			<Text>{section.en_text}</Text>
-		</View>
-	);
-};
-
-const AnswerComponent = ({ answer }: { answer: Answer }) => {
-	return (
-		<View style={styles.quizAnswer}>
-			<Text>{answer.id} </Text>
-			<Text>{answer.en_text}</Text>
-		</View>
-	);
-};
-
 export default function Quiz() {
 	const theme = useTheme();
 	const quiz_object = mock_json as unknown as QuizType;
 
+	const SectionComponent = ({ section }: { section: Question }) => {
+		return (
+			<View style={styles.quizSection}>
+				<Text>{section.id} </Text>
+				<Text>{section.en_text}</Text>
+			</View>
+		);
+	};
+
+	const AnswerComponent = ({ answer }: { answer: Answer }) => {
+		return (
+			<>
+				<TouchableOpacity
+					style={styles.quizAnswer}
+					onPress={() => toggleSelected(answer)}
+					disabled={isAnswerSelected(answer)}
+				>
+					<Text>{answer.id} </Text>
+					<Text>{answer.en_text}</Text>
+				</TouchableOpacity>
+			</>
+		);
+	};
+
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
+
+	const toggleSelected = (answer: Answer) => {
+
+		console.log("Pressed button:")
+		console.log(answer.en_text)
+		console.log("Selected answers:")
+		console.log(selectedAnswers)
+
+
+		setSelectedAnswers((prev) => {
+			const exists = prev.find(
+				(item) =>
+					item.question_id === answer.question_id && item.id === answer.id
+			) as Answer;
+
+			if (exists) {
+				// Unselect - remove from array
+				return prev.filter(
+					(item) =>
+						!(item.question_id === answer.question_id && item.id === answer.id)
+				) as Answer[];
+			} else {
+				// Select - add to array
+				return [...prev, answer];
+			}
+		});
+	};
+
+	// IS THIS ANSWER IN THE SELECTED ANSWERS LIST?
+	const isAnswerSelected = (answer: Answer) => {
+		return selectedAnswers.some(
+			(item) => item.id === answer.question_id && item.id === answer.id
+		);
+	};
 
 	//const sectionListItems: SectionListItem[]
 
@@ -68,12 +108,6 @@ export default function Quiz() {
 			} as SectionListItem)
 	);
 
-	// 	const isAnswerSelected = (questionId: string, answerId: string) => {
-	//     return selectedAnswers.some(
-	//         item => item.id === questionId && item.answerId === answerId
-	//     );
-	// };
-
 	return (
 		<SafeAreaView
 			style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
@@ -82,11 +116,7 @@ export default function Quiz() {
 			<SectionList
 				sections={sectionListData}
 				keyExtractor={(item) => item.id}
-				renderItem={({ item }) => (
-					<View style={styles.quizAnswer}>
-						<AnswerComponent answer={item} />
-					</View>
-				)}
+				renderItem={({ item }) => <AnswerComponent answer={item} />}
 				renderSectionHeader={({ section }) => (
 					<SectionComponent section={section.question} />
 				)}
