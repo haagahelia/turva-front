@@ -48,7 +48,12 @@ export default function Quiz() {
 
 	const SectionComponent = ({ section }: { section: Question }) => {
 		return (
-			<View style={styles.quizSection}>
+			<View
+				style={[
+					styles.quizSection,
+					{ backgroundColor: theme.colors.primaryContainer, width: "100%" },
+				]}
+			>
 				<Text>{section.id} </Text>
 				<Text>{section.en_text}</Text>
 			</View>
@@ -60,14 +65,12 @@ export default function Quiz() {
 			<>
 				<TouchableOpacity
 					style={[
-						styles.quizAnswer,
-						isAnswerSelected(answer)
-							? styles.selectedQuizAnswer
-							: styles.unselectedQuizAnswer,
+						styles.quizSection,
+						{ backgroundColor: theme.colors.primaryContainer },
+						isAnswerSelected(answer) && styles.selectedQuizAnswer,
 					]}
 					onPress={() => toggleSelected(answer)}
 				>
-					<Text>{answer.id} </Text>
 					<Text>{answer.en_text}</Text>
 				</TouchableOpacity>
 			</>
@@ -78,13 +81,20 @@ export default function Quiz() {
 		return (
 			<>
 				<TouchableOpacity
-					style={[styles.quizAnswer, styles.unselectedQuizAnswer]}
+					style={[
+						styles.quizSection,
+						{ backgroundColor: theme.colors.secondaryContainer },
+					]}
 					onPress={() => setDisplayQuiz(!displayQuiz)}
 				>
 					{displayQuiz ? <Text>End the quiz!</Text> : <Text>Show quiz!</Text>}
 				</TouchableOpacity>
 			</>
 		);
+	};
+
+	const ListItemSeparator = () => {
+		return <View style={{ height: 10 }}></View>;
 	};
 
 	const toggleSelected = (answer: Answer) => {
@@ -145,8 +155,13 @@ export default function Quiz() {
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => <AnswerComponent answer={item} />}
 					renderSectionHeader={({ section }) => (
-						<SectionComponent section={section.question} />
+						<>
+							<SectionComponent section={section.question} />
+							<ListItemSeparator />
+						</>
 					)}
+					ItemSeparatorComponent={ListItemSeparator}
+					SectionSeparatorComponent={ListItemSeparator}
 				/>
 			)}
 
@@ -177,28 +192,12 @@ export default function Quiz() {
 const styles = StyleSheet.create({
 	quizSection: {
 		justifyContent: "center",
-		backgroundColor: "powderblue",
-		paddingVertical: 10,
+		paddingVertical: 20,
 		paddingHorizontal: 10,
 		borderRadius: 25,
-		width: "100%",
-		borderWidth: 1,
-		borderColor: "antiquewhite",
-	},
-	quizAnswer: {
-		justifyContent: "center",
-		paddingVertical: 10,
-		paddingHorizontal: 10,
-		borderRadius: 25,
-		width: "90%",
-	},
-	unselectedQuizAnswer: {
-		backgroundColor: "aliceblue",
-		borderWidth: 1,
-		borderColor: "paleturquoise",
+		margin: "auto",
 	},
 	selectedQuizAnswer: {
-		backgroundColor: "moccasin",
 		borderWidth: 2,
 		borderColor: "orange",
 	},
