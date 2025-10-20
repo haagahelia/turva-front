@@ -1,17 +1,35 @@
 import { MotiImage } from "moti";
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { router } from "expo-router";
 import TextData from './textData.json';
 
+type OnboardingData = {
+  title: string,
+  description: string[]
+}
 
 const Onboarding = () => {
   const theme = useTheme();
   const [key, setKey] = useState(0);
-  
+  const [index, setIndex] = useState(0);
+
+  const onboarding: OnboardingData[] = TextData.onboarding;
+  const current = onboarding[index];
+
+  const handleNext = () => {
+    if (index < onboarding.length - 1) {
+      setIndex(index + 1);
+    } 
+  };
+  const handlePrevious = () => {
+    if (index > 0) {
+      setIndex(index - 1);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
         <MotiImage
@@ -23,18 +41,31 @@ const Onboarding = () => {
           transition={{ type: "timing", duration: 500 }}
           resizeMode="contain"
         />
-      {/* Change it so all onboarding texts are rendered in here instead of always uploading new screen*/}
-      <Text 
-      variant="headlineMedium" 
-      style={[styles.title, { color: theme.colors.onBackground }]}>
-        {TextData.onboarding.title}
-      </Text>
-      <Text 
-        variant="bodyLarge"
-        style={styles.description}>
-       {TextData.onboarding.description}
-      </Text>
-      <Button onPress={() => router.push('/home/game/instructions')}>Jatka</Button>
+      {/* Current onboarding step */}
+      <View style={styles.textContainer}>
+        <Text
+          variant="headlineMedium"
+          style={[styles.title, { color: theme.colors.onBackground }]}
+        >
+          {current.title}
+        </Text>
+      {/* Map through each description line */}
+      <ScrollView style={styles.textContainer}>
+        {current.description.map((line, i) => (
+          <Text key={i} variant="bodyLarge" style={styles.description}>
+            {line}
+          </Text>
+        ))}
+        <Button mode="contained" onPress={handleNext} style={styles.button}>
+        {index === onboarding.length - 1 ? "Valmiina!" : "Jatka"}
+        </Button>
+       {index > 0 && (
+        <Button onPress={handlePrevious} style={styles.button}>
+          Takaisin
+        </Button>
+      )}
+      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -42,7 +73,8 @@ const Onboarding = () => {
 const styles = StyleSheet.create({
   container: { 
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    justifyContent: "space-between",
     },
   title: {
     fontSize: 22,
@@ -55,14 +87,16 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 24,
-    paddingHorizontal: 24,
     marginTop: 8,
   },
-    image: {
+  image: {
     width: "100%",
     height: 280,
     borderRadius: 16,
     marginBottom: 16,
+  },
+  textContainer: {
+    flex: 2,
   },
 });
 
