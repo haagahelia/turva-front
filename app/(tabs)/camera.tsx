@@ -3,8 +3,8 @@ import { useIsFocused } from "@react-navigation/native";
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from "expo-camera";
 import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useTheme } from "react-native-paper";
+import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dialog, Portal, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CameraScreen() {
@@ -15,6 +15,13 @@ export default function CameraScreen() {
   const [scanActive, setScanActive] = useState(false);
   const cameraRef = useRef<CameraView | null>(null);
   const isFocused = useIsFocused();
+
+  //For custom alert
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [scannedUrl, setScannedUrl] = useState<string | null>(null);
+
+
+  const animationValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (!permission) requestPermission();
@@ -27,18 +34,37 @@ export default function CameraScreen() {
     }
   }, [isFocused]);
 
-  const handleBarCodeScanned = async ({ data }: BarcodeScanningResult) => {
+  useEffect(() => {
+    if (scanActive) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(animationValue, {
+            toValue: 200,
+            duration: 1500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(animationValue, {
+            toValue: 0,
+            duration: 1500,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    } else {
+      animationValue.stopAnimation();
+    }
+  }, [scanActive, animationValue]);
+
+  const handleBarCodeScanned = ({ data }: BarcodeScanningResult) => {
     setScanned(true);
     setScanActive(false);
 
     if (data.startsWith("http://") || data.startsWith("https://")) {
-      try {
-        await WebBrowser.openBrowserAsync(data);
-      } catch (error) {
-        console.error(error);
-      }
+      setScannedUrl(data);
+      setDialogVisible(true);
     }
   };
+
 
   if (!permission) {
     return (
@@ -79,6 +105,7 @@ export default function CameraScreen() {
         <CameraView
           ref={cameraRef}
           style={styles.camera}
+          zoom={0.1}
           facing={facing}
           onBarcodeScanned={scanActive ? handleBarCodeScanned : undefined}
         />
@@ -86,17 +113,46 @@ export default function CameraScreen() {
 
       {/* Overlay when scanning is active */}
       {scanActive && !scanned && (
-        <View style={[styles.scanningOverlay, { backgroundColor: theme.colors.backdrop }]}>
-          <Text
-            style={[
-              styles.scanningText,
-              { backgroundColor: theme.colors.surfaceVariant, color: theme.colors.onSurfaceVariant },
-            ]}
-          >
-            Scanning...
-          </Text>
+        <View style={styles.overlayContainer}>
+          <View style={styles.scannerSquare}>
+            <Animated.View
+              style={[
+                styles.scannerLine,
+                {
+                  transform: [{ translateY: animationValue }],
+                  backgroundColor: theme.colors.primary,
+                },
+              ]}
+            />
+          </View>
         </View>
       )}
+
+      {dialogVisible && (
+        <Portal>
+          <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)}>
+            <Dialog.Title>Open link?</Dialog.Title>
+            <Dialog.Content>
+              <Text>{scannedUrl}</Text>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <TouchableOpacity onPress={() => setDialogVisible(false)}>
+                <Text style={{ color: theme.colors.error, marginRight: 20 }}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={async () => {
+                  if (scannedUrl) await WebBrowser.openBrowserAsync(scannedUrl);
+                  setDialogVisible(false);
+                }}
+              >
+                <Text style={{ color: theme.colors.primary }}>Open</Text>
+              </TouchableOpacity>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+      )}
+
+
 
       <View style={[styles.bottomContainer, { backgroundColor: theme.colors.surfaceVariant }]}>
         {/* Flip camera */}
@@ -125,25 +181,43 @@ export default function CameraScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  camera: { flex: 1, justifyContent: "flex-end" },
+  container: {
+    flex: 1
+  },
+  camera: {
+    flex: 1,
+    justifyContent: "flex-end"
+  },
   bottomContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     paddingVertical: 12,
   },
-  button: { alignItems: "center" },
-  buttonText: { fontSize: 14, marginTop: 4 },
-  text: { fontSize: 18, textAlign: "center", marginBottom: 20 },
-  permission: { margin: 100 },
+  button: {
+    alignItems: "center"
+  },
+  buttonText: {
+    fontSize: 14,
+    marginTop: 4
+  },
+  text: {
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 20
+  },
+  permission: {
+    margin: 100
+  },
   permissionButton: {
     alignSelf: "center",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 8,
   },
-  permissionText: { fontWeight: "600" },
+  permissionText: {
+    fontWeight: "600"
+  },
   scanningOverlay: {
     position: "absolute",
     top: 0,
@@ -160,4 +234,29 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 12,
   },
+  overlayContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 80,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  scannerSquare: {
+    width: 250,
+    height: 250,
+    borderWidth: 3,
+    borderColor: "#00FFAA",
+    borderRadius: 12,
+    overflow: "hidden",
+    backgroundColor: "rgba(0,0,0,0.2)",
+  },
+  scannerLine: {
+    position: "absolute",
+    width: "100%",
+    height: 3,
+    top: 0,
+  },
+
 });
