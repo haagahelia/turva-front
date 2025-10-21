@@ -3,7 +3,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from "expo-camera";
 import * as WebBrowser from "expo-web-browser";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Animated, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Dialog, Portal, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -24,8 +24,9 @@ export default function CameraScreen() {
   const animationValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (!permission) requestPermission();
-  }, [permission, requestPermission]);
+    if (!permission) return;
+  }, [permission]);
+
 
   useEffect(() => {
     if (!isFocused) {
@@ -80,20 +81,34 @@ export default function CameraScreen() {
     return (
       <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
         <View style={styles.permission}>
+          <Image
+            source={require("../../assets/images/HH_For_Camera.png")}
+            style={styles.permissionImage}
+            resizeMode="contain"
+          />
           <Text style={[styles.text, { color: theme.colors.onBackground }]}>
-            We need access to your camera
+            We need access to your camera <Text>😊</Text>
           </Text>
           <TouchableOpacity
-            style={[
-              styles.permissionButton,
-              { backgroundColor: theme.colors.primary },
-            ]}
-            onPress={requestPermission}
+            style={[styles.permissionButton, { backgroundColor: theme.colors.primary }]}
+            onPress={async () => {
+              const newPermission = await requestPermission();
+              if (newPermission.granted) {
+                console.log("Camera permission granted!");
+                // You can now show the CameraView
+              } else if (!newPermission.canAskAgain) {
+                alert("Camera access is blocked. Please enable it in your phone settings.");
+              } else {
+                console.log("Permission denied, you can ask again later");
+              }
+            }}
+
           >
             <Text style={[styles.permissionText, { color: theme.colors.onPrimary }]}>
               Grant Permission
             </Text>
           </TouchableOpacity>
+
         </View>
       </SafeAreaView>
     );
@@ -131,7 +146,9 @@ export default function CameraScreen() {
       {dialogVisible && (
         <Portal>
           <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)}>
-            <Dialog.Title>Open link?</Dialog.Title>
+            <Dialog.Title>
+              Open link? <Ionicons name="link-outline" size={20} color={theme.colors.primary} />
+            </Dialog.Title>
             <Dialog.Content>
               <Text>{scannedUrl}</Text>
             </Dialog.Content>
@@ -258,5 +275,9 @@ const styles = StyleSheet.create({
     height: 3,
     top: 0,
   },
-
+  permissionImage: {
+    width: 300,
+    height: 300,
+    alignSelf: "center",
+  },
 });
