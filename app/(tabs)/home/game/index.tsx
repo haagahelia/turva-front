@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { router } from "expo-router";
 import TextData from './textData.json';
 
 type OnboardingData = {
@@ -23,6 +24,9 @@ const Onboarding = () => {
     if (index < onboarding.length - 1) {
       setIndex(index + 1);
     } 
+    if (index === onboarding.length - 1) {
+      router.push('/(tabs)/home/game/worlds')
+    }
   };
   const handlePrevious = () => {
     if (index > 0) {
