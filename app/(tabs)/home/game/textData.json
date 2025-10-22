@@ -1,0 +1,34 @@
+{
+  "title": "TurvallisuusMestari-peli",
+  "onboarding": [
+    {
+      "title": "Tervetuloa pelaamaan TurvallisuusMestari-peliä!",
+      "description": ["Tämä peli on suunniteltu tukemaan ammattikorkeakouluopiskelijoiden turvallisuusperehdytystä hauskalla ja helposti lähestyttävällä tavalla. Pelaamalla oppii, miten voit toimia vastuullisesti, tunnistaa riskejä ja parantaa turvallisuutta omassa opiskeluympäristössä."]
+    },
+    {
+      "title": "Maailmat ja tasot",
+      "description": ["Peli koostuu maailmoista, joissa käsitellään turvallisuusteemoja ja jokainen maailma sisältää seitsemän tehtävätasoa."]
+    },
+    {
+      "title": "Miten peli toimii?",
+      "description": [
+        "Jokainen tehtävätaso sisältää lyhyen teorian, jonka jälkeen vastataan neljään kysymykseen.",
+        "Jokaisessa kysymyksessä on neljä vastausvaihtoehtoa, joista vain yksi on oikein.",
+        "Vastaamalla kaikkiin neljään kysymykseen oikein pääsee etenemään maailmassa seuraavalle tasolle. Taso pitää siis pelata kunnes vastaat oikein kaikkiin kysymyksiin.",
+        "Jokaisesta oikein vastatusta kysymyksestä saa yhden pisteen. Peli mittaa myös ajan, joka menee vastauksiin."
+      ]
+    },
+    {
+      "title": "Palkinto",
+      "description": ["Suoritettuasi maailman kaikki tehtävätasot, saat digitaalisen merkin, joka osoittaa, että olet sisäistänyt maailman turvallisuusteemat."]
+    },
+    {
+      "title": "Vinkki",
+      "description": ["Ota oppiminen tosissasi, mutta pelaa rennolla asenteella. Tässä pelissä harjoitellaan asioita, joista voi olla oikeassa elämässä suurta hyötyä."]
+    },
+    {
+      "title": "Oletko valmis?",
+      "description": ["Aloita pelaaminen ja testaa turvallisuustaitosi!"]
+    }
+  ]
+}

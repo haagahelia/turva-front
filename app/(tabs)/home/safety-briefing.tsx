@@ -1,105 +1,280 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { useTheme, Button, Text } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useSafetyStore } from "../../../src/store";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { Button, Card, Text, useTheme } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Checkmark from "../../../src/components/Checkmark";
+import FeedbackModal from "../../../src/components/FeedbackModal";
+import { briefingItems } from "../../../src/mockData";
+import { useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyBriefing() {
   const theme = useTheme();
-  const { completed } = useSafetyStore();
+  const { completed, readCount, markCompleted, initializeReadCount } =
+    useSafetyStore();
 
-  const briefingItems = [
-    { label: 'Turvallinen Haaga-Helia', route: '/home/briefing-item?item=turvallinen-hh' },
-    { label: 'Toimi Vastuullisesti', route: '/home/briefing-item?item=toimi-vastuullisesti' },
-    { label: 'Turvallisuushavaintoilmoitus', route: '/home/briefing-item?item=havaintoilmoitus' },
-    { label: 'Turvallisuuskävely', route: '/home/briefing-item?item=turvallisuuskavely' },
-    { label: 'Toiminta Häiriötilanteessa', route: '/home/briefing-item?item=hairiotilanne' },
-    { label: 'Pelastussuunnitelma', route: '/home/briefing-item?item=pelastussuunnitelma' },
-    { label: 'Poistuminen Rakennuksesta', route: '/home/briefing-item?item=poistuminen' },
-    { label: 'Sisälle Suojautuminen 1', route: '/home/briefing-item?item=suojautuminen-1' },
-    { label: 'Sisälle Suojautuminen 2', route: '/home/briefing-item?item=suojautuminen-2' },
-    { label: 'Äärimmäinen Väkivaltatilanne', route: '/home/briefing-item?item=vakivaltatilanne' },
-    { label: 'Oman Työn Riskit', route: '/home/briefing-item?item=oman-tyon-riskit' },
-  ];
+  const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
+
+  // Initialize read count on component mount
+  useEffect(() => {
+    initializeReadCount();
+  }, [initializeReadCount]);
+
+  const handleItemPress = (itemId: string) => {
+    // Navigate to safety-info with the item ID as parameter
+    router.navigate(`/(tabs)/home/safety-info?itemId=${itemId}`);
+  };
+
+  const handleCheckmarkPress = (itemId: string) => {
+    const routeStr = `/(tabs)/home/safety-info?itemId=${itemId}`;
+    markCompleted(routeStr);
+  };
+
+  // This function will be used to submit the feedback to the server
+  const handleFeedbackSubmit = (rating: number, description: string) => {
+    console.log("Rating:", rating, "Description:", description);
+  };
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}
+    >
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-          Turvallisuusperehdytys
-        </Text>
-        <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-          Haaga-Helia haluaa tarjota ja varmistaa korkeakouluyhteisöllemme turvallisen ja
-          viihtyisän ympäristön opiskella ja työskennellä.
-          Ympäristön, jossa on hyvä olla, osallistua ja oppia.
-          Opiskelijoiden ja henkilökunnan turvallisuus on yhteinen asiamme, jossa jokaisen
-          haaga-helialaisen panos on tärkeä.
-        </Text>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: theme.colors.onBackground }]}>
+            Turvallisuusperehdytys
+          </Text>
+          <Text
+            style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
+          >
+            Valitse aihe tutustuaksesi turvallisuusohjeisiin
+          </Text>
+        </View>
 
-        <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            Turvallisuusperehdytyksen tavoitteena on opiskelijoiden turvallisuusosaamisen varmistaminen
-            ja Haaga-Helian turvallisuuskulttuurin edistäminen. Perehdytyksen suoritettuasi olet tutustunut
-            Haaga-Helian kampuksiin, niiden turvallisuuteen ja tiedät miten toimia eri häiriötilanteissa.
-        </Text>
-
-        <View style={styles.buttonStack}>
-            <Button
-            mode="outlined"
-            onPress={() => router.navigate('/???')} // FIX ROUTE LATER
-            style={[styles.button, { backgroundColor: 'transparent', borderColor: theme.colors.primary }]}
-            contentStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            labelStyle={[styles.buttonLabel, { color: theme.colors.primary }]}
+        {/* Description */}
+        <Card
+          style={[
+            styles.descriptionCard,
+            { backgroundColor: theme.colors.surface },
+          ]}
+        >
+          <Card.Content>
+            <Text
+              style={[
+                styles.descriptionText,
+                { color: theme.colors.onSurface },
+              ]}
             >
-            Info & Tips
-        </Button>
-
-          {briefingItems.map((item, index) => {
-            const isCompleted = completed.includes(item.route);
-            return (
-              <Button
-                key={index}
-                mode="contained"
-                onPress={() => router.navigate(item.route)}
-                style={[styles.button, { backgroundColor: theme.colors.primary }]}
-                labelStyle={styles.buttonLabel}
-                icon={({ size, color }) =>
-                  isCompleted ? (
-                    <MaterialCommunityIcons name="check-circle" size={size} color={color} />
-                  ) : (
-                    <MaterialCommunityIcons name="checkbox-blank-circle-outline" size={size} color={color} />
-                  )
-                }
+              🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen
+              kampuksella työskentelevä, opiskeleva tai vieraileva henkilö
+              tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa
+              turvallista ja viihtyisää työ- ja oppimisympäristöä sekä
+              hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi
+              tehdään fiksummin yhdessä!
+            </Text>
+            <View style={styles.progressContainer}>
+              <MaterialCommunityIcons
+                name="chart-line"
+                size={20}
+                color={theme.colors.primary}
+              />
+              <Text
+                style={[styles.progressText, { color: theme.colors.primary }]}
               >
-                {item.label}
-              </Button>
+                {readCount} / {briefingItems.length} suoritettu
+              </Text>
+            </View>
+          </Card.Content>
+        </Card>
 
-              
+        {/* Briefing Items */}
+        <View style={styles.itemsContainer}>
+          {briefingItems.map((item) => {
+            const routeStr = `/(tabs)/home/safety-info?itemId=${item.id}`;
+            const isCompleted = completed.includes(routeStr);
+
+            return (
+              <Card
+                key={item.id}
+                style={[
+                  styles.itemCard,
+                  {
+                    backgroundColor: theme.colors.tertiaryContainer,
+                    borderColor: isCompleted
+                      ? theme.colors.primary
+                      : "transparent",
+                    borderWidth: 2,
+                  },
+                ]}
+              >
+                <Card.Content style={styles.cardContent}>
+                  <Button
+                    mode="text"
+                    onPress={() => handleItemPress(item.id)}
+                    style={styles.itemButton}
+                    contentStyle={styles.itemButtonContent}
+                    labelStyle={[
+                      styles.itemLabel,
+                      { color: theme.colors.onSurface },
+                    ]}
+                  >
+                    <View style={styles.itemTextContainer}>
+                      <Text
+                        style={[
+                          styles.itemTitle,
+                          {
+                            color: isCompleted
+                              ? theme.colors.primary
+                              : theme.colors.onSurface,
+                          },
+                        ]}
+                      >
+                        {item.title}
+                      </Text>
+                    </View>
+                  </Button>
+
+                  <Checkmark
+                    checked={isCompleted}
+                    onPress={() => handleCheckmarkPress(item.id)}
+                  />
+                </Card.Content>
+              </Card>
             );
           })}
+        </View>
 
-        <Button
-            mode="outlined"
-            onPress={() => router.navigate('/???')} // FIX ROUTE LATER
-            style={[styles.button, { backgroundColor: 'transparent', borderColor: theme.colors.primary }]}
-            contentStyle={{ justifyContent: 'center', alignItems: 'center' }}
-            labelStyle={[styles.buttonLabel, { color: theme.colors.primary }]}
-            >
-            Anna Palautetta
-        </Button>
-
+        {/* Feedback Button */}
+        <View style={styles.feedbackContainer}>
+          <Button
+            mode="contained"
+            onPress={() => setFeedbackModalVisible(true)}
+            style={[
+              styles.feedbackButton,
+              { backgroundColor: theme.colors.errorContainer },
+            ]}
+            contentStyle={styles.feedbackContent}
+            labelStyle={[
+              styles.feedbackLabel,
+              { color: theme.colors.onErrorContainer },
+            ]}
+            icon={() => (
+              <MaterialCommunityIcons
+                name="comment-text-outline"
+                size={18}
+                color={theme.colors.onErrorContainer}
+              />
+            )}
+          >
+            Anna palautetta
+          </Button>
         </View>
       </ScrollView>
+
+      {/* Feedback Modal */}
+      <FeedbackModal
+        visible={feedbackModalVisible}
+        onDismiss={() => setFeedbackModalVisible(false)}
+        onSubmit={handleFeedbackSubmit}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  scrollContent: { flexGrow: 1, padding: 20, justifyContent: 'flex-start' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 10, textAlign: 'center' },
-  description: { fontSize: 16, marginBottom: 20, textAlign: 'center' },
-  buttonStack: { width: '100%', marginBottom: 30 },
-  button: { width: '100%', borderRadius: 8, marginBottom: 16, height: 70, justifyContent: 'center' },
-  buttonLabel: { fontSize: 18, textAlign: 'center' },
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingTop: 10,
+  },
+  header: {
+    marginBottom: 16,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 8,
+    textAlign: "center",
+    marginTop: 30,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: "center",
+    opacity: 0.7,
+  },
+  descriptionCard: {
+    marginBottom: 24,
+    elevation: 2,
+  },
+  descriptionText: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 16,
+  },
+  progressContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  progressText: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginLeft: 8,
+  },
+  itemsContainer: {
+    gap: 12,
+  },
+  feedbackContainer: {
+    marginTop: 24,
+    alignItems: "center",
+  },
+  feedbackButton: {
+    borderRadius: 24,
+    paddingHorizontal: 8,
+  },
+  feedbackContent: {
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+  },
+  feedbackLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  itemCard: {
+    elevation: 1,
+  },
+  cardContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 16,
+  },
+  itemButton: {
+    justifyContent: "flex-start",
+    flex: 1,
+  },
+  itemButtonContent: {
+    justifyContent: "flex-start",
+    paddingHorizontal: 0,
+  },
+  itemLabel: {
+    fontSize: 16,
+  },
+  itemTextContainer: {
+    flex: 1,
+    alignItems: "flex-start",
+  },
+  itemTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  itemShortTitle: {
+    fontSize: 14,
+  },
 });

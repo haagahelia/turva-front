@@ -1,6 +1,6 @@
 import { DarkTheme, LightTheme } from "@/constants/theme";
 
-import { useThemeStore } from "@/src/store";
+import { useThemeStore } from "@/src/zustand/store";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { PaperProvider } from "react-native-paper";
@@ -11,9 +11,6 @@ export default function RootLayout() {
   // Checking the theme state and conditionally setting the theme and passing it to the PaperProvider
   const currentThemeState = useThemeStore((state) => state.theme);
   const paperTheme = currentThemeState === "light" ? LightTheme : DarkTheme;
-
-
-
 
   // SafeAreaProvider is used to ensure that the content is displayed within the safe area of the device
   // Each screen should be wrapped in a SafeAreaView
