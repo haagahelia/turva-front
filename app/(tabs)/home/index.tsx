@@ -10,7 +10,6 @@ export default function Index() {
   // This can be removed later
   const theme = useTheme();
 
-
   // Added this in anticipation for new screens (where the buttons take us)
   //const handleButtonPress = (screen: string) => {};
 
@@ -41,7 +40,7 @@ export default function Index() {
 
           <Button
             mode="contained"
-            onPress={() => router.navigate('/(tabs)/home/ccc')}
+            onPress={() => router.push("/(tabs)/home/game")}
             style={[styles.button, { backgroundColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
           >
