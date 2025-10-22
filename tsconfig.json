@@ -3,6 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "types": ["jest", "node"],
+    // Source for lines A and B: User kentor on StackOverflow. Jun 4, 2018. Importing JSON file in typescript. 
+    // https://stackoverflow.com/questions/49996456/importing-json-file-in-typescript
+    "resolveJsonModule": true,  // A   <-- allow reading JSON files in path
+    "esModuleInterop": true,   // B    <-- read JSON files as objects
     "paths": {
       "@/*": [
         "./*"
