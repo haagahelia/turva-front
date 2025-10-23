@@ -48,13 +48,9 @@ export default function Quiz() {
 
 	const SectionComponent = ({ section }: { section: Question }) => {
 		return (
-			<View
-				style={[
-					styles.quizSection,
-					{ backgroundColor: theme.colors.primaryContainer, width: "100%" },
-				]}
-			>
-				<Text>{section.id} </Text>
+			<View style={[ styles.quizSection,
+					{ backgroundColor: theme.colors.primaryContainer, width: "100%" }]}>
+				<Text variant='headlineSmall'>{section.id} </Text>
 				<Text>{section.en_text}</Text>
 			</View>
 		);
@@ -149,6 +145,11 @@ export default function Quiz() {
 			style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
 			edges={[]}
 		>
+			<View style={{ backgroundColor: theme.colors.primary, width: "100%" }}>
+				<Text variant='headlineSmall'>{mock_json.intro.title} </Text>
+				<Text>{mock_json.intro.en_text}</Text>
+			</View>
+			
 			{displayQuiz && (
 				<SectionList
 					sections={sectionListData}

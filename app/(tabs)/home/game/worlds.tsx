@@ -10,8 +10,8 @@ const Worlds = () => {
         <SafeAreaView style={styles.container} >
             <Text>This is the worlds screen</Text>
             <Text>From here, the user should be able to access different levels / quizzes in the game </Text>
-            <Button onPress={() => router.navigate('/home/game')} style={styles.button}>
-          Takaisin
+            <Button onPress={() => router.push('/home/game/quiz')} style={styles.button}>
+          To the quiz
         </Button>
         </SafeAreaView>
     );
