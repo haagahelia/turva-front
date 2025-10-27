@@ -9,14 +9,13 @@
 		"show_results_immediately": true,
 		"allow_retake": true
 	},
+	"intro": {
+		"title": "quiz_intro",
+		"type": "quiz_info",
+		"en_text": "Test your knowledge with this 5-question safety quiz. You need 70% to pass.",
+		"fin_text": "Testaa tietosi!"
+	},
 	"sections": [
-		{
-			"id": "quiz_intro",
-			"order": 1,
-			"type": "quiz_info",
-			"en_text": "Test your knowledge with this 5-question safety quiz. You need 70% to pass.",
-			"fin_text": "Testaa tietosi!"
-		},
 
 		{
 			"id": "question_b",
