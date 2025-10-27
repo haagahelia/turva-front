@@ -17,7 +17,7 @@ const Onboarding = () => {
   const [key, setKey] = useState(0);
   const [index, setIndex] = useState(0);
 
-  const onboarding: OnboardingData[] = TextData.onboarding;
+  const onboarding: OnboardingData[] = TextData.fi.onboarding;
   const current = onboarding[index];
 
   const handleNext = () => {
