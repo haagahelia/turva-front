@@ -38,7 +38,7 @@ interface SectionListItem {
 	data: Answer[];
 }
 
-export default function Quiz() {
+const Quiz = () => {
 	const theme = useTheme();
 	const quiz_object = mock_json as unknown as QuizType;
 
@@ -104,14 +104,12 @@ export default function Quiz() {
 				(item) =>
 					item.question_id === answer.question_id && item.id === answer.id
 			) as Answer;
-
 			// Unselect - remove from array
 			if (exists) {
 				return prev.filter(
 					(item) =>
 						!(item.question_id === answer.question_id && item.id === answer.id)
 				) as Answer[];
-
 				// Select - add to array
 			} else {
 				return [...prev, answer];
@@ -244,3 +242,4 @@ const styles = StyleSheet.create({
 		marginTop: 8,
 	},
 });
+export default Quiz;
