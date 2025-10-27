@@ -67,7 +67,18 @@ const isAnswerSelected = (answer: Answer) => {
             })}
         </View>
       ))}
-      <Button onPress={() => router.push('/(tabs)/home/game/worlds')}>End quiz</Button>
+        <Button
+        onPress={() =>
+            router.push({
+            pathname: "/(tabs)/home/game/results",
+            params: {
+                answers: JSON.stringify(selectedAnswers), 
+            },
+            })
+        }
+        >
+        End quiz
+        </Button>
     </ScrollView>
   );
 };
