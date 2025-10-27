@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Button, useTheme } from "react-native-paper";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
 
@@ -40,10 +40,6 @@ const isAnswerSelected = (answer: Answer) => {
 
   return (
     <ScrollView>
-    	<View style={{ backgroundColor: theme.colors.primary, width: "100%" }}>
-            <Text variant='headlineSmall'>{mock_json.intro.title} </Text>
-            <Text>{mock_json.intro.en_text}</Text>
-		</View>
       {quizData.sections.map((question) => (
         <View key={question.id} style={{ marginBottom: 24 }}>
           <QuizQuestion
