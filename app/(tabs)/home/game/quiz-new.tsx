@@ -1,9 +1,10 @@
 import { Answer, QuizType } from "@/src/types/types";
 import mock_json from "@/static/mock_quiz_1.json";
+import { router } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native-gesture-handler";
+import { Button, Text, useTheme } from "react-native-paper";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
 
@@ -13,11 +14,6 @@ const QuizNew = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 
   const toggleSelected = (answer: Answer) => {
-    console.log("Pressed button:");
-    console.log(answer.en_text);
-    console.log("Selected answers:");
-    console.log(selectedAnswers);
-
     setSelectedAnswers((prev) => {
         const exists = prev.find(
             (item) =>
@@ -43,7 +39,7 @@ const isAnswerSelected = (answer: Answer) => {
 };
 
   return (
-    <SafeAreaView>
+    <ScrollView>
     	<View style={{ backgroundColor: theme.colors.primary, width: "100%" }}>
             <Text variant='headlineSmall'>{mock_json.intro.title} </Text>
             <Text>{mock_json.intro.en_text}</Text>
@@ -58,17 +54,21 @@ const isAnswerSelected = (answer: Answer) => {
             fin_text={question.fin_text}
             answers={question.answers}
           />
-            {question.answers.map((answer) => (
-            <QuizAnswer
+            {question.answers.map((answer) => {
+            const fullAnswer = { ...answer, question_id: question.id };
+            return (
+                <QuizAnswer
                 key={answer.id}
-                answer={{ ...answer, question_id: question.id }}
-                isSelected={isAnswerSelected(answer)}
+                answer={fullAnswer}
+                isSelected={isAnswerSelected(fullAnswer)}
                 onSelect={toggleSelected}
-            />
-            ))}
+                />
+            );
+            })}
         </View>
       ))}
-    </SafeAreaView>
+      <Button onPress={() => router.push('/(tabs)/home/game/worlds')}>End quiz</Button>
+    </ScrollView>
   );
 };
 
