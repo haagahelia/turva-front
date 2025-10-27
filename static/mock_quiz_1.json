@@ -16,7 +16,6 @@
 		"fin_text": "Testaa tietosi!"
 	},
 	"sections": [
-
 		{
 			"id": "question_b",
 			"order": 2,
@@ -83,7 +82,7 @@
 			"order": 2,
 			"type": "quiz_question",
 
-			"en_text": "Which of these is proper lifting technique? aaaaaaaaaaaaaaaaaaa",
+			"en_text": "Which of these is proper lifting technique? ",
 			"fin_text": "Mikä on oikea nostamisen tapa?",
 
 			"answers": [
