@@ -38,11 +38,17 @@ const QuizIntro = () => {
         style={styles.scrollViewStyle}
         contentContainerStyle={styles.contentContainer}
       >
+
         <Image
           source={require("@/assets/images/W1_Q1_intro.png")}
           style={styles.image}
           resizeMode="contain"
         />
+
+        <Text style={styles.title}>
+          {quizData.quiz_intro_title}
+        </Text>
+
         {quizData.quiz_intro.map((section) => (
           <View
             key={section.title}
@@ -105,5 +111,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignSelf: "center",
   },
+  title: {
+    color: "#00629F",               // main color
+    fontSize: 16,                   // large size
+    fontWeight: "bold",             // make it bold
+    textAlign: "center",            // center above image
+    textShadowColor: "rgba(0, 0, 0, 0.25)", // subtle shadow
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
+    letterSpacing: 1,               // space between letters
+    textTransform: "uppercase",     // optional uppercase
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 20,
+    borderColor: "#00629F",
+    borderWidth: 10,
+    marginBottom: 20,
+  }
+
 });
 export default QuizIntro;
