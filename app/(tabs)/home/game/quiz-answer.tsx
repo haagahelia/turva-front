@@ -19,7 +19,7 @@ const QuizAnswer = ({ answer, isSelected, onSelect }: QuizAnswerProps) => {
         isSelected && styles.selectedAnswer,
       ]}
       onPress={() => onSelect(answer)}>
-      <Text>{answer.en_text}</Text>
+      <Text>{answer.content}</Text>
     </TouchableOpacity>
   );
 };

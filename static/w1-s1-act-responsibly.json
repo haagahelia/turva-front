@@ -1,0 +1,287 @@
+{
+	"fi": {
+		"quiz_intro": [
+			{
+				"title": "p1",
+				"type": "quiz_info",
+				"content": "🎓 Järjestyssäännöt määrittävät oikeutesi ja velvollisuutesi opiskelijana. Jokaisella on vastuu toimia niin, että yhteisö pysyy turvallisena, oikeudenmukaisena ja opiskelulle suotuisana. Järjestyssääntöjen rikkomisesta voi seurata kurinpidollisia seuraamuksia."
+			},
+			{
+				"title": "p2",
+				"type": "quiz_info",
+				"content": "Vastuulista toimintaa on mm. \n🔍 Noudatat oppilaitoksen sääntöjä ja ohjeita sekä tehtävien tekemisen hyviä käytänteitä \n🔍 Käyttäydyt asiallisesti kampuksella ja verkossa \n🔍 Et plagioi tehtävissä \n🔍 Kunnioitat muiden työrauhaa ja omaisuutta"
+			},
+			{
+				"title": "p3",
+				"type": "quiz_info",
+				"content": "💡 Säännöt perustuvat ammattikorkeakoululakiin (932/2014) ja – asetukseen (1129/2014), joilla taataan turvallinen ja tasa-arvoisen opiskeluyhteisö."
+			},
+			{
+				"title": "p4",
+				"type": "quiz_info",
+				"content": "👉 Käy tutustumassa järjestyssääntöihin! Linkin järjestyssääntöihin löydät myös sovelluksen hakemistosta."
+			},
+			{
+				"title": "p5",
+				"type": "quiz_info",
+				"content": "🧠 Valitse oikea toimintatapa. Vastaa neljään kysymykseen. Jokaisessa kysymyksessä vain yksi vastausvaihtoehto on oikein."
+			}
+		],
+
+		"questions": [
+			{
+				"title": "Kysymys 1",
+				"type": "quiz_question",
+				"content": "Mikä alla olevista on vastuullista toimintaa kampuksella?",
+
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Jättää laukku ja takki luokan keskelle muiden liikkumisalueelle",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Käyttää toisen opiskelijan tunnuksia, koska omat tunnuksesi eivät toimi",
+						"is_correct": false
+					},
+					{
+						"title": "a3",
+						"content": "Ottaa kuulokkeet pois ja kuunnella opettajaa tunnilla",
+						"is_correct": true
+					},
+					{
+						"title": "a4",
+						"content": "Tulla päihtyneenä tunnille, jotta ei tule poissaolomerkintää",
+						"is_correct": false
+					}
+				]
+			},
+			{
+				"title": "Kysymys 2",
+				"type": "quiz_question",
+				"content": "Mikä seuraavista on vastuullinen tapa tehdä oppimistehtävä?",
+
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Pyytää tekoälyä tuottamaan koko tehtävän ja palauttaa sen sellaisenaan",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Kysyä kaverilta hänen vastauksensa ja muokata sen omaksesi",
+						"is_correct": false
+					},
+					{
+						"title": "a3",
+						"content": "Tehdä tehtävän itse ja viitata lähteisiin selkeästi",
+						"is_correct": true
+					},
+					{
+						"title": "a4",
+						"content": "Käyttää edellisen kurssin malliratkaisua ilman mainintaa",
+						"is_correct": false
+					}
+				]
+			},
+			{
+				"title": "Kysymys 3",
+				"type": "quiz_question",
+				"content": "Mikä on järjestyssääntöjen mukainen toiminta kampuksella?",
+
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Järjestää mielenosoitus kampuksen sisätiloissa",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Pitää kampuksen yhteiset tilat siisteinä ja noudatat käyttäytymissääntöjä",
+						"is_correct": true
+					},
+					{
+						"title": "a3",
+						"content": "Tuoda potkulauta luokkaan",
+						"is_correct": false
+					},
+					{
+						"title": "a4",
+						"content": "Järjestää bileet luokassa",
+						"is_correct": false
+					}
+				]
+			},
+			{
+				"title": "Kysymys 4",
+				"type": "quiz_question",
+				"content": "Mikä seuraavista on vastuullista digikäyttäytymistä opiskelijana?",
+
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Jakaa opettajan laatimat kurssimateriaalit avoimesti somessa",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Kirjautua ulos koneelta ja pitää omat käyttäjätunnukset salassa",
+						"is_correct": true
+					},
+					{
+						"title": "a3",
+						"content": "Antaa käyttäjätunnukset kaverille, jotta hän pääsee kirjaston kautta lukemaan e-kirjoja",
+						"is_correct": false
+					},
+					{
+						"title": "a4",
+						"content": "Käyttää koulun sähköpostiosoitetta tekoälypalveluihin kirjautumiseen",
+						"is_correct": false
+					}
+				]
+			}
+		]
+	},
+
+	"en": {
+		"quiz_intro": [
+			{
+				"title": "p1",
+				"type": "quiz_info",
+				"content": "🎓 The rules and regulations define your rights and obligations as a student. Everyone is responsible for acting in a way that keeps the community safe, fair, and conducive to learning. Violations of the rules and regulations may result in disciplinary action."
+			},
+			{
+				"title": "p2",
+				"type": "quiz_info",
+				"content": "Responsible behavior includes \n🔍 Following the rules and instructions of the educational institution and good practices for completing assignments \n🔍 Behaving appropriately on campus and online \n🔍 Not plagiarizing in assignments \n🔍 Respecting the working environment and property of others"
+			},
+			{
+				"title": "p3",
+				"type": "quiz_info",
+				"content": "💡 The rules are based on the Act on Universities of Applied Sciences (932/2014) and the Decree on Universities of Applied Sciences (1129/2014), which guarantee a safe and equal study community."
+			},
+			{
+				"title": "p4",
+				"type": "quiz_info",
+				"content": "👉 Check out the rules and regulations! You can also find a link to the rules and regulations in the application directory."
+			},
+			{
+				"title": "p5",
+				"type": "quiz_info",
+				"content": "🧠 Choose the right course of action. Answer the four questions. Only one answer option is correct for each question."
+			}
+		],
+
+		"questions": [
+			{
+				"title": "Question 1",
+				"type": "quiz_question",
+				"content": "Which of the following is responsible behavior on campus?",
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Leaving your bag and coat in the middle of the classroom where others walk",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Using another student's login details because your own don't work",
+						"is_correct": false
+					},
+					{
+						"title": "a3",
+						"content": "Taking off your headphones and listening to the teacher during class",
+						"is_correct": true
+					},
+					{
+						"title": "a4",
+						"content": "Coming to class intoxicated so you won't be marked absent",
+						"is_correct": false
+					}
+				]
+			},
+			{
+				"title": "Question 2",
+				"type": "quiz_question",
+				"content": "Which of the following is a responsible way to complete a learning assignment?",
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Asking artificial intelligence to produce the entire assignment and submitting it as is",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Ask a friend for their answers and edit them to make them your own",
+						"is_correct": false
+					},
+					{
+						"title": "a3",
+						"content": "Do the assignment yourself and clearly cite your sources",
+						"is_correct": true
+					},
+					{
+						"title": "a4",
+						"content": "Using a model solution from a previous course without attribution",
+						"is_correct": false
+					}
+				]
+			},
+			{
+				"title": "Question 3",
+				"type": "quiz_question",
+				"content": "What is acceptable behavior on campus according to the rules and regulations?",
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Organizing a protest inside the campus",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Keeping the campus common areas clean and following the rules of conduct",
+						"is_correct": true
+					},
+					{
+						"title": "a3",
+						"content": "Bring a scooter to class",
+						"is_correct": false
+					},
+					{
+						"title": "a4",
+						"content": "Organizing a party in the classroom",
+						"is_correct": false
+					}
+				]
+			},
+			{
+				"title": "Question 4",
+				"type": "quiz_question",
+				"content": "Which of the following is responsible digital behavior as a student?",
+				"answers": [
+					{
+						"title": "a1",
+						"content": "Share course materials prepared by the teacher openly on social media",
+						"is_correct": false
+					},
+					{
+						"title": "a2",
+						"content": "Log out of the computer and keep your user IDs secret",
+						"is_correct": true
+					},
+					{
+						"title": "a3",
+						"content": "Giving your username to a friend so they can read e-books through the library",
+						"is_correct": false
+					},
+					{
+						"title": "a4",
+						"content": "Using your school email address to log in to artificial intelligence services",
+						"is_correct": false
+					}
+				]
+			}
+		]
+	}
+}

@@ -1,28 +1,36 @@
 export interface Contact {
-  name: string;
-  role: string;
-  phone: string;
+	name: string;
+	role: string;
+	phone: string;
 }
 
 export interface QuizType {
-	id: string;
-	sections: Question[];
+	fi: QuizLang;
+	en: QuizLang;
+}
+
+export interface QuizLang {
+	quiz_intro: Section[];
+	questions: Question[];
+}
+
+export interface Section {
+	title: string;
+	type: string;
+	content: string;
 }
 
 export interface Question {
-	id: string;
+	title: string;
 	type: string;
-	order: number;
-	en_text: string;
-	fin_text: string;
+	content: string;
 	answers: Answer[];
 }
 
 export interface Answer {
-	id: string;
-	question_id: string;
-	en_text: string;
-	fin_text: string;
+	title: string;
+	question_title: string;
+	content: string;
 	is_correct: boolean;
 }
 
