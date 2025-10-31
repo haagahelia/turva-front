@@ -54,7 +54,7 @@ const QuizIntro = () => {
             key={section.title}
             style={styles.textContainer}
           >
-            <Text style={{ color: "#000000" }}>{section.content}</Text>
+            <Text style={styles.textContainerStyle}>{section.content}</Text>
 
           </View>
         ))}
@@ -98,6 +98,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: "#00629F",
     borderWidth: 2,
+  },
+  textContainerStyle: {
+    color: "#000000",
+    fontSize: 16,
   },
   button: {
     borderRadius: 24,
