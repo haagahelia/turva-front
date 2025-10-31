@@ -1,5 +1,6 @@
 {
 	"fi": {
+		"quiz_intro_title": "Toimi vastuullisesti",
 		"quiz_intro": [
 			{
 				"title": "p1",
@@ -27,13 +28,11 @@
 				"content": "🧠 Valitse oikea toimintatapa. Vastaa neljään kysymykseen. Jokaisessa kysymyksessä vain yksi vastausvaihtoehto on oikein."
 			}
 		],
-
 		"questions": [
 			{
 				"title": "Kysymys 1",
 				"type": "quiz_question",
 				"content": "Mikä alla olevista on vastuullista toimintaa kampuksella?",
-
 				"answers": [
 					{
 						"title": "a1",
@@ -61,7 +60,6 @@
 				"title": "Kysymys 2",
 				"type": "quiz_question",
 				"content": "Mikä seuraavista on vastuullinen tapa tehdä oppimistehtävä?",
-
 				"answers": [
 					{
 						"title": "a1",
@@ -89,7 +87,6 @@
 				"title": "Kysymys 3",
 				"type": "quiz_question",
 				"content": "Mikä on järjestyssääntöjen mukainen toiminta kampuksella?",
-
 				"answers": [
 					{
 						"title": "a1",
@@ -117,7 +114,6 @@
 				"title": "Kysymys 4",
 				"type": "quiz_question",
 				"content": "Mikä seuraavista on vastuullista digikäyttäytymistä opiskelijana?",
-
 				"answers": [
 					{
 						"title": "a1",
@@ -143,8 +139,8 @@
 			}
 		]
 	},
-
 	"en": {
+		"quiz_intro_title": "Act responsibly",
 		"quiz_intro": [
 			{
 				"title": "p1",
@@ -172,7 +168,6 @@
 				"content": "🧠 Choose the right course of action. Answer the four questions. Only one answer option is correct for each question."
 			}
 		],
-
 		"questions": [
 			{
 				"title": "Question 1",
