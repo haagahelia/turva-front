@@ -64,7 +64,7 @@ export default function LoginScreen() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={{ flex: 1, padding: 16, justifyContent: "center" }}>
+      <View style={{ flex: 1, padding: 16, justifyContent: "center", backgroundColor: theme.colors.background }}>
         <Card mode="elevated" style={{ borderRadius: 16, overflow: "hidden" }}>
           <Card.Content>
             <View style={{ gap: 16 }}>
