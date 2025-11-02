@@ -10,6 +10,7 @@ export interface QuizType {
 }
 
 export interface QuizLang {
+	quiz_intro_title?: string; // optional title for the whole intro
 	quiz_intro: Section[];
 	questions: Question[];
 }
