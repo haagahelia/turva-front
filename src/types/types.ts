@@ -15,6 +15,8 @@ export interface QuizLang {
 	questions: Question[];
 }
 
+export type Language = 'en' | 'fi';
+
 export interface Section {
 	title: string;
 	type: string;

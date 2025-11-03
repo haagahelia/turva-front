@@ -61,7 +61,7 @@ const QuizIntro = () => {
 
         <Button
           icon="gamepad-variant-outline"
-          onPress={() => router.push("/home/game/quiz-new")}
+          onPress={() => router.push("/home/game/quiz")}
           style={styles.button}
           mode="contained"
           //override to make the color of the button always as in light theme
