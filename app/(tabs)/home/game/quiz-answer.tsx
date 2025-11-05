@@ -16,10 +16,10 @@ const QuizAnswer = ({ answer, isSelected, onSelect }: QuizAnswerProps) => {
       style={[
         styles.answer,
         { backgroundColor: theme.colors.primaryContainer },
-        isSelected && styles.selectedAnswer,
+        isSelected && styles.selectedAnswer, {borderBlockColor: theme.colors.secondary} ,
       ]}
       onPress={() => onSelect(answer)}>
-      <Text>{answer.content}</Text>
+      <Text variant='bodyMedium'>{answer.content}</Text>
     </TouchableOpacity>
   );
 };
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   },
   selectedAnswer: {
     borderWidth: 2,
-    borderColor: 'orange',
   },
 });
 
