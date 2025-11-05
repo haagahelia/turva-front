@@ -13,7 +13,7 @@ const Results = () => {
     const totalCount = selectedAnswers.length; // total number of questions
 
     // Language (for now hardcoded, later can come from app context or settings)
-    const language: "fi" | "en" = "fi";
+    const language: "fi" | "en" = "en";
 
     // Load and type results.json
     const resultsData = results_json as unknown as ResultsTexts;
@@ -23,6 +23,11 @@ const Results = () => {
     const resultText = allCorrect
         ? worldResults.allCorrectText
         : worldResults.notAllCorrectText;
+
+    const buttonText = allCorrect
+        ? worldResults.allCorrectButton
+        : worldResults.notAllCorrectButton;
+
 
     return (
         <ImageBackground
@@ -53,7 +58,19 @@ const Results = () => {
                     <Text style={styles.text}>{resultText}</Text>
                 </View>
 
-                <Button onPress={() => router.push('/(tabs)/home/game/worlds')}>Back to world screen</Button>
+                <Button
+                    style={styles.button}
+                    mode="contained"
+                    buttonColor="#00629F"
+                    textColor="#FFFFFF"
+                    onPress={() =>
+                        allCorrect
+                            ? router.push('/(tabs)/home/game/worlds')   // go to world if all correct
+                            : router.push('/(tabs)/home/game/quiz-introduction') // go back to intro if not all correct
+                    }
+                >
+                    {buttonText}
+                </Button>
             </View>
         </ImageBackground>
     );
@@ -103,6 +120,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginBottom: 10,
         fontWeight: "bold",
-    }
+    },
+    button: {
+        borderRadius: 24,
+        alignSelf: "center",
+        marginBottom: 20,
+    },
 });
 export default Results;

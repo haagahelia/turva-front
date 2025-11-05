@@ -52,4 +52,6 @@ export interface WorldResults {
 	title: string;
 	allCorrectText: string;
 	notAllCorrectText: string;
+	allCorrectButton: string;
+	notAllCorrectButton: string;
 }
