@@ -42,3 +42,14 @@ export interface SectionListItem {
 	title: string;
 	data: Answer[];
 }
+
+export interface ResultsTexts {
+	en: Record<string, WorldResults>; //we can use different text for result screens in different worlds
+	fi: Record<string, WorldResults>;
+}
+
+export interface WorldResults {
+	title: string;
+	allCorrectText: string;
+	notAllCorrectText: string;
+}
