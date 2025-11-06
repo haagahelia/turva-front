@@ -17,6 +17,32 @@ export interface QuizLang {
 
 export type Language = 'en' | 'fi';
 
+//Onboarding - TextData.json
+
+export interface TextData {
+	fi: TextLang;
+	en: TextLang;
+}
+
+export interface TextLang {
+	title: string;
+	onboarding: OnboardingItem[];
+	common: CommonTexts;
+}
+
+export interface OnboardingItem {
+	title: string;
+	description: string[];
+}
+
+export interface CommonTexts {
+	answerAll: string;
+	end: string;
+	start: string;
+}
+
+//Quiz Structure
+
 export interface Section {
 	title: string;
 	type: string;
@@ -42,6 +68,8 @@ export interface SectionListItem {
 	title: string;
 	data: Answer[];
 }
+
+//Results Texts
 
 export interface ResultsTexts {
 	en: Record<string, WorldResults>; //we can use different text for result screens in different worlds
