@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text } from "react-native-paper";
+import TextData from './textData.json';
 
 const QuizIntro = () => {
   //Maybe we do not need dark theme in game, because the background is always light
@@ -24,9 +25,12 @@ const QuizIntro = () => {
   //}
   //}
 
+  const lang = "en";
 
   const quizData1 = mock_json as unknown as QuizType;
-  const quizData = quizData1.fi as QuizLang;
+  const quizData = quizData1[lang] as QuizLang;
+
+  const uiText = (TextData as any)[lang];
 
   return (
     <ImageBackground
@@ -68,7 +72,7 @@ const QuizIntro = () => {
           buttonColor="#00629F"
           textColor="#FFFFFF"
         >
-          Start Quiz
+          {uiText.common.start}
         </Button>
       </ScrollView>
     </ImageBackground>

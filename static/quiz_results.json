@@ -1,0 +1,20 @@
+{
+    "en": {
+        "world1": {
+            "title": "You got from the level:",
+            "allCorrectText": "Excellent!",
+            "notAllCorrectText": "You need a perfect score to advance.",
+            "allCorrectButton": "Return to the game board",
+            "notAllCorrectButton": "Try again!"
+        }
+    },
+    "fi": {
+        "world1": {
+            "title": "Sait tasosta:",
+            "allCorrectText": "Hienoa!",
+            "notAllCorrectText": "Tarvitset täydet pisteet edetäksesi.",
+            "allCorrectButton": "Palaa pelilaudalle",
+            "notAllCorrectButton": "Yritä uudelleen!"
+        }
+    }
+}
