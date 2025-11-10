@@ -39,7 +39,7 @@ export default function NewsScreen() {
       {/* 1. Image */}
       <MotiImage
         key={`image-${key}`}
-        source={require("../../../assets/images/HH_Developers.png")}
+        source={require("../../../assets/images/About_app_screen.png")}
         style={styles.Image}
         from={{ opacity: 0, translateY: -20 }}
         animate={{ opacity: 1, translateY: 0 }}

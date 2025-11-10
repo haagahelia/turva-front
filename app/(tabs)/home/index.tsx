@@ -1,6 +1,7 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Koti screen (Index is always the default first screen)
@@ -24,25 +25,46 @@ export default function Index() {
         contentInsetAdjustmentBehavior="automatic"
         showsVerticalScrollIndicator={false} // optional: cleaner look
       >
-        <Text style={[styles.title, { color: theme.colors.onBackground }]}>Koti</Text>
 
-
+        <Image
+          source={require('../../../assets/images/Home_screen.png')}
+          style={styles.image}
+        />
 
         <View style={styles.buttonStack}>
           <Button
-            mode="contained"
+            mode="outlined"
             onPress={() => router.push('/(tabs)/home/safety-briefing')}
-            style={[styles.button, { backgroundColor: theme.colors.primary }]}
+            style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
+            textColor={theme.colors.primary}      // text color
+            buttonColor="transparent"             // transparent background
+            icon={(props) => (
+              <MaterialCommunityIcons
+                name="school"
+                size={25}           // <-- change the icon size here
+                color={props.color} // keeps the color consistent with textColor
+              />
+            )}
           >
             Turvallisuusperehdytys
           </Button>
 
+
           <Button
             mode="contained"
             onPress={() => router.push("/(tabs)/home/game")}
-            style={[styles.button, { backgroundColor: theme.colors.primary }]}
+            style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
+            textColor={theme.colors.primary}      // text color
+            buttonColor="transparent"             // transparent background
+            icon={(props) => (
+              <MaterialCommunityIcons
+                name="gamepad-variant"
+                size={25}           // <-- change the icon size here
+                color={props.color} // keeps the color consistent with textColor
+              />
+            )}
           >
             TurvallisuusMestari
           </Button>
@@ -50,8 +72,17 @@ export default function Index() {
           <Button
             mode="contained"
             onPress={() => router.navigate('/(tabs)/home/bbb')}
-            style={[styles.button, { backgroundColor: theme.colors.primary }]}
+            style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
+            textColor={theme.colors.primary}      // text color
+            buttonColor="transparent"             // transparent background
+            icon={(props) => (
+              <MaterialCommunityIcons
+                name="file-document-edit"
+                size={25}           // <-- change the icon size here
+                color={props.color} // keeps the color consistent with textColor
+              />
+            )}
           >
             Ilmoita turvallisuushavainto
           </Button>
@@ -59,8 +90,17 @@ export default function Index() {
           <Button
             mode="contained"
             onPress={() => router.navigate('/(tabs)/home/aaa')}
-            style={[styles.button, { backgroundColor: theme.colors.primary }]}
+            style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
+            textColor={theme.colors.primary}      // text color
+            buttonColor="transparent"             // transparent background
+            icon={(props) => (
+              <MaterialCommunityIcons
+                name="hand-back-left"
+                size={25}           // <-- change the icon size here
+                color={props.color} // keeps the color consistent with textColor
+              />
+            )}
           >
             Ilmoita epäasiallisesta kohtelusta
           </Button>
@@ -77,7 +117,8 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,
@@ -101,18 +142,20 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    borderRadius: 8,
+    borderRadius: 100,
     marginBottom: 16,
-    height: 80,
+    height: 75,
     justifyContent: 'center',
+    borderWidth: 5,
   },
   buttonLabel: {
     fontSize: 20,
     textAlign: 'center',
   },
-  themeButtonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 20,
-  },
+  image: {
+    width: "100%",
+    height: 270,
+    marginBottom: 10,
+    marginRight: 10,
+  }
 });
