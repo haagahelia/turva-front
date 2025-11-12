@@ -68,8 +68,8 @@ export default function Index() {
           >
             TurvallisuusMestari
           </Button>
-
-          <Button
+{/* Commented out because functionality is not done */}
+          {/* <Button
             mode="contained"
             onPress={() => router.navigate('/(tabs)/home/bbb')}
             style={[styles.button, { borderColor: theme.colors.primary }]}
@@ -103,7 +103,7 @@ export default function Index() {
             )}
           >
             Ilmoita epäasiallisesta kohtelusta
-          </Button>
+          </Button> */}
         </View>
       </ScrollView>
     </SafeAreaView>
