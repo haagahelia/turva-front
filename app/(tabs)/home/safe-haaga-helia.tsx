@@ -1,3 +1,5 @@
+import { Language } from "@/src/types/types";
+import TextData from '@/static/homeTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
@@ -8,7 +10,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 // Turvallinen Haaga-Helia screen
 export default function SafeHaagaHeliaScreen() {
+
   const theme = useTheme();
+  const lang: Language = 'fi';
+  const textData = TextData[lang].safeHaagaHelia;
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
 
@@ -58,10 +63,10 @@ export default function SafeHaagaHeliaScreen() {
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Turvallinen Haaga-Helia
+            {textData.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            Lue lisa Haaga-Helian turvallisuusasioista Haaga-Helian sivuilta.
+            {textData.description[0]}
           </Text>
         </MotiView>
 
@@ -78,7 +83,7 @@ export default function SafeHaagaHeliaScreen() {
             style={styles.button}
             onPress={openWebsite}
           >
-            Turvallinen Haaga-Helia
+            {textData.common.followLinkText}
           </Button>
         </MotiView>
 
