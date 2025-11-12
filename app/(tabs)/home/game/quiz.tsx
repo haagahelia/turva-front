@@ -1,4 +1,5 @@
 import { Answer, Language, QuizLang, QuizType } from "@/src/types/types";
+import GameTextData from '@/static/gameTexts.json';
 import mock_json from "@/static/w1-s1-act-responsibly.json";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -7,12 +8,11 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text, useTheme } from "react-native-paper";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
-import TextData from './textData.json';
 
 const Quiz = () => {
 	const theme = useTheme();
 	const lang: Language = 'en'
-	const commonText = TextData[lang].common;
+	const commonText = GameTextData[lang].common;
 	const quizData1 = mock_json as unknown as QuizType;
 	const quizData = quizData1[lang] as QuizLang;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);

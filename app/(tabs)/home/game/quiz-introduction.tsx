@@ -1,10 +1,10 @@
 import { QuizLang, QuizType } from "@/src/types/types";
+import GameTextData from '@/static/gameTexts.json';
 import mock_json from "@/static/w1-s1-act-responsibly.json";
 import { router } from "expo-router";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text } from "react-native-paper";
-import TextData from './textData.json';
 
 const QuizIntro = () => {
   //Maybe we do not need dark theme in game, because the background is always light
@@ -30,7 +30,7 @@ const QuizIntro = () => {
   const quizData1 = mock_json as unknown as QuizType;
   const quizData = quizData1[lang] as QuizLang;
 
-  const uiText = (TextData as any)[lang];
+  const uiText = (GameTextData as any)[lang];
 
   return (
     <ImageBackground

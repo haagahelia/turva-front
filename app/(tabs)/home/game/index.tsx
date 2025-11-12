@@ -4,8 +4,8 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import GameTextData from '@/static/gameTexts.json';
 import { router } from "expo-router";
-import TextData from './textData.json';
 
 type OnboardingData = {
   title: string,
@@ -17,7 +17,7 @@ const Onboarding = () => {
   const [key, setKey] = useState(0);
   const [index, setIndex] = useState(0);
 
-  const onboarding: OnboardingData[] = TextData.fi.onboarding;
+  const onboarding: OnboardingData[] = GameTextData.fi.onboarding;
   const current = onboarding[index];
 
   const handleNext = () => {
