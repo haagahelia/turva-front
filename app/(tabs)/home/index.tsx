@@ -79,8 +79,8 @@ export default function Index() {
           >
             TurvallisuusMestari
           </Button>
-
-          <Button
+{/* Commented out because functionality is not done */}
+          {/* <Button
             mode="contained"
             onPress={() => router.push({
               pathname: "/(tabs)/home/report-description-screen",
@@ -120,7 +120,7 @@ export default function Index() {
             )}
           >
             Ilmoita epäasiallisesta kohtelusta
-          </Button>
+          </Button> */}
         </View>
       </ScrollView>
     </SafeAreaView>
