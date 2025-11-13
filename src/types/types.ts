@@ -43,7 +43,7 @@ export interface CommonTexts {
 
 // Quiz Worlds
 
-export interface World {
+export interface WorldType {
 	world_id: number;
 	world_name: string;
 	order_number: number;

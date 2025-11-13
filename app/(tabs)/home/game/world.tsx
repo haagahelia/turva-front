@@ -1,11 +1,10 @@
 import { WorldType } from "@/src/types/types";
-import { router } from "expo-router";
 import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, Text, useTheme } from "react-native-paper";
+import { ImageBackground, StyleSheet } from "react-native";
+import { Text, useTheme } from "react-native-paper";
 
-const Worlds = () => {
+const World = () => {
 	const theme = useTheme();
 	const [isLoading, setLoading] = useState(true);
 	const [worlds, setWorlds] = useState<WorldType[]>([]);
@@ -44,7 +43,6 @@ const Worlds = () => {
 	const loadWorld = (world_id: number) => {
 		console.log("BUTTON PRESSED!");
 		console.log(world_id);
-    router.push("/home/game/world")
 	};
 
 	return (
@@ -53,17 +51,9 @@ const Worlds = () => {
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<Text>This is the worlds screen</Text>
-			<Text>
-				From here, the user should be able to access different levels / quizzes
-				in the game{" "}
-			</Text>
-			<Button
-				onPress={() => router.push("/home/game/quiz-introduction")}
-				style={styles.button}
-			>
-				To the quiz 1
-			</Button>
+			<Text>This is the World screen</Text>
+			
+			
 
 			{isLoading ? (
 				// STATE 1: JSON CONTENT NOT LOADED
@@ -72,21 +62,7 @@ const Worlds = () => {
 				</View>
 			) : (
 				<View>
-					{worlds.map((world) => (
-						<View key={world.world_id} style={styles.textContainer}>
-							<TouchableOpacity
-								style={[
-									styles.answer,
-									{ backgroundColor: theme.colors.primaryContainer },
-								]}
-								onPress={() => loadWorld(world.world_id)}
-							>
-								<Text style={styles.textContainerStyle}>
-									{world.world_name}
-								</Text>
-							</TouchableOpacity>
-						</View>
-					))}
+					<Text>Loaded!</Text>
 				</View>
 			)}
 		</ImageBackground>
@@ -124,4 +100,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Worlds;
+export default World;
