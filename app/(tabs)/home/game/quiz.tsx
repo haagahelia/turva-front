@@ -1,6 +1,6 @@
-import { Answer, Language, QuizLang, QuizType } from "@/src/types/types";
+import { Answer, Language, QuizLang } from "@/src/types/types";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text, useTheme } from "react-native-paper";
@@ -11,40 +11,45 @@ import TextData from "./textData.json";
 const Quiz = () => {
 	const theme = useTheme();
 	const lang: Language = "en";
+	const [isLoading, setLoading] = useState(true);
+
 	const commonText = TextData[lang].common;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 	const [quizData, setQuizData] = useState<QuizLang[]>([]);
 
 	// Function Source: reactnative.dev -> docs -> network
-	const getQuizFromApi = () => {
-		return fetch(
-			"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/1"
-		)
-			.then((response) => {
-				console.log(response.json());
-				return response.json();
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	};
-
 	const getQuizFromApiAsync = async () => {
 		try {
+			// FETCH
 			const response = await fetch(
 				"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/1"
 			);
-			const json = await response.json();
-			console.log(json);
-			setQuizData(json);
-			return json;
+
+			// READ response as JSON
+			const responseJson = await response.json();
+			console.log("Response:");
+			console.log(responseJson);
+			// EXTRACT the Quiz content data
+			const quizJson = responseJson[0].quiz_content;
+			console.log("Quiz Content:");
+			console.log(quizJson.en);
+			setQuizData([quizJson.en]);
+
+			// TOGGLE Loading state OFF
+			setLoading(false);
+			return quizJson;
+
+			// ERROR HANDLING
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
-	const quizData1 = getQuizFromApiAsync() as unknown as QuizType;
-	//const quizData = quizData1[lang] as QuizLang;
+	useEffect(() => {
+		if (isLoading) {
+			getQuizFromApiAsync();
+		}
+	});
 
 	const toggleSelected = (answer: Answer) => {
 		setSelectedAnswers((prev) => {
@@ -56,6 +61,7 @@ const Quiz = () => {
 			return [...filtered, answer];
 		});
 	};
+
 	const isAnswerSelected = (answer: Answer) => {
 		return selectedAnswers.some(
 			(item) =>
@@ -64,56 +70,70 @@ const Quiz = () => {
 		);
 	};
 
-	const isAllAnswered = quizData[0].questions.every((q) =>
-		selectedAnswers.some((a) => a.question_title === q.title)
-	);
+	//const isAllAnswered = quizData[0].questions.every((q) =>
+	//selectedAnswers.some((a) => a.question_title === q.title)
+	//);
 
 	return (
 		<ScrollView
 			style={{ backgroundColor: theme.colors.background, marginTop: 20 }}
 		>
-			<Text
-				variant="bodyLarge"
-				style={{ marginHorizontal: 20, marginBottom: 10 }}
-			>
-				{commonText.answerAll}
-			</Text>
-			{quizData[0].questions.map((question) => (
-				<View key={question.title} style={styles.answerContainer}>
-					<QuizQuestion
-						title={question.title}
-						type={question.type}
-						content={question.content}
-						answers={question.answers}
-					/>
-					{question.answers.map((answer) => {
-						const fullAnswer = { ...answer, question_title: question.title };
-						return (
-							<QuizAnswer
-								key={answer.title}
-								answer={fullAnswer}
-								isSelected={isAnswerSelected(fullAnswer)}
-								onSelect={toggleSelected}
-							/>
-						);
-					})}
+			{isLoading ? (
+				// STATE 1: JSON CONTENT NOT LOADED
+				<View>
+					<Text>Fetching and reading Quiz data...</Text>
 				</View>
-			))}
-			<Button
-				style={{ margin: 10, marginBottom: 50 }}
-				mode="contained"
-				disabled={!isAllAnswered}
-				onPress={() =>
-					router.push({
-						pathname: "/(tabs)/home/game/results",
-						params: {
-							answers: JSON.stringify(selectedAnswers),
-						},
-					})
-				}
-			>
-				{commonText.end}
-			</Button>
+			) : (
+				// STATE 2: JSON CONTENT LOADED
+				<View>
+					<Text
+						variant="bodyLarge"
+						style={{ marginHorizontal: 20, marginBottom: 10 }}
+					>
+						{commonText.answerAll}
+					</Text>
+					{quizData[0].questions.map((question) => (
+						<View key={question.title} style={styles.answerContainer}>
+							<QuizQuestion
+								title={question.title}
+								type={question.type}
+								content={question.content}
+								answers={question.answers}
+							/>
+							{question.answers.map((answer) => {
+								const fullAnswer = {
+									...answer,
+									question_title: question.title,
+								};
+								return (
+									<QuizAnswer
+										key={answer.title}
+										answer={fullAnswer}
+										isSelected={isAnswerSelected(fullAnswer)}
+										onSelect={toggleSelected}
+									/>
+								);
+							})}
+						</View>
+					))}
+					<Button
+						style={{ margin: 10, marginBottom: 50 }}
+						mode="contained"
+						//disabled={!isAllAnswered}
+						disabled={false}
+						onPress={() =>
+							router.push({
+								pathname: "/(tabs)/home/game/results",
+								params: {
+									answers: JSON.stringify(selectedAnswers),
+								},
+							})
+						}
+					>
+						{commonText.end}
+					</Button>
+				</View>
+			)}
 		</ScrollView>
 	);
 };
