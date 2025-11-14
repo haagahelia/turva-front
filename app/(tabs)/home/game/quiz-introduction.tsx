@@ -27,7 +27,7 @@ const QuizIntro = () => {
 
 	const lang = "en";
 	const [isLoading, setLoading] = useState(true);
-	const [quizData, setQuizData] = useState<QuizLang[]>([]);
+	const [quizData, setQuizData] = useState<QuizLang | null>(null);
 	const uiText = (TextData as any)[lang];
 
 	// Function Source: reactnative.dev -> docs -> network
@@ -46,7 +46,7 @@ const QuizIntro = () => {
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
 			console.log(quizJson.en);
-			setQuizData([quizJson.en]);
+			setQuizData(quizJson.en);
 
 			// TOGGLE Loading state OFF
 			setLoading(false);
@@ -92,7 +92,7 @@ const QuizIntro = () => {
           {quizData.quiz_intro_title}
         </Text> */}
 
-						{quizData[0].quiz_intro.map((section) => (
+						{quizData?.quiz_intro.map((section) => (
 							<View key={section.title} style={styles.textContainer}>
 								<Text style={styles.textContainerStyle}>{section.content}</Text>
 							</View>

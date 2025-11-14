@@ -15,7 +15,7 @@ const Quiz = () => {
 
 	const commonText = TextData[lang].common;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
-	const [quizData, setQuizData] = useState<QuizLang[]>([]);
+	const [quizData, setQuizData] = useState<QuizLang | null>(null);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -33,7 +33,7 @@ const Quiz = () => {
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
 			console.log(quizJson.en);
-			setQuizData([quizJson.en]);
+			setQuizData(quizJson.en);
 
 			// TOGGLE Loading state OFF
 			setLoading(false);
@@ -70,9 +70,9 @@ const Quiz = () => {
 		);
 	};
 
-	//const isAllAnswered = quizData[0].questions.every((q) =>
-	//selectedAnswers.some((a) => a.question_title === q.title)
-	//);
+	const isAllAnswered = quizData?.questions.every((q) =>
+	selectedAnswers.some((a) => a.question_title === q.title)
+	);
 
 	return (
 		<ScrollView
@@ -92,7 +92,7 @@ const Quiz = () => {
 					>
 						{commonText.answerAll}
 					</Text>
-					{quizData[0].questions.map((question) => (
+					{quizData?.questions.map((question) => (
 						<View key={question.title} style={styles.answerContainer}>
 							<QuizQuestion
 								title={question.title}
@@ -119,8 +119,8 @@ const Quiz = () => {
 					<Button
 						style={{ margin: 10, marginBottom: 50 }}
 						mode="contained"
-						//disabled={!isAllAnswered}
-						disabled={false}
+						disabled={!isAllAnswered}
+						//disabled={false}
 						onPress={() =>
 							router.push({
 								pathname: "/(tabs)/home/game/results",
