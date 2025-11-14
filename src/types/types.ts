@@ -5,6 +5,8 @@ export interface Contact {
 }
 
 export interface QuizType {
+	quiz_id:number;
+	quiz_name:string;
 	fi: QuizLang;
 	en: QuizLang;
 }

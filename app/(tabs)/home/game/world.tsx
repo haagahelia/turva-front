@@ -1,28 +1,28 @@
-import { WorldType } from "@/src/types/types";
+import { QuizType } from "@/src/types/types";
 import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
 const World = () => {
 	const theme = useTheme();
 	const [isLoading, setLoading] = useState(true);
-	const [worlds, setWorlds] = useState<WorldType[]>([]);
+	const [quizData, setQuizData] = useState<QuizType[]>([]);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
 		try {
 			// FETCH
 			const response = await fetch(
-				"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/world"
+				"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/1"
 			);
 
 			// READ response as JSON
 			const responseJson = await response.json();
 			console.log("Response:");
 			console.log(responseJson);
-			// EXTRACT the Quiz content data
-			setWorlds(responseJson);
+
+			setQuizData(responseJson);
 
 			// TOGGLE Loading state OFF
 			setLoading(false);
@@ -52,8 +52,6 @@ const World = () => {
 			resizeMode="cover"
 		>
 			<Text>This is the World screen</Text>
-			
-			
 
 			{isLoading ? (
 				// STATE 1: JSON CONTENT NOT LOADED
@@ -63,6 +61,19 @@ const World = () => {
 			) : (
 				<View>
 					<Text>Loaded!</Text>
+					{quizData.map((quiz) => (
+						<View key={quiz.quiz_id} style={styles.textContainer}>
+							<TouchableOpacity
+								style={[
+									styles.answer,
+									{ backgroundColor: theme.colors.primaryContainer },
+								]}
+								onPress={() => loadWorld(quiz.quiz_id)}
+							>
+								<Text style={styles.textContainerStyle}>{quiz.quiz_name}</Text>
+							</TouchableOpacity>
+						</View>
+					))}
 				</View>
 			)}
 		</ImageBackground>
