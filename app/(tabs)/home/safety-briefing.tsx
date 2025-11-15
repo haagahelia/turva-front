@@ -1,3 +1,4 @@
+import TextData from '@/static/homeTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -11,8 +12,11 @@ import { useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyBriefing() {
   const theme = useTheme();
+  const lang = 'en';
+  const commonText = TextData[lang];
   const { completed, readCount, markCompleted, initializeReadCount } =
     useSafetyStore();
+  
 
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
 
@@ -44,12 +48,12 @@ export default function SafetyBriefing() {
         {/* Header */}
         <View style={styles.header}>
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Turvallisuusperehdytys
+            {commonText.safeHaagaHelia.safetyBriefingTitle}
           </Text>
           <Text
             style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
           >
-            Valitse aihe tutustuaksesi turvallisuusohjeisiin
+           {commonText.safeHaagaHelia.choose}
           </Text>
         </View>
 
@@ -67,12 +71,7 @@ export default function SafetyBriefing() {
                 { color: theme.colors.onSurface },
               ]}
             >
-              🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen
-              kampuksella työskentelevä, opiskeleva tai vieraileva henkilö
-              tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa
-              turvallista ja viihtyisää työ- ja oppimisympäristöä sekä
-              hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi
-              tehdään fiksummin yhdessä!
+            {commonText.safeHaagaHelia.description}
             </Text>
             <View style={styles.progressContainer}>
               <MaterialCommunityIcons
@@ -83,7 +82,7 @@ export default function SafetyBriefing() {
               <Text
                 style={[styles.progressText, { color: theme.colors.primary }]}
               >
-                {readCount} / {briefingItems.length} suoritettu
+                {readCount} / {briefingItems.length} {commonText.safeHaagaHelia.done}
               </Text>
             </View>
           </Card.Content>
@@ -168,7 +167,7 @@ export default function SafetyBriefing() {
               />
             )}
           >
-            Anna palautetta
+            {commonText.safeHaagaHelia.feedback}
           </Button>
         </View>
       </ScrollView>
