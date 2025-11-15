@@ -1,0 +1,16 @@
+{
+    "fi" :{
+        "noTopic": "Aihetta ei löytynyt",
+        "topicNotFound":"Valitettavasti etsimääsi aihetta ei löytynyt järjestelmästä.",
+        "back": "Takaisin",
+        "title": "Turvallisuusohjeet",
+        "understood": "Olen lukenut ja sisäistänyt tämän ohjeen."
+    },
+    "en": {
+        "noTopic": "Topic was not found",
+        "topicNotFound":"Unfortunately the topic you were looking for does not exist.",
+        "back": "Back",
+        "title": "Safety Information",
+        "understood": "I have read and understand these instructions."
+    }
+}
