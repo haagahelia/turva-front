@@ -4,7 +4,7 @@ import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
+//Make images and buttons responsive for all screens
 const { width, height } = Dimensions.get('window');
 
 const IMAGE_HEIGHT = height * 0.35; // 35% of screen height
