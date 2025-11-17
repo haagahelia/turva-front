@@ -78,6 +78,15 @@ const Quiz = () => {
 		selectedAnswers.some((a) => a.question_title === q.title)
 	);
 
+	const loadResultsScreen = (answers: string) => {
+		console.log("BUTTON PRESSED!");
+		console.log(quiz_id);
+		router.push({
+			pathname: "./results",
+			params: { quiz_id: quiz_id, answers: answers },
+		});
+	};
+
 	return (
 		<ScrollView
 			style={{ backgroundColor: theme.colors.background, marginTop: 20 }}
@@ -125,14 +134,7 @@ const Quiz = () => {
 						mode="contained"
 						disabled={!isAllAnswered}
 						//disabled={false}
-						onPress={() =>
-							router.push({
-								pathname: "/(tabs)/home/game/results",
-								params: {
-									answers: JSON.stringify(selectedAnswers),
-								},
-							})
-						}
+						onPress={() => loadResultsScreen(JSON.stringify(selectedAnswers))}
 					>
 						{commonText.end}
 					</Button>
