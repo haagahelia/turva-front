@@ -11,8 +11,8 @@ const World = () => {
 	const [quizData, setQuizData] = useState<QuizType[]>([]);
 
 	const { world_id } = useLocalSearchParams<{ world_id: string }>();
-	console.log("ID after loading World.tsx:")
-	console.log(world_id)
+	console.log("World ID after loading World.tsx:");
+	console.log(world_id);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -49,7 +49,10 @@ const World = () => {
 	const loadQuiz = (quiz_id: number) => {
 		console.log("BUTTON PRESSED!");
 		console.log(quiz_id);
-		router.push("/home/game/quiz");
+		router.push({
+			pathname: "./quiz-introduction",
+			params: { quiz_id: quiz_id },
+		});
 	};
 
 	return (

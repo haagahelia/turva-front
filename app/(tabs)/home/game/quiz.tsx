@@ -1,5 +1,5 @@
 import { Answer, Language, QuizLang } from "@/src/types/types";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -13,6 +13,10 @@ const Quiz = () => {
 	const lang: Language = "en";
 	const [isLoading, setLoading] = useState(true);
 
+	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
+	console.log("ID after loading Quiz.tsx:");
+	console.log(quiz_id);
+
 	const commonText = TextData[lang].common;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
@@ -22,7 +26,7 @@ const Quiz = () => {
 		try {
 			// FETCH
 			const response = await fetch(
-				"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/1"
+				`https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/${quiz_id}`
 			);
 
 			// READ response as JSON
@@ -71,7 +75,7 @@ const Quiz = () => {
 	};
 
 	const isAllAnswered = quizData?.questions.every((q) =>
-	selectedAnswers.some((a) => a.question_title === q.title)
+		selectedAnswers.some((a) => a.question_title === q.title)
 	);
 
 	return (

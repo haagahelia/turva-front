@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { View } from "moti";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 
 const Worlds = () => {
 	const theme = useTheme();
@@ -56,17 +56,11 @@ const Worlds = () => {
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<Text>This is the worlds screen</Text>
-			<Text>
+			<Text style={styles.textContainer}>This is the worlds screen</Text>
+			<Text style={styles.textContainer}>
 				From here, the user should be able to access different levels / quizzes
 				in the game{" "}
 			</Text>
-			<Button
-				onPress={() => router.push("/home/game/quiz-introduction")}
-				style={styles.button}
-			>
-				To the quiz 1
-			</Button>
 
 			{isLoading ? (
 				// STATE 1: JSON CONTENT NOT LOADED

@@ -1,5 +1,5 @@
 import { QuizLang } from "@/src/types/types";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -30,12 +30,16 @@ const QuizIntro = () => {
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
 	const uiText = (TextData as any)[lang];
 
+	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
+	console.log("ID after loading Quiz-introduction.tsx:");
+	console.log(quiz_id);
+
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
 		try {
 			// FETCH
 			const response = await fetch(
-				"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/1"
+				`https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/${quiz_id}`
 			);
 
 			// READ response as JSON
@@ -63,6 +67,17 @@ const QuizIntro = () => {
 			getQuizFromApiAsync();
 		}
 	});
+
+
+	const loadQuiz = () => {
+		console.log("BUTTON PRESSED!");
+		console.log(quiz_id);
+		router.push({
+			pathname: "./quiz",
+			params: { quiz_id: quiz_id },
+		});
+	};
+
 
 	return (
 		<ImageBackground
@@ -100,7 +115,7 @@ const QuizIntro = () => {
 
 						<Button
 							icon="gamepad-variant-outline"
-							onPress={() => router.push("/home/game/quiz")}
+							onPress={() => loadQuiz()}
 							style={styles.button}
 							mode="contained"
 							//override to make the color of the button always as in light theme
