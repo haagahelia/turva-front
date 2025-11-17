@@ -209,10 +209,17 @@ export default function HomeDrawerLayout() {
             title: "Turvallisuusperehdytys",
           }}
         />
-      <Drawer.Screen
-        name="game"
-        options={{ drawerItemStyle: { display: "none" } }} // hide from drawer but keep it as a route
-      />
+        <Drawer.Screen
+          name="security-report"
+          options={{
+            // Hide from drawer menu but keep it as a route
+            drawerItemStyle: { display: "none" },
+          }}
+        />
+        <Drawer.Screen
+          name="game"
+          options={{ drawerItemStyle: { display: "none" } }} // hide from drawer but keep it as a route
+        />
         <Drawer.Screen
           name="safety-info"
           options={{
