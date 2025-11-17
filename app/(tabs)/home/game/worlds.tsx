@@ -44,7 +44,10 @@ const Worlds = () => {
 	const loadWorld = (world_id: number) => {
 		console.log("BUTTON PRESSED!");
 		console.log(world_id);
-    router.push("/home/game/world")
+		router.push({
+			pathname: "./world",
+			params: { world_id: world_id },
+		});
 	};
 
 	return (
