@@ -65,7 +65,12 @@ const World = () => {
 				style={styles.scrollViewStyle}
 				contentContainerStyle={styles.contentContainer}
 			>
-				<Text>This is the World screen</Text>
+				
+				<Text style={styles.textContainer}>This is the worlds screen</Text>
+				<Text style={styles.textContainer}>
+					From here, the user should be able to access different levels /
+					quizzes in the game{" "}
+				</Text>
 
 				{isLoading ? (
 					// STATE 1: JSON CONTENT NOT LOADED
@@ -74,7 +79,6 @@ const World = () => {
 					</View>
 				) : (
 					<View>
-						<Text>Loaded!</Text>
 						{quizData?.map((quiz) => (
 							<View key={quiz.quiz_id} style={styles.textContainer}>
 								<TouchableOpacity
