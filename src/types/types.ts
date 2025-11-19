@@ -5,6 +5,8 @@ export interface Contact {
 }
 
 export interface QuizType {
+	quiz_id:number;
+	quiz_name:string;
 	fi: QuizLang;
 	en: QuizLang;
 }
@@ -15,7 +17,7 @@ export interface QuizLang {
 	questions: Question[];
 }
 
-export type Language = 'en' | 'fi';
+export type Language = "en" | "fi";
 
 //Onboarding - TextData.json
 
@@ -39,6 +41,14 @@ export interface CommonTexts {
 	answerAll: string;
 	end: string;
 	start: string;
+}
+
+// Quiz Worlds
+
+export interface WorldType {
+	world_id: number;
+	world_name: string;
+	order_number: number;
 }
 
 //Quiz Structure
