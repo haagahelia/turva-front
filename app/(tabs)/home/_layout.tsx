@@ -210,7 +210,7 @@ export default function HomeDrawerLayout() {
           }}
         />
         <Drawer.Screen
-          name="security-report"
+          name="report-description-screen"
           options={{
             // Hide from drawer menu but keep it as a route
             drawerItemStyle: { display: "none" },

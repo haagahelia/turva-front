@@ -82,7 +82,10 @@ export default function Index() {
 
           <Button
             mode="contained"
-            onPress={() => router.navigate('/(tabs)/home/security-report')}
+            onPress={() => router.push({
+              pathname: "/(tabs)/home/report-description-screen",
+              params: { type: "security" },
+            })}
             style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
             textColor={theme.colors.primary}      // text color
@@ -100,7 +103,10 @@ export default function Index() {
 
           <Button
             mode="contained"
-            onPress={() => router.navigate('/(tabs)/home/aaa')}
+            onPress={() => router.push({
+              pathname: "/(tabs)/home/report-description-screen",
+              params: { type: "harassment" },
+            })}
             style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
             textColor={theme.colors.primary}      // text color
