@@ -1,11 +1,12 @@
 import { reportContent, ReportType } from "@/src/content/reportContent";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SecurityReport() {
     const theme = useTheme();
+    const router = useRouter();
 
     // Get the type from the route, e.g. ?type=security or ?type=harassment
     const { type } = useLocalSearchParams<{ type: ReportType }>();
@@ -54,9 +55,13 @@ export default function SecurityReport() {
                     mode="contained"
                     style={styles.button}
                     labelStyle={{ fontSize: 18 }}
+                    onPress={() => {
+                        router.push(`/home/report-form-screen?type=${reportType}&lang=${lang}` as any);
+                    }}
                 >
                     {data.buttonText[lang]}
                 </Button>
+
 
             </ScrollView>
         </SafeAreaView>
