@@ -1,8 +1,19 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+//Make images and buttons responsive for all screens
+const { width, height } = Dimensions.get('window');
+
+const IMAGE_HEIGHT = height * 0.35; // 35% of screen height
+const BUTTON_HEIGHT = height * 0.08; // 9% of screen height
+const BUTTON_FONT = width * 0.05; // 5% of screen width
+const ICON_SIZE = width * 0.06;          // 6% of screen width
+const IMAGE_SPACING = height * 0.01;    // 2% of screen height
+const BUTTONSTACK_MARGIN = height * 0.05; // 5% of screen height
+
 
 // Koti screen (Index is always the default first screen)
 export default function Index() {
@@ -42,7 +53,7 @@ export default function Index() {
             icon={(props) => (
               <MaterialCommunityIcons
                 name="school"
-                size={25}           // <-- change the icon size here
+                size={ICON_SIZE}           // <-- change the icon size here
                 color={props.color} // keeps the color consistent with textColor
               />
             )}
@@ -61,7 +72,7 @@ export default function Index() {
             icon={(props) => (
               <MaterialCommunityIcons
                 name="gamepad-variant"
-                size={25}           // <-- change the icon size here
+                size={ICON_SIZE}           // <-- change the icon size here
                 color={props.color} // keeps the color consistent with textColor
               />
             )}
@@ -71,7 +82,10 @@ export default function Index() {
 
           <Button
             mode="contained"
-            onPress={() => router.navigate('/(tabs)/home/bbb')}
+            onPress={() => router.push({
+              pathname: "/(tabs)/home/report-description-screen",
+              params: { type: "security" },
+            })}
             style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
             textColor={theme.colors.primary}      // text color
@@ -79,7 +93,7 @@ export default function Index() {
             icon={(props) => (
               <MaterialCommunityIcons
                 name="file-document-edit"
-                size={25}           // <-- change the icon size here
+                size={ICON_SIZE}           // <-- change the icon size here
                 color={props.color} // keeps the color consistent with textColor
               />
             )}
@@ -89,7 +103,10 @@ export default function Index() {
 
           <Button
             mode="contained"
-            onPress={() => router.navigate('/(tabs)/home/aaa')}
+            onPress={() => router.push({
+              pathname: "/(tabs)/home/report-description-screen",
+              params: { type: "harassment" },
+            })}
             style={[styles.button, { borderColor: theme.colors.primary }]}
             labelStyle={styles.buttonLabel}
             textColor={theme.colors.primary}      // text color
@@ -97,7 +114,7 @@ export default function Index() {
             icon={(props) => (
               <MaterialCommunityIcons
                 name="hand-back-left"
-                size={25}           // <-- change the icon size here
+                size={ICON_SIZE}           // <-- change the icon size here
                 color={props.color} // keeps the color consistent with textColor
               />
             )}
@@ -138,24 +155,23 @@ const styles = StyleSheet.create({
   },
   buttonStack: {
     width: '100%',
-    marginBottom: 60,
+    marginBottom: BUTTONSTACK_MARGIN,
+  },
+  image: {
+    width: '100%',
+    height: IMAGE_HEIGHT,
+    marginBottom: IMAGE_SPACING,
   },
   button: {
     width: '100%',
     borderRadius: 100,
     marginBottom: 16,
-    height: 75,
+    height: BUTTON_HEIGHT,
     justifyContent: 'center',
     borderWidth: 5,
   },
   buttonLabel: {
-    fontSize: 20,
+    fontSize: BUTTON_FONT,
     textAlign: 'center',
   },
-  image: {
-    width: "100%",
-    height: 270,
-    marginBottom: 10,
-    marginRight: 10,
-  }
 });
