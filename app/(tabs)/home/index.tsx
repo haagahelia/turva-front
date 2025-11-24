@@ -1,3 +1,4 @@
+import TextData from "@/static/homeTexts.json";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
@@ -21,6 +22,8 @@ export default function Index() {
   // This is how you access the environment variables
   // This can be removed later
   const theme = useTheme();
+  const lang = "fi";
+  const text = TextData[lang];
 
   // Added this in anticipation for new screens (where the buttons take us)
   //const handleButtonPress = (screen: string) => {};
@@ -58,7 +61,7 @@ export default function Index() {
               />
             )}
           >
-            Turvallisuusperehdytys
+            {text.safetyBriefing}
           </Button>
 
 
@@ -77,10 +80,10 @@ export default function Index() {
               />
             )}
           >
-            TurvallisuusMestari
+            {text.game}
           </Button>
 {/* Commented out because functionality is not done */}
-          {/* <Button
+          <Button
             mode="contained"
             onPress={() => router.push({
               pathname: "/(tabs)/home/report-description-screen",
@@ -98,7 +101,7 @@ export default function Index() {
               />
             )}
           >
-            Ilmoita turvallisuushavainto
+            {text.safetyPerception}
           </Button>
 
           <Button
@@ -119,8 +122,8 @@ export default function Index() {
               />
             )}
           >
-            Ilmoita epäasiallisesta kohtelusta
-          </Button> */}
+            {text.report}
+          </Button>
         </View>
       </ScrollView>
     </SafeAreaView>
