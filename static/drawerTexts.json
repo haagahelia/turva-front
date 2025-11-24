@@ -23,14 +23,37 @@
             "description": "Lue uusimmat turvallisuusteeman uutiset Haaga-Helian sivuilta.🎉",
             "button": "Ajankohtaista"
         },
-        "reportDescriptionScreen": {
-
-        },
         "rules": {
-
+            "title": "Järjestyssäännöt",
+            "description":"Järjestyssaännöllä turvataan korkeakoulujen yleinen turvallisuus, edistetaän työnja opiskelun esteetöntä sujumista sekä tasapuolista kohtelua.",
+            "button":"Haaga-Helian järjestyssäännöt"
         },
         "safeHaagaHelia": {
-
+            "title": "Turvallinen Haaga-Helia",
+            "safetyBriefingTitle": "Turvallisuusperehdetys",
+            "choose": "Valitse aihe tutustuaksesi turvallisuusohjeisiin.",
+            "description": [
+                "🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä!",
+                "Tässä turvallisuusperehdytyksessä saat tietoa näistä turvallisuuteen liittyvistä asioista: ", 
+            [
+            "turvallisuuskävely", 
+            "valmius- ja kriisiryhmä",
+            "turvaopas" ,
+            "pelastussuunnitelma" ,
+            "järjestyssäännöt" ,
+            "turvallisuushavaintoilmoitus" ,
+            "poistuminen rakennuksesta" ,
+            "sisälle suojautuminen" 
+            ] 
+        ], 
+        "done":"Suoritettu",
+        "common": {
+            "follow": "Seuraa myös turvallisuuden sivustoa",
+            "followLinkText":"Turvallinen Haaga-Helia.",
+            "campuses": "Haaga-Helia toimii viidellä kampuksella Pasilassa, Haagassa, Malmilla, Porvoossa ja Vierumäellä. Kampuksilla on tallentava kameravalvonta.",
+            "campusLinkText": "Tietoa kampuksista, saavutettavuudesta ja niiden aukioloajoista."
+        },
+        "feedback":"Anna palautetta"
         }
     },
     "en": {
@@ -57,14 +80,37 @@
             "description": "Read newest safety-related news from Haaga-Helia's website.🎉",
             "button": "Current news"
         },
-        "reportDescriptionScreen": {
-
-        },
         "rules": {
-
+            "title": "Rules and regulations",
+            "description":"🎓 The rules and regulations provide information about your rights and responsibilities as a student. The purpose of the rules and regulations is to promote internal order, the smooth running of studies, and the safety and comfort of the university community.",
+            "button":"Haaga-Helia's Rules and regulations"            
         },
         "safeHaagaHelia": {
-
+            "title": "A safe Haaga-Helia",
+            "safetyBriefingTitle": "Safety briefing",
+            "choose":"Pick a topic to get to know the safety instructions.",
+            "description": [
+                "🎓 The aim of Haaga-Helias safety work is to ensure that every person on campus feels safe, whether they are working, studying or just visiting. You are for your part contributing to the creation of a safe and comfortable working and learning environment and a thriving Haaga-Helia community. Safety and well-being are achieved more effectively when we work together! ",
+                "In this safety orientation you will receive information on the following safety-related matters: ", 
+            [
+            "safety walk", 
+            "preparedness and crisis team",
+            "safety guide" ,
+            "rescue plan" ,
+            "rules and regulations" ,
+            "safety observation report" ,
+            "exiting the building" ,
+            "taking shelter indoors" 
+            ] 
+        ], 
+        "done":"Done",
+        "common": {
+            "follow": "Also check out Haaga-Helia’s safety webpage",
+            "followLinkText":"Safe Haaga-Helia",
+            "campuses": "Haaga-Helia operates on five different campuses in Pasila, Haaga, Malmi, Porvoo and Vierumäki. All campuses have recording CCTV surveillance.",
+            "campusLinkText": "Information about campuses, accessibility and opening hours (About Haaga-Helia)"
+        },
+        "feedback":"Give us feedback!"
         }
     }
 }

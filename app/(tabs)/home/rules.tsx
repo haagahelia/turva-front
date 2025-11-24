@@ -1,3 +1,4 @@
+import TextData from '@/static/drawerTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
 import { useEffect, useState } from "react";
@@ -5,13 +6,13 @@ import { Linking, ScrollView, StyleSheet } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
-
 // Järjestyssäännöt screen
 export default function RulesAndRegulationsScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
+  const lang= 'fi';
+  const text = TextData[lang].rules;
 
   useEffect(() => {
     if (isFocused) {
@@ -61,10 +62,10 @@ export default function RulesAndRegulationsScreen() {
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Järjestyssäännöt
+            {text.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            Järjestyssaännöllä turvataan korkeakoulujen leinen turvallisuus, edistetaän työnja opiskelun esteetöntä sujumista sekä tasapuolista kohtelua.
+            {text.description}
           </Text>
         </MotiView>
 
@@ -81,7 +82,7 @@ export default function RulesAndRegulationsScreen() {
             style={styles.button}
             onPress={openPDF}
           >
-            Haaga-Helian järjestyssäännöt
+            {text.button}
           </Button>
         </MotiView>
       </ScrollView>

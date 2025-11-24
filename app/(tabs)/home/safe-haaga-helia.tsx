@@ -1,5 +1,5 @@
 import { Language } from "@/src/types/types";
-import TextData from '@/static/homeTexts.json';
+import TextData from '@/static/drawerTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
@@ -13,7 +13,7 @@ export default function SafeHaagaHeliaScreen() {
 
   const theme = useTheme();
   const lang: Language = 'fi';
-  const textData = TextData[lang].safeHaagaHelia;
+  const text = TextData[lang].safeHaagaHelia;
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
 
@@ -63,10 +63,10 @@ export default function SafeHaagaHeliaScreen() {
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            {textData.title}
+            {text.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            {textData.description[0]}
+            {text.description[0]}
           </Text>
         </MotiView>
 
@@ -83,7 +83,7 @@ export default function SafeHaagaHeliaScreen() {
             style={styles.button}
             onPress={openWebsite}
           >
-            {textData.common.followLinkText}
+            {text.common.followLinkText}
           </Button>
         </MotiView>
 
