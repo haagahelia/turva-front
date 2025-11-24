@@ -3,12 +3,60 @@
         "about": {
             "title": "Sovelluksen tiedot",
             "developers": "Sovelluksen kehittäjät: "
+        },
+        "campusInstructions": {
+            "title":"Kampusten pelastussuunnitelmat ja toiminta vaaratilanteissa",
+            "description": "Täältä löydät Haaga-Helian turvallisuusoppaan sekä kampusten turvallisuuskävelyvideot, pelastussuunnitelmat sekä toimintaohjeet vaaratilanteissa.",
+            "safetyInstructions": "Turvallisuusohjeet",
+            "rescuePlans": "Pelastussuunnitelmat"
+        },
+        "crisisTeamContact": {
+
+        },
+        "emergencyApp": {
+
+        },
+        "news": {
+
+        },
+        "reportDescriptionScreen": {
+
+        },
+        "rules": {
+
+        },
+        "safeHaagaHelia": {
+
         }
     },
     "en": {
         "about": {
             "title": "App info",
             "developers": "Developers"
+        },
+        "campusInstructions": {
+            "title":"Kampusten pelastussuunnitelmat ja toiminta vaaratilanteissa",
+            "description": "Täältä löydät Haaga-Helian turvallisuusoppaan sekä kampusten turvallisuuskävelyvideot, pelastussuunnitelmat sekä toimintaohjeet vaaratilanteissa.",
+            "safetyInstructions": "Safety Instructions",
+            "rescuePlans": "Rescue plans"
+        },
+        "crisisTeamContact": {
+
+        },
+        "emergencyApp": {
+
+        },
+        "news": {
+
+        },
+        "reportDescriptionScreen": {
+
+        },
+        "rules": {
+
+        },
+        "safeHaagaHelia": {
+
         }
     }
 }
