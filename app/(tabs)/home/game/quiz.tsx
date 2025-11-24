@@ -21,6 +21,10 @@ const Quiz = () => {
 	console.log("World ID after loading Quiz.tsx:");
 	console.log(world_id);
 
+	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	console.log("World Name after loading Quiz.tsx:");
+	console.log(world_name);
+
 	const commonText = TextData[lang].common;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
@@ -87,7 +91,7 @@ const Quiz = () => {
 		console.log(quiz_id);
 		router.push({
 			pathname: "./results",
-			params: { quiz_id: quiz_id, answers: answers },
+			params: { quiz_id: quiz_id, answers: answers, world_id: world_id, world_name: world_name },
 		});
 	};
 

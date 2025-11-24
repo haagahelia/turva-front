@@ -60,6 +60,7 @@ const World = () => {
 			params: {
 				quiz_id: quiz_id,
 				world_id: world_id,
+				world_name: world_name
 			},
 		});
 	};

@@ -93,3 +93,10 @@ export interface WorldResults {
 	allCorrectButton: string;
 	notAllCorrectButton: string;
 }
+
+export interface QuizParams {
+	world_id: number;
+	world_name: string;
+	quiz_id: number;
+	selectedAnswers: Answer[]
+}
