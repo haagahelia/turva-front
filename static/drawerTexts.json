@@ -15,7 +15,8 @@
             "description": "Haaga-Heliassa on valmius- ja kriisiryhmä, jonka tehtävänä on huolehtia häiriötilanteisiin varautumisesta sekä toiminnasta häiriötilanteissa, jotka koskevat koko Haaga-Heliaa."
         },
         "emergencyApp": {
-
+            "title": "Asenna 112 Suomi - sovellus",
+            "description":" Tee turvallisuusteko ja lataa 112 Suomi -sovellus. Saat apua oikeaan paikkaan hätä- ja ongelmatilanteissa. `\n`Sovelluksesta löydät myös päivystysnumeroita kiireettomaän avuntarpeeseen ja lisäksi saat vaara- ja viranomaistiedotteet suoraan puhelimeesi."
         },
         "news": {
 
@@ -46,7 +47,8 @@
             "description": "Haaga-Helia has a preparedness and crisis team, whose task is to prepare for, and respond to, incidents affecting Haaga-Helia. The aim is to prevent psychological and physical adverse effects, maintain the functioning of the university community and its members, support people's recovery, and strengthen the community and its members' ability to cope with difficult situations."
         },
         "emergencyApp": {
-
+            "title": "Download 112 Suomi - app",
+            "description":"Do a safety favor and download the 112 Suomi app. You will get help to the right location in emergency and problem situations. `\n`In the app you can also find on-call numbers for non-urgent assistance, and you will receive hazard and authority alerts directly to your phone."
         },
         "news": {
 
