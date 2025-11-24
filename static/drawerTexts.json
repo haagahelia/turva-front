@@ -11,7 +11,8 @@
             "rescuePlans": "Pelastussuunnitelmat"
         },
         "crisisTeamContact": {
-
+            "title": "Haaga-Helian valmius- ja kriisiryhmä",
+            "description": "Haaga-Heliassa on valmius- ja kriisiryhmä, jonka tehtävänä on huolehtia häiriötilanteisiin varautumisesta sekä toiminnasta häiriötilanteissa, jotka koskevat koko Haaga-Heliaa."
         },
         "emergencyApp": {
 
@@ -41,7 +42,8 @@
             "rescuePlans": "Rescue plans"
         },
         "crisisTeamContact": {
-
+            "title": "Haaga-Helia’s preparedness and crisis team",
+            "description": "Haaga-Helia has a preparedness and crisis team, whose task is to prepare for, and respond to, incidents affecting Haaga-Helia. The aim is to prevent psychological and physical adverse effects, maintain the functioning of the university community and its members, support people's recovery, and strengthen the community and its members' ability to cope with difficult situations."
         },
         "emergencyApp": {
 
