@@ -19,7 +19,9 @@
             "description":" Tee turvallisuusteko ja lataa 112 Suomi -sovellus. Saat apua oikeaan paikkaan hätä- ja ongelmatilanteissa. `\n`Sovelluksesta löydät myös päivystysnumeroita kiireettomaän avuntarpeeseen ja lisäksi saat vaara- ja viranomaistiedotteet suoraan puhelimeesi."
         },
         "news": {
-
+            "title": "Haaga-Helian turvallisuusuutiset",
+            "description": "Lue uusimmat turvallisuusteeman uutiset Haaga-Helian sivuilta.🎉",
+            "button": "Ajankohtaista"
         },
         "reportDescriptionScreen": {
 
@@ -51,7 +53,9 @@
             "description":"Do a safety favor and download the 112 Suomi app. You will get help to the right location in emergency and problem situations. `\n`In the app you can also find on-call numbers for non-urgent assistance, and you will receive hazard and authority alerts directly to your phone."
         },
         "news": {
-
+            "title": "Haaga-Helia's safety news",
+            "description": "Read newest safety-related news from Haaga-Helia's website.🎉",
+            "button": "Current news"
         },
         "reportDescriptionScreen": {
 

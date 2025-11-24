@@ -1,3 +1,4 @@
+import TextData from '@/static/drawerTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
@@ -10,6 +11,8 @@ export default function NewsScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
+    const lang = 'fi';
+  const text = TextData[lang].news;
 
   useEffect(() => {
     if (isFocused) {
@@ -57,10 +60,10 @@ export default function NewsScreen() {
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Haaga-Helian turvallisuusuutiset
+            {text.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            Lue uusimmat turvallisuusteeman uutiset Haaga-Helian sivuilta.🎉
+            {text.description}
           </Text>
         </MotiView>
 
@@ -77,7 +80,7 @@ export default function NewsScreen() {
             style={styles.button}
             onPress={openWebsite}
           >
-            Ajankohtaista
+            {text.button}
           </Button>
         </MotiView>
       </ScrollView>
