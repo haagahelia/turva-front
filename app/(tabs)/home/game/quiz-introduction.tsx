@@ -31,8 +31,12 @@ const QuizIntro = () => {
 	const uiText = (TextData as any)[lang];
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
-	console.log("ID after loading Quiz-introduction.tsx:");
+	console.log("Quiz ID after loading Quiz-introduction.tsx:");
 	console.log(quiz_id);
+
+	const { world_id } = useLocalSearchParams<{ world_id: string }>();
+	console.log("World ID after loading Quiz-introduction.tsx:");
+	console.log(world_id);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -75,6 +79,17 @@ const QuizIntro = () => {
 		router.push({
 			pathname: "./quiz",
 			params: { quiz_id: quiz_id },
+		});
+	};
+
+		const loadWorld = () => {
+		console.log("BUTTON PRESSED!");
+		console.log(world_id);
+		router.push({
+			pathname: "./world",
+			params: {
+				world_id: world_id,
+			},
 		});
 	};
 
@@ -124,6 +139,20 @@ const QuizIntro = () => {
 						>
 							{uiText.common.start}
 						</Button>
+
+				<Button
+					icon="gamepad-variant-outline"
+					onPress={() => loadWorld()}
+					style={styles.button}
+					mode="contained"
+					//override to make the color of the button always as in light theme
+					buttonColor="#00629F"
+					textColor="#FFFFFF"
+				>
+					Back to World
+				</Button>
+
+
 					</View>
 				)}
 			</ScrollView>

@@ -14,6 +14,12 @@ const World = () => {
 	console.log("World ID after loading World.tsx:");
 	console.log(world_id);
 
+	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	console.log("World Name after loading World.tsx:");
+	console.log(world_name);
+
+	
+
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
 		try {
@@ -75,10 +81,9 @@ const World = () => {
 				style={styles.scrollViewStyle}
 				contentContainerStyle={styles.contentContainer}
 			>
-				<Text style={styles.textContainer}>This is the worlds screen</Text>
+				<Text style={styles.textContainer}>{world_name}</Text>
 				<Text style={styles.textContainer}>
-					From here, the user should be able to access different levels /
-					quizzes in the game{" "}
+					Clear each Quiz in this World!{" "}
 				</Text>
 
 				{isLoading ? (

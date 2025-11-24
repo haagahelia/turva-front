@@ -14,8 +14,12 @@ const Quiz = () => {
 	const [isLoading, setLoading] = useState(true);
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
-	console.log("ID after loading Quiz.tsx:");
+	console.log("Quiz ID after loading Quiz.tsx:");
 	console.log(quiz_id);
+
+	const { world_id } = useLocalSearchParams<{ world_id: string }>();
+	console.log("World ID after loading Quiz.tsx:");
+	console.log(world_id);
 
 	const commonText = TextData[lang].common;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);

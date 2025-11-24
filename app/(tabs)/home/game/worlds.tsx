@@ -41,12 +41,12 @@ const Worlds = () => {
 		}
 	});
 
-	const loadWorld = (world_id: number) => {
+	const loadWorld = (world_id: number, world_name: string) => {
 		console.log("BUTTON PRESSED!");
 		console.log(world_id);
 		router.push({
 			pathname: "./world",
-			params: { world_id: world_id },
+			params: { world_id: world_id, world_name: world_name },
 		});
 	};
 
@@ -76,7 +76,7 @@ const Worlds = () => {
 									styles.answer,
 									{ backgroundColor: theme.colors.primaryContainer },
 								]}
-								onPress={() => loadWorld(world.world_id)}
+								onPress={() => loadWorld(world.world_id, world.world_name)}
 							>
 								<Text style={styles.textContainerStyle}>
 									{world.world_name}
