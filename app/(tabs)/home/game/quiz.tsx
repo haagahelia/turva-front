@@ -91,7 +91,24 @@ const Quiz = () => {
 		console.log(quiz_id);
 		router.push({
 			pathname: "./results",
-			params: { quiz_id: quiz_id, answers: answers, world_id: world_id, world_name: world_name },
+			params: {
+				quiz_id: quiz_id,
+				answers: answers,
+				world_id: world_id,
+				world_name: world_name,
+			},
+		});
+	};
+
+	const loadWorld = () => {
+		console.log("BUTTON PRESSED!");
+		console.log(world_id);
+		router.push({
+			pathname: "./world",
+			params: {
+				world_id: world_id,
+				world_name: world_name,
+			},
 		});
 	};
 
@@ -146,6 +163,18 @@ const Quiz = () => {
 					>
 						{commonText.end}
 					</Button>
+
+					<Button
+						icon="gamepad-variant-outline"
+						onPress={() => loadWorld()}
+						style={styles.button}
+						mode="contained"
+						//override to make the color of the button always as in light theme
+						buttonColor="#00629F"
+						textColor="#FFFFFF"
+					>
+						Back to World
+					</Button>
 				</View>
 			)}
 		</ScrollView>
@@ -156,6 +185,11 @@ const styles = StyleSheet.create({
 	answerContainer: {
 		marginBottom: 24,
 		marginHorizontal: 10,
+	},
+	button: {
+		borderRadius: 24,
+		alignSelf: "center",
+		marginBottom: 20,
 	},
 });
 
