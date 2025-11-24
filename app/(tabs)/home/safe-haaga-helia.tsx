@@ -66,7 +66,7 @@ export default function SafeHaagaHeliaScreen() {
             {text.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            {text.description[0]}
+            {text.description}
           </Text>
         </MotiView>
 
@@ -83,7 +83,7 @@ export default function SafeHaagaHeliaScreen() {
             style={styles.button}
             onPress={openWebsite}
           >
-            {text.common.followLinkText}
+            {text.title}
           </Button>
         </MotiView>
 
