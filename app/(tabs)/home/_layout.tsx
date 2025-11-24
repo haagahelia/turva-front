@@ -1,4 +1,5 @@
 import ThemeButton from "@/src/components/ThemeButton";
+import LanguageButton from "@/src/components/LanguageButton";
 import { Ionicons } from "@expo/vector-icons";
 import {
   DrawerContentScrollView,
@@ -50,6 +51,7 @@ function CustomDrawerContent(props: any) {
         }}
       >
         <ThemeButton />
+        <LanguageButton />
       </View>
     </DrawerContentScrollView>
   );
