@@ -1,0 +1,14 @@
+{
+    "fi": {
+        "about": {
+            "title": "Sovelluksen tiedot",
+            "developers": "Sovelluksen kehittäjät: "
+        }
+    },
+    "en": {
+        "about": {
+            "title": "App info",
+            "developers": "Developers"
+        }
+    }
+}

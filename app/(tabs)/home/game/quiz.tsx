@@ -10,7 +10,7 @@ import QuizQuestion from "./quiz-question";
 
 const Quiz = () => {
 	const theme = useTheme();
-	const lang: Language = "en";
+	const lang: Language = "fi";
 	const [isLoading, setLoading] = useState(true);
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();

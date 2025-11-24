@@ -25,7 +25,7 @@ const QuizIntro = () => {
 	//}
 	//}
 
-	const lang = "en";
+	const lang = "fi";
 	const [isLoading, setLoading] = useState(true);
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
 	const uiText = (TextData as any)[lang];
@@ -57,8 +57,8 @@ const QuizIntro = () => {
 			// EXTRACT the Quiz content data
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
-			console.log(quizJson.en);
-			setQuizData(quizJson.en);
+			console.log(quizJson[lang]);
+			setQuizData(quizJson[lang]);
 
 			// TOGGLE Loading state OFF
 			setLoading(false);
