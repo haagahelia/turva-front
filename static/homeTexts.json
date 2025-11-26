@@ -19,6 +19,19 @@
             "about":"Tietoa sovelluksesta",
             "safetyBriefing":"Turvallisuusperehdytys",
             "safetyInfo":"Turvallisuusinfo"
+         },
+         "profile":{
+            "title":"Profiili",
+            "points":"Pisteet",
+            "rewards":"Palkintokaappi",
+            "time": "Kokonaisaika",
+            "logout":"Kirjaudu ulos",
+            "settings":"Asetukset"
+         },
+        "tabs": {
+            "home": "Koti",
+            "search": "Haku",
+            "camera": "Kamera"
          }
     },
     "en": {
@@ -41,6 +54,19 @@
             "about":"About",
             "safetyBriefing":"Safety Briefing",
             "safetyInfo":"Safety Info"
-        }
+        },
+        "profile":{
+            "title":"Profile",
+            "points":"Points",
+            "rewards":"Rewards",
+            "time":"Time",
+            "logout":"Log out",
+            "settings":"Settings"
+         },
+         "tabs": {
+            "home": "Home",
+            "search": "Search",
+            "camera": "Camera"
+         }
     }
 }

@@ -1,3 +1,4 @@
+import TextData from "@/static/homeTexts.json";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs, useRouter } from "expo-router";
 import { useTheme } from "react-native-paper";
@@ -5,6 +6,8 @@ import { useTheme } from "react-native-paper";
 export default function TabLayout() {
   const theme = useTheme();
   const router = useRouter();
+  const lang = "fi";
+  const text = TextData[lang].tabs;
 
   return (
     <Tabs
@@ -21,7 +24,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Koti", // This should be the same title as the nested drawer navigations index file (home/index.tsx)
+          title: `${text.home}`, // This should be the same title as the nested drawer navigations index file (home/index.tsx)
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
@@ -39,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          title: "Haku",
+          title: `${text.search}`,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search" size={size} color={color} />
           ),
@@ -48,7 +51,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="camera"
         options={{
-          title: "Kamera",
+          title: `${text.camera}`,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="camera" size={size} color={color} />
           ),

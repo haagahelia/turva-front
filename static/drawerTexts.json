@@ -32,6 +32,10 @@
             "title": "Turvallinen Haaga-Helia",
             "description": 
                 "🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä!"
+        },
+        "theme": {
+            "light":"Vaalea",
+            "dark":"Tumma"
         }
     },
     "en": {
@@ -66,6 +70,10 @@
         "safeHaagaHelia": {
             "title": "A safe Haaga-Helia",
             "description": "🎓 The aim of Haaga-Helias safety work is to ensure that every person on campus feels safe, whether they are working, studying or just visiting. You are for your part contributing to the creation of a safe and comfortable working and learning environment and a thriving Haaga-Helia community. Safety and well-being are achieved more effectively when we work together!"
-         }
+         },
+        "theme": {
+            "light":"Light",
+            "dark":"Dark"
+        }
     }
 }
