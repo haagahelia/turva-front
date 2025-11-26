@@ -3,7 +3,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { ScrollView, View } from "moti";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 
 const World = () => {
 	const theme = useTheme();
@@ -13,6 +13,12 @@ const World = () => {
 	const { world_id } = useLocalSearchParams<{ world_id: string }>();
 	console.log("World ID after loading World.tsx:");
 	console.log(world_id);
+
+	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	console.log("World Name after loading World.tsx:");
+	console.log(world_name);
+
+	
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -51,7 +57,18 @@ const World = () => {
 		console.log(quiz_id);
 		router.push({
 			pathname: "./quiz-introduction",
-			params: { quiz_id: quiz_id },
+			params: {
+				quiz_id: quiz_id,
+				world_id: world_id,
+				world_name: world_name
+			},
+		});
+	};
+
+	const loadWorlds = () => {
+		console.log("BUTTON PRESSED!");
+		router.push({
+			pathname: "./worlds",
 		});
 	};
 
@@ -65,11 +82,9 @@ const World = () => {
 				style={styles.scrollViewStyle}
 				contentContainerStyle={styles.contentContainer}
 			>
-				
-				<Text style={styles.textContainer}>This is the worlds screen</Text>
+				<Text style={styles.textContainer}>{world_name}</Text>
 				<Text style={styles.textContainer}>
-					From here, the user should be able to access different levels /
-					quizzes in the game{" "}
+					Clear each Quiz in this World!{" "}
 				</Text>
 
 				{isLoading ? (
@@ -96,6 +111,18 @@ const World = () => {
 						))}
 					</View>
 				)}
+
+				<Button
+					icon="gamepad-variant-outline"
+					onPress={() => loadWorlds()}
+					style={styles.button}
+					mode="contained"
+					//override to make the color of the button always as in light theme
+					buttonColor="#00629F"
+					textColor="#FFFFFF"
+				>
+					Back to Worlds List
+				</Button>
 			</ScrollView>
 		</ImageBackground>
 	);

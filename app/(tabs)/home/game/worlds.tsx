@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { View } from "moti";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 
 const Worlds = () => {
 	const theme = useTheme();
@@ -41,12 +41,19 @@ const Worlds = () => {
 		}
 	});
 
-	const loadWorld = (world_id: number) => {
+	const loadWorld = (world_id: number, world_name: string) => {
 		console.log("BUTTON PRESSED!");
 		console.log(world_id);
 		router.push({
 			pathname: "./world",
-			params: { world_id: world_id },
+			params: { world_id: world_id, world_name: world_name },
+		});
+	};
+
+	const loadHome = () => {
+		console.log("HOME Button pressed!");
+		router.push({
+			pathname: "/(tabs)/home",
 		});
 	};
 
@@ -76,7 +83,7 @@ const Worlds = () => {
 									styles.answer,
 									{ backgroundColor: theme.colors.primaryContainer },
 								]}
-								onPress={() => loadWorld(world.world_id)}
+								onPress={() => loadWorld(world.world_id, world.world_name)}
 							>
 								<Text style={styles.textContainerStyle}>
 									{world.world_name}
@@ -84,6 +91,18 @@ const Worlds = () => {
 							</TouchableOpacity>
 						</View>
 					))}
+
+					<Button
+						icon="gamepad-variant-outline"
+						onPress={() => loadHome()}
+						style={styles.button}
+						mode="contained"
+						//override to make the color of the button always as in light theme
+						buttonColor="#00629F"
+						textColor="#FFFFFF"
+					>
+						Back to Home Screen
+					</Button>
 				</View>
 			)}
 		</ImageBackground>
