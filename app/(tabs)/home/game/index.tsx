@@ -1,15 +1,10 @@
+import TextData from "@/static/gameTexts.json";
+import { router } from "expo-router";
 import { MotiImage } from "moti";
 import { useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-import GameTextData from '@/static/gameTexts.json';
-import { router } from "expo-router";
-<<<<<<< HEAD
-import TextData from "./textData.json";
-=======
->>>>>>> c07b005 (Refactor game texts)
 
 type OnboardingData = {
 	title: string;
@@ -20,14 +15,11 @@ const Onboarding = () => {
 	const theme = useTheme();
 	const [key, setKey] = useState(0);
 	const [index, setIndex] = useState(0);
+	const lang = "fi";
+	const text = TextData[lang].common;
 
-<<<<<<< HEAD
-	const onboarding: OnboardingData[] = TextData.fi.onboarding;
+	const onboarding: OnboardingData[] = TextData[lang].onboarding;
 	const current = onboarding[index];
-=======
-  const onboarding: OnboardingData[] = GameTextData.fi.onboarding;
-  const current = onboarding[index];
->>>>>>> c07b005 (Refactor game texts)
 
 	// Scroll to the top feature. Source: User Apperside on Stack Overflow. Jul 5, 2021. React native reset ScrollView to the top after render
 	// https://stackoverflow.com/questions/68252416/react-native-reset-scrollview-to-the-top-after-render
@@ -81,7 +73,7 @@ const Onboarding = () => {
 					</Button>
 					{index > 0 && (
 						<Button onPress={handlePrevious} style={styles.button}>
-							Takaisin
+							{text.back}
 						</Button>
 					)}
 				</ScrollView>
