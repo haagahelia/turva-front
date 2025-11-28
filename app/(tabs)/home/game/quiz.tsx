@@ -1,4 +1,5 @@
 import { Answer, Language, QuizLang } from "@/src/types/types";
+import TextData from "@/static/gameTexts.json";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -6,11 +7,10 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text, useTheme } from "react-native-paper";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
-import TextData from "./textData.json";
 
 const Quiz = () => {
 	const theme = useTheme();
-	const lang: Language = "en";
+	const lang: Language = "fi";
 	const [isLoading, setLoading] = useState(true);
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();

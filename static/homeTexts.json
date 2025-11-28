@@ -1,0 +1,72 @@
+{
+    "fi": {
+        "title": "Koti",
+        "safetyBriefing": "Turvallisuusperehdytys",
+        "game":"TurvallisuusMestari",
+        "safetyPerception":"Ilmoita turvallisuushavainto",
+        "report": "Ilmoita epäasiallisesta kohtelusta",
+        "navigationTitles": {
+            "profile": "Profiili",
+            "index": "Koti",
+            "settings": "Asetukset",
+            "rewards": "Palkinnot",
+            "news":"Ajankohtaista",
+            "safeHaagaHelia":"Turvallinen Haaga-Helia",
+            "rules":"Järjestyssäännöt",
+            "crisisTeamContact":"Kriisiryhmän yhteystiedot",
+            "campusInstructions":"Kampuskohtaiset ohjeet",
+            "emergencyApp":"Lataa 112-sovellus",
+            "about":"Tietoa sovelluksesta",
+            "safetyBriefing":"Turvallisuusperehdytys",
+            "safetyInfo":"Turvallisuusinfo"
+         },
+         "profile":{
+            "title":"Profiili",
+            "points":"Pisteet",
+            "rewards":"Palkintokaappi",
+            "time": "Kokonaisaika",
+            "logout":"Kirjaudu ulos",
+            "settings":"Asetukset"
+         },
+        "tabs": {
+            "home": "Koti",
+            "search": "Haku",
+            "camera": "Kamera"
+         }
+    },
+    "en": {
+        "title": "Home",
+        "safetyBriefing": "Safety Briefing",
+        "game":"TurvallisuusMestari",
+        "safetyPerception":"Report a safety perception",
+        "report": "Report inappropriate behaviour",
+        "navigationTitles": {
+            "profile": "Profile",
+            "index": "Home",
+            "settings": "Settings",
+            "rewards": "Rewards",
+            "news":"News",
+            "safeHaagaHelia":"Safe Haaga-Helia",
+            "rules":"Rules and regulations",
+            "crisisTeamContact":"Crisis Team Contactinfo",
+            "campusInstructions":"Campus Instructions",
+            "emergencyApp":"Download Suomi 112 -app",
+            "about":"About",
+            "safetyBriefing":"Safety Briefing",
+            "safetyInfo":"Safety Info"
+        },
+        "profile":{
+            "title":"Profile",
+            "points":"Points",
+            "rewards":"Rewards",
+            "time":"Time",
+            "logout":"Log out",
+            "settings":"Settings"
+         },
+         "tabs": {
+            "home": "Home",
+            "search": "Search",
+            "camera": "Camera"
+         }
+    }
+}

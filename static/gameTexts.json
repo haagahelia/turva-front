@@ -45,7 +45,8 @@
     "common": {
       "answerAll": "Vastaa kaikkiin kysymyksiin.",
       "end": "Päätä testi",
-      "start": "Aloita testi"
+      "start": "Aloita testi",
+      "back":"Takaisin"
     }
   },
   "en": {
@@ -94,7 +95,8 @@
     "common": {
       "answerAll": "Answer all questions.",
       "end": "End quiz",
-      "start": "Start quiz"
+      "start": "Start quiz",
+      "back": "Back"
     }
   }
 }

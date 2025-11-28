@@ -1,9 +1,12 @@
+import TextData from "@/static/drawerTexts.json";
 import { Button, useTheme } from "react-native-paper";
 import { useThemeStore } from "../zustand/store";
 
 const ThemeButton = () => {
   const { theme, toggleTheme } = useThemeStore();
   const paperTheme = useTheme();
+  const lang = "fi";
+  const text = TextData[lang].theme;
 
   return (
     <Button
@@ -14,7 +17,7 @@ const ThemeButton = () => {
       textColor={paperTheme.colors.onPrimary}
       style={{ marginVertical: 8 }}
     >
-      {theme === "light" ? "Dark" : "Light"}
+      {theme === "light" ? `${text.dark}` : `${text.light}`}
     </Button>
   );
 };

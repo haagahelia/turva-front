@@ -14,7 +14,7 @@ export default function SecurityReport() {
 
     const data = reportContent[reportType];
 
-    // We will add language switching later. Hardcode FI or EN here:
+    // We will add language switching later. Hardcoded FI or EN here:
     const lang: "en" | "fi" = "fi";
 
     return (

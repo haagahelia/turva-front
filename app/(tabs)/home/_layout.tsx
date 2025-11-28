@@ -1,5 +1,6 @@
 import ThemeButton from "@/src/components/ThemeButton";
 import LanguageButton from "@/src/components/LanguageButton";
+import TextData from '@/static/homeTexts.json';
 import { Ionicons } from "@expo/vector-icons";
 import {
   DrawerContentScrollView,
@@ -60,6 +61,8 @@ function CustomDrawerContent(props: any) {
 export default function HomeDrawerLayout() {
   const router = useRouter();
   const theme = useTheme();
+  const lang = 'fi'
+  const text = TextData[lang]
   return (
     <>
       <StatusBar style={theme.dark ? "light" : "dark"} />
@@ -103,7 +106,7 @@ export default function HomeDrawerLayout() {
           options={{
             // Hide from drawer menu but keep it as a route
             drawerItemStyle: { display: "none" },
-            title: "Profiili",
+            title: `${text.navigationTitles.profile}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="person" size={size} color={color} />
             ),
@@ -112,7 +115,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="index"
           options={{
-            title: "Koti",
+            title: `${text.navigationTitles.index}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="home" size={size} color={color} />
             ),
@@ -123,7 +126,7 @@ export default function HomeDrawerLayout() {
           options={{
             // Hide from drawer menu but keep it as a route
             drawerItemStyle: { display: "none" },
-            title: "Asetukset",
+            title: `${text.navigationTitles.settings}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="settings" size={size} color={color} />
             ),
@@ -134,7 +137,7 @@ export default function HomeDrawerLayout() {
           options={{
             // Hide from drawer menu but keep it as a route
             drawerItemStyle: { display: "none" },
-            title: "Rewards",
+            title: `${text.navigationTitles.rewards}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="gift" size={size} color={color} />
             ),
@@ -143,7 +146,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="news"
           options={{
-            title: "Ajankohtaista",
+            title: `${text.navigationTitles.news}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="newspaper" size={size} color={color} />
             ),
@@ -152,7 +155,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="safe-haaga-helia"
           options={{
-            title: "Turvallinen Haaga-Helia",
+            title: `${text.navigationTitles.safeHaagaHelia}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="shield-checkmark" size={size} color={color} />
             ),
@@ -161,7 +164,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="rules"
           options={{
-            title: "Järjestyssäännöt",
+            title: `${text.navigationTitles.rules}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="document-text" size={size} color={color} />
             ),
@@ -170,7 +173,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="crisis-team-contact"
           options={{
-            title: "Kriisiryhmän yhteystiedot",
+            title: `${text.navigationTitles.crisisTeamContact}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="people" size={size} color={color} />
             ),
@@ -179,7 +182,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="campus-instructions"
           options={{
-            title: "Kampuskohtaiset ohjeet",
+            title: `${text.navigationTitles.campusInstructions}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="school" size={size} color={color} />
             ),
@@ -188,7 +191,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="emergency-app"
           options={{
-            title: "Lataa 112-sovellus",
+            title: `${text.navigationTitles.emergencyApp}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="call" size={size} color={color} />
             ),
@@ -197,7 +200,7 @@ export default function HomeDrawerLayout() {
         <Drawer.Screen
           name="about-app"
           options={{
-            title: "Tietoa sovelluksesta",
+            title: `${text.navigationTitles.about}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="information-circle" size={size} color={color} />
             ),
@@ -208,7 +211,7 @@ export default function HomeDrawerLayout() {
           options={{
             // Hide from drawer menu but keep it as a route
             drawerItemStyle: { display: "none" },
-            title: "Turvallisuusperehdytys",
+            title: `${text.navigationTitles.safetyBriefing}`,
           }}
         />
         <Drawer.Screen
@@ -234,7 +237,7 @@ export default function HomeDrawerLayout() {
           options={{
             // Hide from drawer menu but keep it as a route
             drawerItemStyle: { display: "none" },
-            title: "Safety Info",
+            title: `${text.navigationTitles.safetyInfo}`,
             headerLeft: () => (
               <Pressable
                 onPress={() => router.navigate("/(tabs)/home/safety-briefing")}

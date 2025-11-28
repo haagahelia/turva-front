@@ -1,9 +1,14 @@
+import TextData from "@/static/drawerTexts.json";
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ContactCard from '../../../src/components/ContactCard';
-import { Contact } from '../../../src/types';
 
+type Contact = {
+  name: string;
+  role: string;
+  phone: string;
+}
 // Temporary later can be fetched from backend
 const crisisTeamMembers: Contact[] = [
   {
@@ -41,6 +46,8 @@ const crisisTeamMembers: Contact[] = [
 // Kriisiryhmän yhteystiedot screen
 export default function CrisisTeamContactScreen() {
   const theme = useTheme();
+  const lang = 'fi'
+  const text = TextData[lang].crisisTeamContact;
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}>
@@ -49,15 +56,13 @@ export default function CrisisTeamContactScreen() {
           variant="headlineLarge"
           style={[styles.title, { color: theme.colors.onBackground }]}
         >
-          Haaga-Helian valmius- ja kriisiryhmä
+         {text.title}
         </Text>
         <Text
           variant="bodyLarge"
           style={[styles.description, { color: theme.colors.onSurfaceVariant }]}
         >
-          Haaga-Heliassa on valmius- ja kriisiryhmä, jonka tehtävänä on huolehtia
-          häiriötilanteisiin varautumisesta sekä toiminnasta häiriötilanteissa,
-          jotka koskevat koko Haaga-Heliaa.
+          {text.description}
         </Text>
       </View>
 

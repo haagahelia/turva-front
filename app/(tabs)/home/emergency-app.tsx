@@ -1,3 +1,4 @@
+import TextData from '@/static/drawerTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
@@ -23,6 +24,8 @@ export default function EmergencyAppScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
+  const lang = 'fi';
+  const text = TextData[lang].emergencyApp;
 
   useEffect(() => {
     if (isFocused) {
@@ -69,13 +72,10 @@ export default function EmergencyAppScreen() {
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Asenna 112 Suomi - sovellus
+            {text.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            Tee turvallisuusteko ja lataa 112 Suomi -sovellus. Saat apua oikeaan paikkaan hata- ja ongelmatilanteissa.{"\n"}
-            {"\n"}
-            Sovelluksesta löydät myös päivystysnumeroita kiireettomaän avuntarpeeseen ja lisäksi saat vaara- ja viranomaistiedotteet suoraan puhelimeesi.
-          </Text>
+            {text.description}  </Text>
         </MotiView>
 
         {/* 3. Link Buttons */}

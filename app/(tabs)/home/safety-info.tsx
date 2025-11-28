@@ -1,3 +1,4 @@
+import TextData from '@/static/safetyInfoTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -15,8 +16,10 @@ import { safetyBriefingData } from "../../../src/mockData";
 import { useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyInfo() {
+  const lang = 'en'
   const theme = useTheme();
   const { itemId } = useLocalSearchParams<{ itemId: string }>();
+  const commonText = TextData[lang]
 
   // Get the briefing data from mockData
   const briefingItem = itemId ? safetyBriefingData[itemId] : null;
@@ -45,12 +48,12 @@ export default function SafetyInfo() {
             color={theme.colors.error}
           />
           <Text style={[styles.errorTitle, { color: theme.colors.error }]}>
-            Aihetta ei löytynyt
+           {commonText.noTopic}
           </Text>
           <Text
             style={[styles.errorText, { color: theme.colors.onBackground }]}
           >
-            Valitettavasti etsimääsi aihetta ei löytynyt järjestelmästä.
+            {commonText.topicNotFound}
           </Text>
           <Button
             mode="contained"
@@ -58,7 +61,7 @@ export default function SafetyInfo() {
             style={styles.errorButton}
             icon="arrow-left"
           >
-            Takaisin
+            {commonText.back}
           </Button>
         </View>
       </SafeAreaView>
@@ -79,7 +82,7 @@ export default function SafetyInfo() {
           <Text
             style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
           >
-            Turvallisuusohjeet
+            {commonText.title}
           </Text>
         </View>
 
@@ -167,7 +170,7 @@ export default function SafetyInfo() {
                   { color: theme.colors.onSurfaceVariant },
                 ]}
               >
-                {"Olen lukenut ja sisäistänyt tämän osion"}
+                {commonText.understood}
               </Text>
 
               <Checkmark

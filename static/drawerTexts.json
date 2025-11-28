@@ -1,0 +1,79 @@
+{
+    "fi": {
+        "about": {
+            "title": "Sovelluksen tiedot",
+            "developers": "Sovelluksen kehittäjät: "
+        },
+        "campusInstructions": {
+            "title":"Kampusten pelastussuunnitelmat ja toiminta vaaratilanteissa",
+            "description": "Täältä löydät Haaga-Helian turvallisuusoppaan sekä kampusten turvallisuuskävelyvideot, pelastussuunnitelmat sekä toimintaohjeet vaaratilanteissa.",
+            "safetyInstructions": "Turvallisuusohjeet",
+            "rescuePlans": "Pelastussuunnitelmat"
+        },
+        "crisisTeamContact": {
+            "title": "Haaga-Helian valmius- ja kriisiryhmä",
+            "description": "Haaga-Heliassa on valmius- ja kriisiryhmä, jonka tehtävänä on huolehtia häiriötilanteisiin varautumisesta sekä toiminnasta häiriötilanteissa, jotka koskevat koko Haaga-Heliaa."
+        },
+        "emergencyApp": {
+            "title": "Asenna 112 Suomi - sovellus",
+            "description":" Tee turvallisuusteko ja lataa 112 Suomi -sovellus. Saat apua oikeaan paikkaan hätä- ja ongelmatilanteissa. `\n`Sovelluksesta löydät myös päivystysnumeroita kiireettomaän avuntarpeeseen ja lisäksi saat vaara- ja viranomaistiedotteet suoraan puhelimeesi."
+        },
+        "news": {
+            "title": "Haaga-Helian turvallisuusuutiset",
+            "description": "Lue uusimmat turvallisuusteeman uutiset Haaga-Helian sivuilta.🎉",
+            "button": "Ajankohtaista"
+        },
+        "rules": {
+            "title": "Järjestyssäännöt",
+            "description":"Järjestyssaännöllä turvataan korkeakoulujen yleinen turvallisuus, edistetaän työnja opiskelun esteetöntä sujumista sekä tasapuolista kohtelua.",
+            "button":"Haaga-Helian järjestyssäännöt"
+        },
+        "safeHaagaHelia": {
+            "title": "Turvallinen Haaga-Helia",
+            "description": 
+                "🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä!"
+        },
+        "theme": {
+            "light":"Vaalea",
+            "dark":"Tumma"
+        }
+    },
+    "en": {
+        "about": {
+            "title": "App info",
+            "developers": "Developers"
+        },
+        "campusInstructions": {
+            "title":"Kampusten pelastussuunnitelmat ja toiminta vaaratilanteissa",
+            "description": "Täältä löydät Haaga-Helian turvallisuusoppaan sekä kampusten turvallisuuskävelyvideot, pelastussuunnitelmat sekä toimintaohjeet vaaratilanteissa.",
+            "safetyInstructions": "Safety Instructions",
+            "rescuePlans": "Rescue plans"
+        },
+        "crisisTeamContact": {
+            "title": "Haaga-Helia’s preparedness and crisis team",
+            "description": "Haaga-Helia has a preparedness and crisis team, whose task is to prepare for, and respond to, incidents affecting Haaga-Helia. The aim is to prevent psychological and physical adverse effects, maintain the functioning of the university community and its members, support people's recovery, and strengthen the community and its members' ability to cope with difficult situations."
+        },
+        "emergencyApp": {
+            "title": "Download 112 Suomi - app",
+            "description":"Do a safety favor and download the 112 Suomi app. You will get help to the right location in emergency and problem situations. `\n`In the app you can also find on-call numbers for non-urgent assistance, and you will receive hazard and authority alerts directly to your phone."
+        },
+        "news": {
+            "title": "Haaga-Helia's safety news",
+            "description": "Read newest safety-related news from Haaga-Helia's website.🎉",
+            "button": "Current news"
+        },
+        "rules": {
+            "title": "Rules and regulations",
+            "description":"🎓 The rules and regulations provide information about your rights and responsibilities as a student. The purpose of the rules and regulations is to promote internal order, the smooth running of studies, and the safety and comfort of the university community.",
+            "button":"Haaga-Helia's Rules and regulations"            
+        },
+        "safeHaagaHelia": {
+            "title": "A safe Haaga-Helia",
+            "description": "🎓 The aim of Haaga-Helias safety work is to ensure that every person on campus feels safe, whether they are working, studying or just visiting. You are for your part contributing to the creation of a safe and comfortable working and learning environment and a thriving Haaga-Helia community. Safety and well-being are achieved more effectively when we work together!"
+         },
+        "theme": {
+            "light":"Light",
+            "dark":"Dark"
+        }
+    }
+}
