@@ -13,13 +13,13 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkmark from "../../../src/components/Checkmark";
 import { safetyBriefingData } from "../../../src/mockData";
-import { useSafetyStore } from "../../../src/zustand/store";
+import { useLanguageStore, useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyInfo() {
-  const lang = 'en'
+  const { language } = useLanguageStore();
   const theme = useTheme();
   const { itemId } = useLocalSearchParams<{ itemId: string }>();
-  const commonText = TextData[lang]
+  const text = TextData[language];
 
   // Get the briefing data from mockData
   const briefingItem = itemId ? safetyBriefingData[itemId] : null;
@@ -48,12 +48,12 @@ export default function SafetyInfo() {
             color={theme.colors.error}
           />
           <Text style={[styles.errorTitle, { color: theme.colors.error }]}>
-           {commonText.noTopic}
+           {text.noTopic}
           </Text>
           <Text
             style={[styles.errorText, { color: theme.colors.onBackground }]}
           >
-            {commonText.topicNotFound}
+            {text.topicNotFound}
           </Text>
           <Button
             mode="contained"
@@ -61,7 +61,7 @@ export default function SafetyInfo() {
             style={styles.errorButton}
             icon="arrow-left"
           >
-            {commonText.back}
+            {text.back}
           </Button>
         </View>
       </SafeAreaView>
@@ -82,7 +82,7 @@ export default function SafetyInfo() {
           <Text
             style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
           >
-            {commonText.title}
+            {text.title}
           </Text>
         </View>
 
@@ -170,7 +170,7 @@ export default function SafetyInfo() {
                   { color: theme.colors.onSurfaceVariant },
                 ]}
               >
-                {commonText.understood}
+                {text.understood}
               </Text>
 
               <Checkmark

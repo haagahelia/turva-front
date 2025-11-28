@@ -20,6 +20,7 @@ import {
   useTheme,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLanguageStore } from "@/src/zustand/store";
 
 
 
@@ -37,8 +38,8 @@ export default function ProfileScreen() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [playerPoints] = useState(1250);
   const [totalTime] = useState("2h 45min");
-  const lang = 'fi';
-  const text = TextData[lang].profile;
+  const { language } = useLanguageStore();
+  const text = TextData[language].profile;
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();

@@ -1,5 +1,7 @@
 import ThemeButton from "@/src/components/ThemeButton";
+import LanguageButton from "@/src/components/LanguageButton";
 import TextData from '@/static/homeTexts.json';
+import { useLanguageStore } from "@/src/zustand/store";
 import { Ionicons } from "@expo/vector-icons";
 import {
   DrawerContentScrollView,
@@ -51,6 +53,7 @@ function CustomDrawerContent(props: any) {
         }}
       >
         <ThemeButton />
+        <LanguageButton />
       </View>
     </DrawerContentScrollView>
   );
@@ -59,8 +62,8 @@ function CustomDrawerContent(props: any) {
 export default function HomeDrawerLayout() {
   const router = useRouter();
   const theme = useTheme();
-  const lang = 'fi'
-  const text = TextData[lang]
+  const language = useLanguageStore((state) => state.language);
+  const text = TextData[language];
   return (
     <>
       <StatusBar style={theme.dark ? "light" : "dark"} />

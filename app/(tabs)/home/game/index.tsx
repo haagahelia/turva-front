@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLanguageStore } from "@/src/zustand/store";
 
 type OnboardingData = {
 	title: string;
@@ -15,10 +16,10 @@ const Onboarding = () => {
 	const theme = useTheme();
 	const [key, setKey] = useState(0);
 	const [index, setIndex] = useState(0);
-	const lang = "fi";
-	const text = TextData[lang].common;
+	const { language } = useLanguageStore();
+	const text = TextData[language].common;
 
-	const onboarding: OnboardingData[] = TextData[lang].onboarding;
+	const onboarding: OnboardingData[] = TextData[language].onboarding;
 	const current = onboarding[index];
 
 	// Scroll to the top feature. Source: User Apperside on Stack Overflow. Jul 5, 2021. React native reset ScrollView to the top after render

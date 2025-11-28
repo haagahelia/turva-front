@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLanguageStore } from "@/src/zustand/store";
 
 //In the future we can also add (for example): Name of the developer - what he did in the app (Back End Developer for example)
 const developers = [
@@ -24,8 +25,8 @@ export default function NewsScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
-  const lang = 'fi'
-  const text = textData[lang];
+  const { language } = useLanguageStore();
+  const text = textData[language];
 
   useEffect(() => {
     if (isFocused) {

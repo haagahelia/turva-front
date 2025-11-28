@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { briefingItems } from "../mockData";
 import { createThemeSlice, StoreState } from "./themeSlice";
+import { createLanguageSlice, LanguageSlice } from "./languageSlice";
 
 export const useThemeStore = create<StoreState>()(
   persist(
@@ -11,6 +12,18 @@ export const useThemeStore = create<StoreState>()(
     }),
     {
       name: "theme-storage", // storage key
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
+
+export const useLanguageStore = create<LanguageSlice>()(
+  persist(
+    (...a) => ({
+      ...createLanguageSlice(...a),
+    }),
+    {
+      name: "language-storage",
       storage: createJSONStorage(() => AsyncStorage),
     }
   )
