@@ -1,3 +1,4 @@
+import textData from "@/static/drawerTexts.json";
 import { useIsFocused } from "@react-navigation/native";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
 import { useEffect, useState } from "react";
@@ -9,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const developers = [
   "Doranai Abdul",
   "Elomaa Otto",
-  "Engberg Jehu",
+  "Enberg Jehu",
   "Ermel Alisa",
   "Hallenberg Olivia",
   "Heikkinen Tatu",
@@ -23,6 +24,8 @@ export default function NewsScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
+  const lang = 'fi'
+  const text = textData[lang];
 
   useEffect(() => {
     if (isFocused) {
@@ -55,12 +58,12 @@ export default function NewsScreen() {
         transition={{ type: "timing", duration: 500, delay: 150 }}
       >
         <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-          Sovelluksen tiedot
+         {text.about.title}
         </Text>
         <Text
           style={[styles.description, { color: theme.colors.onBackground }]}
         >
-          Kehittäjät:
+         {text.about.developers}
         </Text>
       </MotiView>
 

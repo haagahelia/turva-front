@@ -1,3 +1,4 @@
+import TextData from '@/static/drawerTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons"; // arrow icon
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
@@ -53,6 +54,8 @@ export default function CampusInstructionsScreen() {
   const [key, setKey] = useState(0);
   const [showCampuses, setShowCampuses] = useState(false);
   const [showGuidelines, setShowGuidelines] = useState(false);
+  const lang = 'fi';
+  const text = TextData[lang].campusInstructions;
 
 
   useEffect(() => {
@@ -103,10 +106,10 @@ export default function CampusInstructionsScreen() {
           transition={{ type: "timing", duration: 500, delay: 150 }}
         >
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Kampusten pelastussuunnitelmat ja toiminta vaaratilanteissa
+            {text.title}
           </Text>
           <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-            Täältä löydät Haaga-Helian turvallisuusoppaan sekä kampusten turvallisuuskävelyvideot, pelastussuunnitelmat sekä toimintaohjeet vaaratilanteissa.
+          {text.description}
           </Text>
         </MotiView>
 
@@ -130,7 +133,7 @@ export default function CampusInstructionsScreen() {
                   style={{ marginRight: 8 }}
                 />
                 <Text style={{ fontSize: 18, fontWeight: "700", color: theme.colors.onSurface }}>
-                  Turvallisuusohjeet
+                  {text.safetyInstructions}
                 </Text>
               </View>
               <MotiView
@@ -194,7 +197,7 @@ export default function CampusInstructionsScreen() {
                   style={{ marginRight: 8 }}
                 />
                 <Text style={{ fontSize: 18, fontWeight: "700", color: theme.colors.onSurface }}>
-                  Pelastussuunnitelmat
+                  {text.rescuePlans}
                 </Text>
               </View>
               <MotiView

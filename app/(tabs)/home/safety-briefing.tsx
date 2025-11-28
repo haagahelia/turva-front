@@ -1,3 +1,4 @@
+import TextData from '@/static/safetyBriefingTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -11,9 +12,11 @@ import { useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyBriefing() {
   const theme = useTheme();
+  const lang = 'fi';
+  const text = TextData[lang];
   const { completed, readCount, markCompleted, initializeReadCount } =
     useSafetyStore();
-
+  
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
 
   // Initialize read count on component mount
@@ -44,12 +47,12 @@ export default function SafetyBriefing() {
         {/* Header */}
         <View style={styles.header}>
           <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-            Turvallisuusperehdytys
+            {text.safetyBriefingTitle}
           </Text>
           <Text
             style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
           >
-            Valitse aihe tutustuaksesi turvallisuusohjeisiin
+           {text.choose}
           </Text>
         </View>
 
@@ -61,19 +64,32 @@ export default function SafetyBriefing() {
           ]}
         >
           <Card.Content>
-            <Text
-              style={[
-                styles.descriptionText,
-                { color: theme.colors.onSurface },
-              ]}
-            >
-              🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen
-              kampuksella työskentelevä, opiskeleva tai vieraileva henkilö
-              tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa
-              turvallista ja viihtyisää työ- ja oppimisympäristöä sekä
-              hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi
-              tehdään fiksummin yhdessä!
-            </Text>
+            {text.description.map((item, index) => (
+              Array.isArray(item) ? (
+                item.map((li, i) => (
+                  <Text
+                    key={`${index}-${i}`}
+                    style={[
+                      styles.descriptionText,
+                      { color: theme.colors.onSurface }
+                    ]}
+                  >
+                    • {li}
+                  </Text>
+                ))
+              ) : (
+                <Text
+                  key={index}
+                  style={[
+                    styles.descriptionText,
+                    { color: theme.colors.onSurface }
+                  ]}
+                >
+                  {item}
+                </Text>
+              )
+            ))}
+
             <View style={styles.progressContainer}>
               <MaterialCommunityIcons
                 name="chart-line"
@@ -83,7 +99,7 @@ export default function SafetyBriefing() {
               <Text
                 style={[styles.progressText, { color: theme.colors.primary }]}
               >
-                {readCount} / {briefingItems.length} suoritettu
+                {readCount} / {briefingItems.length} {text.done}
               </Text>
             </View>
           </Card.Content>
@@ -168,7 +184,7 @@ export default function SafetyBriefing() {
               />
             )}
           >
-            Anna palautetta
+            {text.feedback}
           </Button>
         </View>
       </ScrollView>

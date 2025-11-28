@@ -1,3 +1,4 @@
+import TextData from '@/static/homeTexts.json';
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -36,6 +37,8 @@ export default function ProfileScreen() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [playerPoints] = useState(1250);
   const [totalTime] = useState("2h 45min");
+  const lang = 'fi';
+  const text = TextData[lang].profile;
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -143,7 +146,7 @@ export default function ProfileScreen() {
                       { color: theme.colors.onSurfaceVariant },
                     ]}
                   >
-                    Pisteet
+                    {text.points}
                   </Text>
                   <Text
                     variant="headlineSmall"
@@ -168,7 +171,7 @@ export default function ProfileScreen() {
                       { color: theme.colors.onSurfaceVariant },
                     ]}
                   >
-                    Kokonaisaika
+                    {text.time}
                   </Text>
                   <Text
                     variant="headlineSmall"
@@ -187,7 +190,7 @@ export default function ProfileScreen() {
               mode="contained"
               onPress={() => router.push("/(tabs)/home/rewards")}
             >
-              Palkintokaappi
+              {text.rewards}
             </Button>
           </View>
 
@@ -213,7 +216,7 @@ export default function ProfileScreen() {
                   { color: theme.colors.onErrorContainer },
                 ]}
               >
-                Kirjaudu ulos
+                {text.logout}
               </Text>
             </View>
 
@@ -238,7 +241,7 @@ export default function ProfileScreen() {
                   { color: theme.colors.onPrimaryContainer },
                 ]}
               >
-                Asetukset
+                {text.settings}
               </Text>
             </View>
           </View>
