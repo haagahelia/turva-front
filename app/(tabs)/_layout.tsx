@@ -2,12 +2,13 @@ import TextData from "@/static/homeTexts.json";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs, useRouter } from "expo-router";
 import { useTheme } from "react-native-paper";
+import { useLanguageStore } from "@/src/zustand/store";
 
 export default function TabLayout() {
   const theme = useTheme();
   const router = useRouter();
-  const lang = "fi";
-  const text = TextData[lang].tabs;
+  const { language } = useLanguageStore(); 
+  const text = TextData[language].tabs;
 
   return (
     <Tabs

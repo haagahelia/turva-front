@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLanguageStore } from "@/src/zustand/store";
 
 //Make images and buttons responsive for all screens
 const { width, height } = Dimensions.get('window');
@@ -22,8 +23,8 @@ export default function Index() {
   // This is how you access the environment variables
   // This can be removed later
   const theme = useTheme();
-  const lang = "fi";
-  const text = TextData[lang];
+  const { language } = useLanguageStore();
+  const text = TextData[language];    
 
   // Added this in anticipation for new screens (where the buttons take us)
   //const handleButtonPress = (screen: string) => {};

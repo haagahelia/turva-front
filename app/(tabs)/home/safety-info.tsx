@@ -13,13 +13,13 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkmark from "../../../src/components/Checkmark";
 import { safetyBriefingData } from "../../../src/mockData";
-import { useSafetyStore } from "../../../src/zustand/store";
+import { useSafetyStore, useLanguageStore } from "../../../src/zustand/store";
 
 export default function SafetyInfo() {
-  const lang = 'en'
+  const { language } = useLanguageStore();
   const theme = useTheme();
   const { itemId } = useLocalSearchParams<{ itemId: string }>();
-  const commonText = TextData[lang]
+  const text = TextData[language];
 
   // Get the briefing data from mockData
   const briefingItem = itemId ? safetyBriefingData[itemId] : null;

@@ -8,12 +8,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Checkmark from "../../../src/components/Checkmark";
 import FeedbackModal from "../../../src/components/FeedbackModal";
 import { briefingItems } from "../../../src/mockData";
-import { useSafetyStore } from "../../../src/zustand/store";
+import { useSafetyStore, useLanguageStore } from "../../../src/zustand/store";
 
 export default function SafetyBriefing() {
   const theme = useTheme();
-  const lang = 'fi';
-  const text = TextData[lang];
+  const { language } = useLanguageStore();
+  const text = TextData[language];
   const { completed, readCount, markCompleted, initializeReadCount } =
     useSafetyStore();
   

@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { ScrollView } from "moti";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
+import { useLanguageStore } from "@/src/zustand/store";
 
 const Results = () => {
 	// ROUTIMG PARAMS
@@ -27,7 +28,7 @@ const Results = () => {
 	const totalCount = selectedAnswers.length; // total number of questions
 
 	// Language (for now hardcoded, later can come from app context or settings)
-	const language: "fi" | "en" = "en";
+	const { language } = useLanguageStore();
 
 	// Load and type results.json
 	const resultsData = results_json as unknown as ResultsTexts;
