@@ -1,12 +1,12 @@
 import TextData from "@/static/drawerTexts.json";
 import { Button, useTheme } from "react-native-paper";
-import { useThemeStore } from "../zustand/store";
+import { useThemeStore, useLanguageStore } from "../zustand/store";
 
 const ThemeButton = () => {
   const { theme, toggleTheme } = useThemeStore();
+  const { language } = useLanguageStore();
   const paperTheme = useTheme();
-  const lang = "fi";
-  const text = TextData[lang].theme;
+  const text = TextData[language].theme;
 
   return (
     <Button

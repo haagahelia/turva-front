@@ -20,3 +20,10 @@ export const createLanguageSlice: StateCreator<
   toggleLanguage: () =>
     set({ language: get().language === "en" ? "fi" : "en" }),
 });
+
+// Usage example:
+// const text = TextData[language].theme;
+//
+// Instead of:
+// const lang = "fi";
+// const text = TextData[lang].theme;
