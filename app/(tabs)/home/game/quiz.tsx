@@ -14,8 +14,16 @@ const Quiz = () => {
 	const [isLoading, setLoading] = useState(true);
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
-	console.log("ID after loading Quiz.tsx:");
+	console.log("Quiz ID after loading Quiz.tsx:");
 	console.log(quiz_id);
+
+	const { world_id } = useLocalSearchParams<{ world_id: string }>();
+	console.log("World ID after loading Quiz.tsx:");
+	console.log(world_id);
+
+	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	console.log("World Name after loading Quiz.tsx:");
+	console.log(world_name);
 
 	const commonText = TextData[lang].common;
 	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
@@ -83,7 +91,24 @@ const Quiz = () => {
 		console.log(quiz_id);
 		router.push({
 			pathname: "./results",
-			params: { quiz_id: quiz_id, answers: answers },
+			params: {
+				quiz_id: quiz_id,
+				answers: answers,
+				world_id: world_id,
+				world_name: world_name,
+			},
+		});
+	};
+
+	const loadWorld = () => {
+		console.log("BUTTON PRESSED!");
+		console.log(world_id);
+		router.push({
+			pathname: "./world",
+			params: {
+				world_id: world_id,
+				world_name: world_name,
+			},
 		});
 	};
 
@@ -138,6 +163,18 @@ const Quiz = () => {
 					>
 						{commonText.end}
 					</Button>
+
+					<Button
+						icon="gamepad-variant-outline"
+						onPress={() => loadWorld()}
+						style={styles.button}
+						mode="contained"
+						//override to make the color of the button always as in light theme
+						buttonColor="#00629F"
+						textColor="#FFFFFF"
+					>
+						Back to World
+					</Button>
 				</View>
 			)}
 		</ScrollView>
@@ -148,6 +185,11 @@ const styles = StyleSheet.create({
 	answerContainer: {
 		marginBottom: 24,
 		marginHorizontal: 10,
+	},
+	button: {
+		borderRadius: 24,
+		alignSelf: "center",
+		marginBottom: 20,
 	},
 });
 

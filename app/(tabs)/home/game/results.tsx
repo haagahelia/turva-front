@@ -1,16 +1,27 @@
 import { Answer, ResultsTexts, WorldResults } from "@/src/types/types";
 import results_json from "@/static/quiz_results.json";
 import { router, useLocalSearchParams } from "expo-router";
+import { ScrollView } from "moti";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 const Results = () => {
+	// ROUTIMG PARAMS
 	const { answers } = useLocalSearchParams<{ answers: string }>();
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
 	console.log("ID after loading Results.tsx:");
 	console.log(quiz_id);
 
+	const { world_id } = useLocalSearchParams<{ world_id: string }>();
+	console.log("World Id after loading Results.tsx:");
+	console.log(world_id);
+
+	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	console.log("World Name after loading Results.tsx:");
+	console.log(world_name);
+
+	// PARSE ANSWERS
 	const selectedAnswers: Answer[] = JSON.parse(answers);
 	const correctCount = selectedAnswers.filter((a) => a.is_correct).length;
 	const totalCount = selectedAnswers.length; // total number of questions
@@ -40,47 +51,76 @@ const Results = () => {
 		});
 	};
 
+	const loadWorld = () => {
+		console.log("BUTTON PRESSED!");
+		console.log(world_id);
+		router.push({
+			pathname: "./world",
+			params: {
+				world_id: world_id,
+				world_name: world_name,
+			},
+		});
+	};
+
 	return (
 		<ImageBackground
 			source={require("@/assets/images/WorldOne_background.png")}
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<View style={styles.contentContainer}>
-				<Image
-					source={require("@/assets/images/W1_Q1_intro.png")}
-					style={styles.image}
-					resizeMode="contain"
-				/>
+			<ScrollView
+				style={styles.scrollViewStyle}
+				contentContainerStyle={styles.contentContainer}
+			>
+				<View style={styles.contentContainer}>
+					<Image
+						source={require("@/assets/images/W1_Q1_intro.png")}
+						style={styles.image}
+						resizeMode="contain"
+					/>
 
-				<View style={styles.textContainer}>
-					{/* Title */}
-					<Text style={styles.title}>{worldResults.title}</Text>
+					<View style={styles.textContainer}>
+						{/* Title */}
+						<Text style={styles.title}>{worldResults.title}</Text>
 
-					{/* Score */}
-					<Text style={styles.score}>
-						{correctCount}/{totalCount}
-					</Text>
+						{/* Score */}
+						<Text style={styles.score}>
+							{correctCount}/{totalCount}
+						</Text>
 
-					{/* Dynamic text based on score */}
-					<Text style={styles.text}>{resultText}</Text>
+						{/* Dynamic text based on score */}
+						<Text style={styles.text}>{resultText}</Text>
+					</View>
+
+					<Button
+						style={styles.button}
+						mode="contained"
+						buttonColor="#00629F"
+						textColor="#FFFFFF"
+						onPress={
+							() =>
+								allCorrect
+									? router.push("/(tabs)/home/game/worlds") // go to world if all correct
+									: loadQuiz() // go back to intro if not all correct
+						}
+					>
+						{buttonText}
+					</Button>
+
+					<Button
+						icon="gamepad-variant-outline"
+						onPress={() => loadWorld()}
+						style={styles.button}
+						mode="contained"
+						//override to make the color of the button always as in light theme
+						buttonColor="#00629F"
+						textColor="#FFFFFF"
+					>
+						Back to World
+					</Button>
 				</View>
-
-				<Button
-					style={styles.button}
-					mode="contained"
-					buttonColor="#00629F"
-					textColor="#FFFFFF"
-					onPress={
-						() =>
-							allCorrect
-								? router.push("/(tabs)/home/game/worlds") // go to world if all correct
-								: loadQuiz() // go back to intro if not all correct
-					}
-				>
-					{buttonText}
-				</Button>
-			</View>
+			</ScrollView>
 		</ImageBackground>
 	);
 };
@@ -134,6 +174,10 @@ const styles = StyleSheet.create({
 		borderRadius: 24,
 		alignSelf: "center",
 		marginBottom: 20,
+	},
+	scrollViewStyle: {
+		flex: 1,
+		paddingHorizontal: 20,
 	},
 });
 export default Results;
