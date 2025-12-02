@@ -1,4 +1,4 @@
-import { QuizLang } from "@/src/types/types";
+import { QuizLang, Section } from "@/src/types/types";
 import TextData from "@/static/gameTexts.json";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -97,6 +97,40 @@ const QuizIntro = () => {
 		});
 	};
 
+	const quizIntroParser = (section: Section) => {
+		switch (section.type) {
+			case "quiz_info":
+				return (
+					<View key={section.title} style={styles.textContainer}>
+						<Text style={styles.textContainerStyle}>{section.content}</Text>
+					</View>
+				);
+
+			case "quiz_header":
+				return (
+					<View key={section.title} style={[styles.textContainer]}>
+						<Text style={[styles.textContainerStyle, styles.bold]}>
+							{section.content}
+						</Text>
+					</View>
+				);
+
+			case "link":
+				return (
+					<View key={section.title} style={styles.textContainer}>
+						<Text style={styles.textContainerStyle}>{section.content}</Text>
+					</View>
+				);
+
+			case "image":
+				return (
+					<View key={section.title} style={styles.textContainer}>
+						<Text style={styles.textContainerStyle}>{section.content}</Text>
+					</View>
+				);
+		}
+	};
+
 	return (
 		<ImageBackground
 			source={require("@/assets/images/WorldOne_background.png")}
@@ -125,11 +159,7 @@ const QuizIntro = () => {
           {quizData.quiz_intro_title}
         </Text> */}
 
-						{quizData?.quiz_intro.map((section) => (
-							<View key={section.title} style={styles.textContainer}>
-								<Text style={styles.textContainerStyle}>{section.content}</Text>
-							</View>
-						))}
+						{quizData?.quiz_intro.map((section) => quizIntroParser(section))}
 
 						<Button
 							icon="gamepad-variant-outline"
@@ -188,6 +218,9 @@ const styles = StyleSheet.create({
 	textContainerStyle: {
 		color: "#000000",
 		fontSize: 16,
+	},
+	bold: {
+		fontWeight: "bold",
 	},
 	button: {
 		borderRadius: 24,
