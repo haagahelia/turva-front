@@ -57,6 +57,7 @@ export interface Section {
 	title: string;
 	type: string;
 	content: string;
+	url: string;
 }
 
 export interface Question {

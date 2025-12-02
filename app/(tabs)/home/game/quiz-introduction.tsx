@@ -2,7 +2,13 @@ import { QuizLang, Section } from "@/src/types/types";
 import TextData from "@/static/gameTexts.json";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, ImageBackground, StyleSheet, View } from "react-native";
+import {
+	Image,
+	ImageBackground,
+	Linking,
+	StyleSheet,
+	View,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text } from "react-native-paper";
 
@@ -96,8 +102,11 @@ const QuizIntro = () => {
 			},
 		});
 	};
-
-	const quizIntroParser = (section: Section) => {
+	
+	// Content type processing is separated into its own function
+	// Tips on organization given by Claude.ai
+	const quizIntroRenderer = (section: Section) => {
+		// Use a case switch to return the right kind of component for each section
 		switch (section.type) {
 			case "quiz_info":
 				return (
@@ -114,19 +123,22 @@ const QuizIntro = () => {
 						</Text>
 					</View>
 				);
-
+			// Source for link management: ClaudeAI
 			case "link":
 				return (
 					<View key={section.title} style={styles.textContainer}>
-						<Text style={styles.textContainerStyle}>{section.content}</Text>
+						<Button onPress={() => section.url && Linking.openURL(section.url)}>
+							<Text style={styles.quiz_link}>{section.content}</Text>
+						</Button>
 					</View>
 				);
-
 			case "image":
 				return (
-					<View key={section.title} style={styles.textContainer}>
-						<Text style={styles.textContainerStyle}>{section.content}</Text>
-					</View>
+					<Image
+						source={{ uri: section.url }}
+						style={{height: 250}}
+						resizeMode="cover"
+					/>
 				);
 		}
 	};
@@ -151,15 +163,13 @@ const QuizIntro = () => {
 					<View>
 						<Image
 							source={require("@/assets/images/W1_Q1_intro.png")}
-							style={styles.image}
+							style={[styles.image, styles.marginTop190]}
 							resizeMode="contain"
 						/>
 
-						{/* <Text style={styles.title}>
-          {quizData.quiz_intro_title}
-        </Text> */}
+						
 
-						{quizData?.quiz_intro.map((section) => quizIntroParser(section))}
+						{quizData?.quiz_intro.map((section) => quizIntroRenderer(section))}
 
 						<Button
 							icon="gamepad-variant-outline"
@@ -211,7 +221,8 @@ const styles = StyleSheet.create({
 		padding: 16,
 		borderRadius: 12,
 		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginBottom: 20,
+		marginTop: 10,
+		marginBottom: 10,
 		borderColor: "#00629F",
 		borderWidth: 2,
 	},
@@ -228,11 +239,13 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 	},
 	image: {
-		marginTop: 190,
 		width: 250,
 		height: 250,
 		marginBottom: 20,
 		alignSelf: "center",
+	},
+	marginTop190: {
+		marginTop: 190
 	},
 	title: {
 		color: "#00629F", // main color
@@ -250,6 +263,12 @@ const styles = StyleSheet.create({
 		borderColor: "#00629F",
 		borderWidth: 10,
 		marginBottom: 20,
+	},
+	quiz_link: {
+		fontSize: 16,
+		lineHeight: 24,
+		color: "#0066cc",
+		textDecorationLine: "underline",
 	},
 });
 export default QuizIntro;
