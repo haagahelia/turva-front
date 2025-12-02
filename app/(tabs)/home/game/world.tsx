@@ -1,9 +1,10 @@
 import { QuizType } from "@/src/types/types";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { ScrollView, View } from "moti";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { loadQuizIntro, loadWorlds } from "./quiz-route-functions";
 
 const World = () => {
 	const theme = useTheme();
@@ -52,25 +53,7 @@ const World = () => {
 		}
 	});
 
-	const loadQuiz = (quiz_id: number) => {
-		console.log("BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./quiz-introduction",
-			params: {
-				quiz_id: quiz_id,
-				world_id: world_id,
-				world_name: world_name
-			},
-		});
-	};
-
-	const loadWorlds = () => {
-		console.log("BUTTON PRESSED!");
-		router.push({
-			pathname: "./worlds",
-		});
-	};
+	
 
 	return (
 		<ImageBackground
@@ -101,7 +84,7 @@ const World = () => {
 										styles.answer,
 										{ backgroundColor: theme.colors.primaryContainer },
 									]}
-									onPress={() => loadQuiz(quiz.quiz_id)}
+									onPress={() => loadQuizIntro(quiz.quiz_id.toString(), world_id, world_name)}
 								>
 									<Text style={styles.textContainerStyle}>
 										{quiz.quiz_name}

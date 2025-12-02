@@ -1,9 +1,9 @@
 import { WorldType } from "@/src/types/types";
-import { router } from "expo-router";
 import { View } from "moti";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { loadHome, loadWorld } from "./quiz-route-functions";
 
 const Worlds = () => {
 	const theme = useTheme();
@@ -41,21 +41,7 @@ const Worlds = () => {
 		}
 	});
 
-	const loadWorld = (world_id: number, world_name: string) => {
-		console.log("BUTTON PRESSED!");
-		console.log(world_id);
-		router.push({
-			pathname: "./world",
-			params: { world_id: world_id, world_name: world_name },
-		});
-	};
 
-	const loadHome = () => {
-		console.log("HOME Button pressed!");
-		router.push({
-			pathname: "/(tabs)/home",
-		});
-	};
 
 	return (
 		<ImageBackground
@@ -83,7 +69,7 @@ const Worlds = () => {
 									styles.answer,
 									{ backgroundColor: theme.colors.primaryContainer },
 								]}
-								onPress={() => loadWorld(world.world_id, world.world_name)}
+								onPress={() => loadWorld(world.world_id.toString(), world.world_name)}
 							>
 								<Text style={styles.textContainerStyle}>
 									{world.world_name}

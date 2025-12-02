@@ -1,6 +1,6 @@
 import { QuizLang, Section } from "@/src/types/types";
 import TextData from "@/static/gameTexts.json";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
 	Image,
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text } from "react-native-paper";
+import { loadQuiz, loadWorld } from "./quiz-route-functions";
 
 const QuizIntro = () => {
 	//Maybe we do not need dark theme in game, because the background is always light
@@ -82,26 +83,7 @@ const QuizIntro = () => {
 		}
 	});
 
-	const loadQuiz = () => {
-		console.log("BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./quiz",
-			params: { quiz_id: quiz_id, world_id: world_id, world_name: world_name },
-		});
-	};
-
-	const loadWorld = () => {
-		console.log("BUTTON PRESSED!");
-		console.log(world_id);
-		router.push({
-			pathname: "./world",
-			params: {
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
-	};
+	
 	
 	// Content type processing is separated into its own function
 	// Tips on organization given by Claude.ai
@@ -136,8 +118,8 @@ const QuizIntro = () => {
 				return (
 					<Image
 						source={{ uri: section.url }}
-						style={{height: 250}}
-						resizeMode="cover"
+						style={styles.quiz_image}
+						resizeMode="contain"
 					/>
 				);
 		}
@@ -161,19 +143,13 @@ const QuizIntro = () => {
 				) : (
 					// STATE 2: JSON CONTENT LOADED
 					<View>
-						<Image
-							source={require("@/assets/images/W1_Q1_intro.png")}
-							style={[styles.image, styles.marginTop190]}
-							resizeMode="contain"
-						/>
-
-						
-
+						<View style={styles.marginTop190}/>					
+						{/* MAP each content SECTION into a different RENDERED COMPONENT */}
 						{quizData?.quiz_intro.map((section) => quizIntroRenderer(section))}
 
 						<Button
 							icon="gamepad-variant-outline"
-							onPress={() => loadQuiz()}
+							onPress={() => loadQuiz(quiz_id, world_id, world_name)}
 							style={styles.button}
 							mode="contained"
 							//override to make the color of the button always as in light theme
@@ -185,7 +161,7 @@ const QuizIntro = () => {
 
 						<Button
 							icon="gamepad-variant-outline"
-							onPress={() => loadWorld()}
+							onPress={() => loadWorld(world_id, world_name)}
 							style={styles.button}
 							mode="contained"
 							//override to make the color of the button always as in light theme
@@ -238,10 +214,9 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		marginBottom: 20,
 	},
-	image: {
-		width: 250,
+	quiz_image: {
 		height: 250,
-		marginBottom: 20,
+		aspectRatio: 1,
 		alignSelf: "center",
 	},
 	marginTop190: {

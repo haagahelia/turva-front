@@ -1,3 +1,4 @@
+import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { router } from "expo-router";
 import { MotiImage } from "moti";
@@ -5,7 +6,6 @@ import { useRef, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLanguageStore } from "@/src/zustand/store";
 
 type OnboardingData = {
 	title: string;
@@ -39,7 +39,7 @@ const Onboarding = () => {
 		if (index > 0) {
 			setIndex(index - 1);
 		}
-		scrollViewRef.current?.scrollTo(0, 0, true);
+		scrollViewRef.current?.scrollTo({x: 0, y: 0, animated: true});
 	};
 
 	return (

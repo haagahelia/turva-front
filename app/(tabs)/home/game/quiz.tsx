@@ -1,12 +1,13 @@
 import { Answer, Language, QuizLang } from "@/src/types/types";
 import TextData from "@/static/gameTexts.json";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text, useTheme } from "react-native-paper";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
+import { loadResultsScreen, loadWorld } from "./quiz-route-functions";
 
 const Quiz = () => {
 	const theme = useTheme();
@@ -86,31 +87,7 @@ const Quiz = () => {
 		selectedAnswers.some((a) => a.question_title === q.title)
 	);
 
-	const loadResultsScreen = (answers: string) => {
-		console.log("BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./results",
-			params: {
-				quiz_id: quiz_id,
-				answers: answers,
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
-	};
 
-	const loadWorld = () => {
-		console.log("BUTTON PRESSED!");
-		console.log(world_id);
-		router.push({
-			pathname: "./world",
-			params: {
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
-	};
 
 	return (
 		<ScrollView
@@ -159,14 +136,14 @@ const Quiz = () => {
 						mode="contained"
 						disabled={!isAllAnswered}
 						//disabled={false}
-						onPress={() => loadResultsScreen(JSON.stringify(selectedAnswers))}
+						onPress={() => loadResultsScreen(quiz_id, world_id, world_name, JSON.stringify(selectedAnswers))}
 					>
 						{commonText.end}
 					</Button>
 
 					<Button
 						icon="gamepad-variant-outline"
-						onPress={() => loadWorld()}
+						onPress={() => loadWorld(world_id, world_name)}
 						style={styles.button}
 						mode="contained"
 						//override to make the color of the button always as in light theme

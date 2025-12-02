@@ -1,10 +1,11 @@
 import { Answer, ResultsTexts, WorldResults } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
 import results_json from "@/static/quiz_results.json";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { ScrollView } from "moti";
 import { Image, ImageBackground, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
-import { useLanguageStore } from "@/src/zustand/store";
+import { loadQuiz, loadWorld } from "./quiz-route-functions";
 
 const Results = () => {
 	// ROUTIMG PARAMS
@@ -43,26 +44,7 @@ const Results = () => {
 		? worldResults.allCorrectButton
 		: worldResults.notAllCorrectButton;
 
-	const loadQuiz = () => {
-		console.log("BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./quiz-introduction",
-			params: { quiz_id: quiz_id },
-		});
-	};
 
-	const loadWorld = () => {
-		console.log("BUTTON PRESSED!");
-		console.log(world_id);
-		router.push({
-			pathname: "./world",
-			params: {
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
-	};
 
 	return (
 		<ImageBackground
@@ -102,8 +84,8 @@ const Results = () => {
 						onPress={
 							() =>
 								allCorrect
-									? router.push("/(tabs)/home/game/worlds") // go to world if all correct
-									: loadQuiz() // go back to intro if not all correct
+									? loadWorld(world_id, world_name) // go to world if all correct
+									: loadQuiz(quiz_id, world_id, world_name) // go back to intro if not all correct
 						}
 					>
 						{buttonText}
@@ -111,7 +93,7 @@ const Results = () => {
 
 					<Button
 						icon="gamepad-variant-outline"
-						onPress={() => loadWorld()}
+						onPress={() => loadWorld(world_id, world_name)}
 						style={styles.button}
 						mode="contained"
 						//override to make the color of the button always as in light theme
