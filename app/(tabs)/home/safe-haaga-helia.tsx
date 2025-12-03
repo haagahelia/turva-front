@@ -1,4 +1,4 @@
-import { Language } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
 import TextData from '@/static/drawerTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
@@ -12,8 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function SafeHaagaHeliaScreen() {
 
   const theme = useTheme();
-  const lang: Language = 'fi';
-  const text = TextData[lang].safeHaagaHelia;
+  const {language} = useLanguageStore()
+  const text = TextData[language].safeHaagaHelia;
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
 
