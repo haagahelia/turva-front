@@ -45,9 +45,10 @@ const QuizIntro = () => {
 	console.log("World ID after loading Quiz-introduction.tsx:");
 	console.log(world_id);
 
-	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	const { world_name_en } = useLocalSearchParams<{ world_name_en: string }>();
+	const { world_name_fi } = useLocalSearchParams<{ world_name_fi: string }>();
 	console.log("World Name after loading Quiz-introduction.tsx:");
-	console.log(world_name);
+	console.log(world_name_en, world_name_fi);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -147,7 +148,7 @@ const QuizIntro = () => {
 
 						<Button
 							icon="gamepad-variant-outline"
-							onPress={() => loadQuiz(quiz_id, world_id, world_name)}
+							onPress={() => loadQuiz(quiz_id, world_id, world_name_fi)}
 							style={styles.button}
 							mode="contained"
 							//override to make the color of the button always as in light theme
@@ -161,7 +162,7 @@ const QuizIntro = () => {
 
 				<Button
 					icon="gamepad-variant-outline"
-					onPress={() => loadWorld(world_id, world_name)}
+					onPress={() => loadWorld(world_id, world_name_en, world_name_fi)}
 					style={styles.button}
 					mode="contained"
 					//override to make the color of the button always as in light theme

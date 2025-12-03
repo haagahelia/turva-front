@@ -6,7 +6,8 @@ export interface Contact {
 
 export interface QuizType {
 	quiz_id:number;
-	quiz_name:string;
+	quiz_name_en:string;
+	quiz_name_fi:string;
 	fi: QuizLang;
 	en: QuizLang;
 }
@@ -48,7 +49,7 @@ export interface CommonTexts {
 export interface WorldType {
 	world_id: number;
 	world_name_en: string;
-	world_name_fin: string;
+	world_name_fi: string;
 	order_number: number;
 }
 

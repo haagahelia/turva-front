@@ -1,4 +1,6 @@
 import { QuizType } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
+import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView, View } from "moti";
 import { useEffect, useState } from "react";
@@ -8,6 +10,9 @@ import { loadQuizIntro, loadWorlds } from "./quiz-route-functions";
 
 const World = () => {
 	const theme = useTheme();
+	const { language } = useLanguageStore();
+	const uiText = (TextData as any)[language];
+
 	const [isLoading, setLoading] = useState(true);
 	const [quizData, setQuizData] = useState<QuizType[]>([]);
 
@@ -15,11 +20,10 @@ const World = () => {
 	console.log("World ID after loading World.tsx:");
 	console.log(world_id);
 
-	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	const { world_name_en } = useLocalSearchParams<{ world_name_en: string }>();
+	const { world_name_fi } = useLocalSearchParams<{ world_name_fi: string }>();
 	console.log("World Name after loading World.tsx:");
-	console.log(world_name);
-
-	
+	console.log(world_name_en, world_name_fi);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -53,8 +57,6 @@ const World = () => {
 		}
 	});
 
-	
-
 	return (
 		<ImageBackground
 			source={require("@/assets/images/WorldNavigation.png")}
@@ -65,10 +67,11 @@ const World = () => {
 				style={styles.scrollViewStyle}
 				contentContainerStyle={styles.contentContainer}
 			>
-				<Text style={styles.textContainer}>{world_name}</Text>
 				<Text style={styles.textContainer}>
-					Clear each Quiz in this World!{" "}
+					{language === "en" && world_name_en}
+					{language === "fi" && world_name_fi}
 				</Text>
+				<Text style={styles.textContainer}>{uiText.worlds.clearEachQuiz}</Text>
 
 				{isLoading ? (
 					// STATE 1: JSON CONTENT NOT LOADED
@@ -84,10 +87,18 @@ const World = () => {
 										styles.answer,
 										{ backgroundColor: theme.colors.primaryContainer },
 									]}
-									onPress={() => loadQuizIntro(quiz.quiz_id.toString(), world_id, world_name)}
+									onPress={() =>
+										loadQuizIntro(
+											quiz.quiz_id.toString(),
+											world_id,
+											world_name_en,
+											world_name_fi
+										)
+									}
 								>
 									<Text style={styles.textContainerStyle}>
-										{quiz.quiz_name}
+										{language === "en" && quiz.quiz_name_en}
+										{language === "fi" && quiz.quiz_name_fi}
 									</Text>
 								</TouchableOpacity>
 							</View>
@@ -104,7 +115,7 @@ const World = () => {
 					buttonColor="#00629F"
 					textColor="#FFFFFF"
 				>
-					Back to Worlds List
+					{uiText.worlds.backHome}
 				</Button>
 			</ScrollView>
 		</ImageBackground>

@@ -13,19 +13,28 @@ export const loadWorlds = () => {
 		pathname: "./worlds",
 	});
 };
-export const loadWorld = (world_id: string, world_name: string) => {
+export const loadWorld = (
+	world_id: string,
+	world_name_en: string,
+	world_name_fi: string
+) => {
 	console.log("World BUTTON PRESSED!");
 	console.log(world_id);
 	router.push({
 		pathname: "./world",
-		params: { world_id: world_id, world_name: world_name },
+		params: {
+			world_id: world_id,
+			world_name_en: world_name_en,
+			world_name_fi: world_name_fi,
+		},
 	});
 };
 
 export const loadQuizIntro = (
 	quiz_id: string,
 	world_id: string,
-	world_name: string
+	world_name_en: string,
+	world_name_fi: string
 ) => {
 	console.log("Quiz Intro BUTTON PRESSED!");
 	console.log(quiz_id);
@@ -34,7 +43,8 @@ export const loadQuizIntro = (
 		params: {
 			quiz_id: quiz_id,
 			world_id: world_id,
-			world_name: world_name,
+			world_name_en: world_name_en,
+			world_name_fi: world_name_fi,
 		},
 	});
 };
@@ -52,18 +62,21 @@ export const loadQuiz = (
 	});
 };
 
-
-	export const loadResultsScreen = (quiz_id: string, world_id: string, world_name:string, answers: string) => {
-		console.log("Results BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./results",
-			params: {
-				quiz_id: quiz_id,
-				answers: answers,
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
-	};
-
+export const loadResultsScreen = (
+	quiz_id: string,
+	world_id: string,
+	world_name: string,
+	answers: string
+) => {
+	console.log("Results BUTTON PRESSED!");
+	console.log(quiz_id);
+	router.push({
+		pathname: "./results",
+		params: {
+			quiz_id: quiz_id,
+			answers: answers,
+			world_id: world_id,
+			world_name: world_name,
+		},
+	});
+};

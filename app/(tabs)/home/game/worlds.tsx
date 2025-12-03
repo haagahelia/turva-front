@@ -72,12 +72,12 @@ const Worlds = () => {
 									{ backgroundColor: theme.colors.primaryContainer },
 								]}
 								onPress={() =>
-									loadWorld(world.world_id.toString(), world.world_name_fin)
+									loadWorld(world.world_id.toString(), world.world_name_en, world.world_name_fi)
 								}
 							>
 								<Text style={styles.textContainerStyle}>
 									{language === "en" && world.world_name_en}
-									{language === "fi" && world.world_name_fin}
+									{language === "fi" && world.world_name_fi}
 								</Text>
 							</TouchableOpacity>
 						</View>

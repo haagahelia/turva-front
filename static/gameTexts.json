@@ -49,7 +49,8 @@
 		"worlds": {
 			"title": "Maailmat",
 			"explanation": "Jokainen maailma sisältää useita tietovisoja, voittamalla ne etenet pelissä!",
-			"backHome": "Takaisin Koti-sivulle"
+			"backHome": "Takaisin Koti-sivulle",
+      "clearEachQuiz": "Onnistutko voittamaan jokaisen tietovisan tässä maailmassa?"
 		}
 	},
 	"en": {
@@ -102,7 +103,8 @@
 		"worlds": {
 			"title": "Worlds",
 			"explanation": "Each World contains several Quizzes that you can beat to advance in the game!",
-			"backHome": "Back to Home Screen"
+			"backHome": "Back to Home Screen",
+      "clearEachQuiz": "Can you beat every Quiz in this World?"
 		}
 	}
 }
