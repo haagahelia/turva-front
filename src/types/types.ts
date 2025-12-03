@@ -47,7 +47,8 @@ export interface CommonTexts {
 
 export interface WorldType {
 	world_id: number;
-	world_name: string;
+	world_name_en: string;
+	world_name_fin: string;
 	order_number: number;
 }
 

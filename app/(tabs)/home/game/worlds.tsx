@@ -1,4 +1,6 @@
 import { WorldType } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
+import TextData from "@/static/gameTexts.json";
 import { View } from "moti";
 import { useEffect, useState } from "react";
 import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
@@ -7,6 +9,9 @@ import { loadHome, loadWorld } from "./quiz-route-functions";
 
 const Worlds = () => {
 	const theme = useTheme();
+	const { language } = useLanguageStore();
+	const uiText = (TextData as any)[language];
+
 	const [isLoading, setLoading] = useState(true);
 	const [worlds, setWorlds] = useState<WorldType[]>([]);
 
@@ -41,18 +46,15 @@ const Worlds = () => {
 		}
 	});
 
-
-
 	return (
 		<ImageBackground
 			source={require("@/assets/images/WorldNavigation.png")}
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<Text style={styles.textContainer}>This is the worlds screen</Text>
+			<Text style={styles.textContainer}>{uiText.worlds.title}</Text>
 			<Text style={styles.textContainer}>
-				From here, the user should be able to access different levels / quizzes
-				in the game{" "}
+				{uiText.worlds.explanation}
 			</Text>
 
 			{isLoading ? (
@@ -69,10 +71,13 @@ const Worlds = () => {
 									styles.answer,
 									{ backgroundColor: theme.colors.primaryContainer },
 								]}
-								onPress={() => loadWorld(world.world_id.toString(), world.world_name)}
+								onPress={() =>
+									loadWorld(world.world_id.toString(), world.world_name_fin)
+								}
 							>
 								<Text style={styles.textContainerStyle}>
-									{world.world_name}
+									{language === "en" && world.world_name_en}
+									{language === "fi" && world.world_name_fin}
 								</Text>
 							</TouchableOpacity>
 						</View>
@@ -87,7 +92,7 @@ const Worlds = () => {
 						buttonColor="#00629F"
 						textColor="#FFFFFF"
 					>
-						Back to Home Screen
+						{uiText.worlds.backHome}
 					</Button>
 				</View>
 			)}
