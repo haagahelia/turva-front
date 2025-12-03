@@ -17,6 +17,10 @@ export default function Index() {
 
     const evaluateOnboardingStatus = async () => {
       try {
+        // To reset onboarding for testing
+        //await AsyncStorage.removeItem(ONBOARDING_KEY);
+        //console.log("Onboarding reset");
+
         const storedValue = await AsyncStorage.getItem(ONBOARDING_KEY);
 
         router.replace(
