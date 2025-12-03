@@ -84,7 +84,9 @@ const Quiz = () => {
 		);
 	};
 
-	const isAllAnswered = quizData?.questions.every((q) =>
+	const isAllAnswered = quizData?.questions
+	.filter(section => section.type === "quiz_question")
+	.every((q) =>
 		selectedAnswers.some((a) => a.question_title === q.title)
 	);
 
