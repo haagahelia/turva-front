@@ -22,7 +22,9 @@ export default function SafetyInfo() {
   const text = TextData[language];
 
   // Get the briefing data from mockData
-  const briefingItem = itemId ? safetyBriefingData[itemId] : null;
+  const briefingItem = itemId && language
+    ? safetyBriefingData[language][itemId]
+    : null;
 
   const { completed, markCompleted } = useSafetyStore();
 
@@ -48,7 +50,7 @@ export default function SafetyInfo() {
             color={theme.colors.error}
           />
           <Text style={[styles.errorTitle, { color: theme.colors.error }]}>
-           {text.noTopic}
+            {text.noTopic}
           </Text>
           <Text
             style={[styles.errorText, { color: theme.colors.onBackground }]}

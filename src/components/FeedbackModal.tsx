@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import {
-    Keyboard,
-    StyleSheet,
-    TouchableNativeFeedback,
-    View,
+  Keyboard,
+  StyleSheet,
+  TouchableNativeFeedback,
+  View,
 } from "react-native";
 import {
-    Button,
-    Modal,
-    Portal,
-    Text,
-    TextInput,
-    useTheme,
+  Button,
+  Modal,
+  Portal,
+  Text,
+  TextInput,
+  useTheme,
 } from "react-native-paper";
+
+import TextData from '@/static/feedbackTexts.json';
+import { useLanguageStore } from "../zustand/store";
 
 interface FeedbackModalProps {
   visible: boolean;
@@ -45,6 +48,9 @@ export default function FeedbackModal({
     onDismiss();
   };
 
+  const { language } = useLanguageStore();
+  const text = TextData[language];
+
   return (
     <Portal>
       <Modal
@@ -60,7 +66,7 @@ export default function FeedbackModal({
             {/* Header */}
             <View style={styles.header}>
               <Text style={[styles.title, { color: theme.colors.onSurface }]}>
-                Anna palautetta
+                {text.title}
               </Text>
               <Text
                 style={[
@@ -68,7 +74,7 @@ export default function FeedbackModal({
                   { color: theme.colors.onSurfaceVariant },
                 ]}
               >
-                Arvioi turvallisuusperehdytyksen kokemus asteikolla 1-10
+                {text.subtitle}
               </Text>
             </View>
 
@@ -113,13 +119,13 @@ export default function FeedbackModal({
                   { color: theme.colors.onSurface },
                 ]}
               >
-                Kuvaus (valinnainen)
+                {text.descriptionLabel}
               </Text>
               <TextInput
                 mode="outlined"
                 multiline
                 numberOfLines={3}
-                placeholder="Kerro lisää kokemuksestasi..."
+                placeholder={text.descriptionPlaceholder}
                 value={description}
                 onChangeText={setDescription}
                 style={styles.textInput}
@@ -144,7 +150,7 @@ export default function FeedbackModal({
                 ]}
                 contentStyle={styles.actionButtonContent}
               >
-                Peruuta
+                {text.cancel}
               </Button>
               <Button
                 mode="contained"
@@ -156,7 +162,7 @@ export default function FeedbackModal({
                 ]}
                 contentStyle={styles.actionButtonContent}
               >
-                Lähetä
+                {text.submit}
               </Button>
             </View>
           </View>
