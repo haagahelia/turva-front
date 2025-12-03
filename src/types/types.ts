@@ -14,7 +14,7 @@ export interface QuizType {
 export interface QuizLang {
 	quiz_intro_title?: string; // optional title for the whole intro
 	quiz_intro: Section[];
-	questions: Question[];
+	questions: Section[];
 }
 
 export type Language = "en" | "fi";
@@ -58,6 +58,7 @@ export interface Section {
 	type: string;
 	content: string;
 	url: string;
+	answers: Answer[];
 }
 
 export interface Question {
@@ -95,6 +96,7 @@ export interface WorldResults {
 	notAllCorrectButton: string;
 }
 
+// NOT USED ANYWHERE CURRENTLY
 export interface QuizParams {
 	world_id: number;
 	world_name: string;

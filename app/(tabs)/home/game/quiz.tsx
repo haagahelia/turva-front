@@ -1,4 +1,9 @@
-import { Answer, Language, QuizLang } from "@/src/types/types";
+import {
+	Answer,
+	Language,
+	QuizLang,
+	Section
+} from "@/src/types/types";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -87,7 +92,39 @@ const Quiz = () => {
 		selectedAnswers.some((a) => a.question_title === q.title)
 	);
 
+	const quizRenderer = (section: Section) => {
+		// Use a case switch to return the right kind of component for each section
+		switch (section.type) {
+			case "quiz_question":
+				return (
+<View key={section.title} style={styles.answerContainer}>
+							<QuizQuestion
+								title={section.title}
+								type={section.type}
+								content={section.content}
+								answers={section.answers}
+							/>
+							{section.answers.map((answer) => {
+								const fullAnswer = {
+									...answer,
+									question_title: section.title,
+								};
+								return (
+									<QuizAnswer
+										key={answer.title}
+										answer={fullAnswer}
+										isSelected={isAnswerSelected(fullAnswer)}
+										onSelect={toggleSelected}
+									/>
+								);
+							})}
+						</View>
 
+				);
+			case "image":
+				return <View></View>;
+		}
+	};
 
 	return (
 		<ScrollView
@@ -108,35 +145,21 @@ const Quiz = () => {
 						{commonText.answerAll}
 					</Text>
 					{quizData?.questions.map((question) => (
-						<View key={question.title} style={styles.answerContainer}>
-							<QuizQuestion
-								title={question.title}
-								type={question.type}
-								content={question.content}
-								answers={question.answers}
-							/>
-							{question.answers.map((answer) => {
-								const fullAnswer = {
-									...answer,
-									question_title: question.title,
-								};
-								return (
-									<QuizAnswer
-										key={answer.title}
-										answer={fullAnswer}
-										isSelected={isAnswerSelected(fullAnswer)}
-										onSelect={toggleSelected}
-									/>
-								);
-							})}
-						</View>
+						quizRenderer(question)
 					))}
 					<Button
 						style={{ margin: 10, marginBottom: 50 }}
 						mode="contained"
 						disabled={!isAllAnswered}
 						//disabled={false}
-						onPress={() => loadResultsScreen(quiz_id, world_id, world_name, JSON.stringify(selectedAnswers))}
+						onPress={() =>
+							loadResultsScreen(
+								quiz_id,
+								world_id,
+								world_name,
+								JSON.stringify(selectedAnswers)
+							)
+						}
 					>
 						{commonText.end}
 					</Button>
