@@ -1,4 +1,5 @@
-import { QuizLang, Section } from "@/src/types/types";
+import { QuizLang, QuizType, Section } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -32,8 +33,10 @@ const QuizIntro = () => {
 	//}
 	//}
 
-	const lang = "fi";
+	const { language } = useLanguageStore();
+	const lang = language;
 	const [isLoading, setLoading] = useState(true);
+	const [quizJson, setQuizJson] = useState<QuizType | null>(null);
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
 	const uiText = (TextData as any)[lang];
 
@@ -66,6 +69,8 @@ const QuizIntro = () => {
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
 			console.log(quizJson[lang]);
+
+			setQuizJson(quizJson);
 			setQuizData(quizJson[lang]);
 
 			// TOGGLE Loading state OFF
@@ -83,6 +88,9 @@ const QuizIntro = () => {
 			getQuizFromApiAsync();
 		}
 	});
+
+	// Use effect based on lang update explained by Claude.ai
+	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang]); // Runs whenever lang changes
 
 	// Content type processing is separated into its own function
 	// Tips on organization given by Claude.ai
@@ -148,7 +156,9 @@ const QuizIntro = () => {
 
 						<Button
 							icon="gamepad-variant-outline"
-							onPress={() => loadQuiz(quiz_id, world_id, world_name_fi)}
+							onPress={() =>
+								loadQuiz(quiz_id, world_id, world_name_en, world_name_fi)
+							}
 							style={styles.button}
 							mode="contained"
 							//override to make the color of the button always as in light theme
@@ -169,7 +179,7 @@ const QuizIntro = () => {
 					buttonColor="#00629F"
 					textColor="#FFFFFF"
 				>
-					Back to World
+					{uiText.worlds.backToWorld}
 				</Button>
 			</ScrollView>
 		</ImageBackground>

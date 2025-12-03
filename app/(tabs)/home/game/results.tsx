@@ -19,9 +19,10 @@ const Results = () => {
 	console.log("World Id after loading Results.tsx:");
 	console.log(world_id);
 
-	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	const { world_name_en } = useLocalSearchParams<{ world_name_en: string }>();
+	const { world_name_fi } = useLocalSearchParams<{ world_name_fi: string }>();
 	console.log("World Name after loading Results.tsx:");
-	console.log(world_name);
+	console.log(world_name_en, world_name_fi);
 
 	// PARSE ANSWERS
 	const selectedAnswers: Answer[] = JSON.parse(answers);
@@ -84,8 +85,8 @@ const Results = () => {
 						onPress={
 							() =>
 								allCorrect
-									? loadWorld(world_id, world_name) // go to world if all correct
-									: loadQuiz(quiz_id, world_id, world_name) // go back to intro if not all correct
+									? loadWorld(world_id, world_name_en, world_name_fi) // go to world if all correct
+									: loadQuiz(quiz_id, world_id, world_name_en, world_name_fi) // go back to intro if not all correct
 						}
 					>
 						{buttonText}
@@ -93,7 +94,7 @@ const Results = () => {
 
 					<Button
 						icon="gamepad-variant-outline"
-						onPress={() => loadWorld(world_id, world_name)}
+						onPress={() => loadWorld(world_id, world_name_en, world_name_fi)}
 						style={styles.button}
 						mode="contained"
 						//override to make the color of the button always as in light theme
