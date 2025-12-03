@@ -1,13 +1,8 @@
-import {
-	Answer,
-	Language,
-	QuizLang,
-	Section
-} from "@/src/types/types";
+import { Answer, Language, QuizLang, Section } from "@/src/types/types";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text, useTheme } from "react-native-paper";
 import QuizAnswer from "./quiz-answer";
@@ -97,32 +92,37 @@ const Quiz = () => {
 		switch (section.type) {
 			case "quiz_question":
 				return (
-<View key={section.title} style={styles.answerContainer}>
-							<QuizQuestion
-								title={section.title}
-								type={section.type}
-								content={section.content}
-								answers={section.answers}
-							/>
-							{section.answers.map((answer) => {
-								const fullAnswer = {
-									...answer,
-									question_title: section.title,
-								};
-								return (
-									<QuizAnswer
-										key={answer.title}
-										answer={fullAnswer}
-										isSelected={isAnswerSelected(fullAnswer)}
-										onSelect={toggleSelected}
-									/>
-								);
-							})}
-						</View>
-
+					<View key={section.title} style={styles.answerContainer}>
+						<QuizQuestion
+							title={section.title}
+							type={section.type}
+							content={section.content}
+							answers={section.answers}
+						/>
+						{section.answers.map((answer) => {
+							const fullAnswer = {
+								...answer,
+								question_title: section.title,
+							};
+							return (
+								<QuizAnswer
+									key={answer.title}
+									answer={fullAnswer}
+									isSelected={isAnswerSelected(fullAnswer)}
+									onSelect={toggleSelected}
+								/>
+							);
+						})}
+					</View>
 				);
 			case "image":
-				return <View></View>;
+				return (
+					<Image
+						source={{ uri: section.url }}
+						style={styles.quiz_image}
+						resizeMode="contain"
+					/>
+				);
 		}
 	};
 
@@ -144,9 +144,8 @@ const Quiz = () => {
 					>
 						{commonText.answerAll}
 					</Text>
-					{quizData?.questions.map((question) => (
-						quizRenderer(question)
-					))}
+					{/* Render each segment - they could be questions but also images etc */}
+					{quizData?.questions.map((question) => quizRenderer(question))}
 					<Button
 						style={{ margin: 10, marginBottom: 50 }}
 						mode="contained"
@@ -163,20 +162,20 @@ const Quiz = () => {
 					>
 						{commonText.end}
 					</Button>
-
-					<Button
-						icon="gamepad-variant-outline"
-						onPress={() => loadWorld(world_id, world_name)}
-						style={styles.button}
-						mode="contained"
-						//override to make the color of the button always as in light theme
-						buttonColor="#00629F"
-						textColor="#FFFFFF"
-					>
-						Back to World
-					</Button>
 				</View>
 			)}
+
+			<Button
+				icon="gamepad-variant-outline"
+				onPress={() => loadWorld(world_id, world_name)}
+				style={styles.button}
+				mode="contained"
+				//override to make the color of the button always as in light theme
+				buttonColor="#00629F"
+				textColor="#FFFFFF"
+			>
+				Back to World
+			</Button>
 		</ScrollView>
 	);
 };
@@ -190,6 +189,11 @@ const styles = StyleSheet.create({
 		borderRadius: 24,
 		alignSelf: "center",
 		marginBottom: 20,
+	},
+	quiz_image: {
+		height: 250,
+		aspectRatio: 1,
+		alignSelf: "center",
 	},
 });
 

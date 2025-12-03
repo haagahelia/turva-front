@@ -83,8 +83,6 @@ const QuizIntro = () => {
 		}
 	});
 
-	
-	
 	// Content type processing is separated into its own function
 	// Tips on organization given by Claude.ai
 	const quizIntroRenderer = (section: Section) => {
@@ -143,7 +141,7 @@ const QuizIntro = () => {
 				) : (
 					// STATE 2: JSON CONTENT LOADED
 					<View>
-						<View style={styles.marginTop190}/>					
+						<View style={styles.marginTop190} />
 						{/* MAP each content SECTION into a different RENDERED COMPONENT */}
 						{quizData?.quiz_intro.map((section) => quizIntroRenderer(section))}
 
@@ -158,20 +156,20 @@ const QuizIntro = () => {
 						>
 							{uiText.common.start}
 						</Button>
-
-						<Button
-							icon="gamepad-variant-outline"
-							onPress={() => loadWorld(world_id, world_name)}
-							style={styles.button}
-							mode="contained"
-							//override to make the color of the button always as in light theme
-							buttonColor="#00629F"
-							textColor="#FFFFFF"
-						>
-							Back to World
-						</Button>
 					</View>
 				)}
+
+				<Button
+					icon="gamepad-variant-outline"
+					onPress={() => loadWorld(world_id, world_name)}
+					style={styles.button}
+					mode="contained"
+					//override to make the color of the button always as in light theme
+					buttonColor="#00629F"
+					textColor="#FFFFFF"
+				>
+					Back to World
+				</Button>
 			</ScrollView>
 		</ImageBackground>
 	);
@@ -220,7 +218,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 	},
 	marginTop190: {
-		marginTop: 190
+		marginTop: 190,
 	},
 	title: {
 		color: "#00629F", // main color
