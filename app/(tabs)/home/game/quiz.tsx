@@ -73,7 +73,7 @@ const Quiz = () => {
 	});
 
 	// Use effect based on lang update explained by Claude.ai
-	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang]); // Runs whenever lang changes
+	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang, quizJson]); // Runs whenever lang changes
 
 	const toggleSelected = (answer: Answer) => {
 		setSelectedAnswers((prev) => {

@@ -1,5 +1,6 @@
 import { Answer, ResultsTexts, WorldResults } from "@/src/types/types";
 import { useLanguageStore } from "@/src/zustand/store";
+import TextData from "@/static/gameTexts.json";
 import results_json from "@/static/quiz_results.json";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView } from "moti";
@@ -8,6 +9,10 @@ import { Button, Text } from "react-native-paper";
 import { loadQuiz, loadWorld } from "./quiz-route-functions";
 
 const Results = () => {
+	const { language } = useLanguageStore();
+	const lang = language;
+	const uiText = (TextData as any)[lang];
+
 	// ROUTIMG PARAMS
 	const { answers } = useLocalSearchParams<{ answers: string }>();
 
@@ -29,9 +34,6 @@ const Results = () => {
 	const correctCount = selectedAnswers.filter((a) => a.is_correct).length;
 	const totalCount = selectedAnswers.length; // total number of questions
 
-	// Language (for now hardcoded, later can come from app context or settings)
-	const { language } = useLanguageStore();
-
 	// Load and type results.json
 	const resultsData = results_json as unknown as ResultsTexts;
 	const worldResults = resultsData[language]["world1"] as WorldResults;
@@ -44,8 +46,6 @@ const Results = () => {
 	const buttonText = allCorrect
 		? worldResults.allCorrectButton
 		: worldResults.notAllCorrectButton;
-
-
 
 	return (
 		<ImageBackground
@@ -101,7 +101,7 @@ const Results = () => {
 						buttonColor="#00629F"
 						textColor="#FFFFFF"
 					>
-						Back to World
+						{uiText.worlds.backToWorld}
 					</Button>
 				</View>
 			</ScrollView>

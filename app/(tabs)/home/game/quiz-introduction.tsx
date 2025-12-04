@@ -90,7 +90,7 @@ const QuizIntro = () => {
 	});
 
 	// Use effect based on lang update explained by Claude.ai
-	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang]); // Runs whenever lang changes
+	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang, quizJson]); // Runs whenever lang changes
 
 	// Content type processing is separated into its own function
 	// Tips on organization given by Claude.ai
