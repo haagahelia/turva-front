@@ -1,6 +1,7 @@
 import { Question } from "@/src/types/types";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { Text } from "react-native-paper";
+import { styles } from "./gameStyles";
 
 const QuizQuestion = ( { title, content }: Question) => {
 
@@ -11,11 +12,6 @@ const QuizQuestion = ( { title, content }: Question) => {
     );
 }
 
-const styles = StyleSheet.create({
-    question: {
-        margin: 10,
-    }
 
-});
 
 export default QuizQuestion;

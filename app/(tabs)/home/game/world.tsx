@@ -116,7 +116,7 @@ const World = () => {
 					buttonColor="#00629F"
 					textColor="#FFFFFF"
 				>
-					{uiText.worlds.backHome}
+					{uiText.worlds.backToWorldList}
 				</Button>
 			</ScrollView>
 		</ImageBackground>

@@ -30,11 +30,6 @@ export const styles = StyleSheet.create({
 		color: "#000000",
 		fontSize: 16,
 	},
-	answer: {
-		padding: 16,
-		borderRadius: 20,
-		marginVertical: 6,
-	},
 
 	scrollViewStyle: {
 		flex: 1,
@@ -125,5 +120,18 @@ export const styles = StyleSheet.create({
 	},
 	flex2: {
 		flex: 2,
+	},
+
+	question: {
+		margin: 10,
+	},
+
+	answer: {
+		padding: 16,
+		borderRadius: 20,
+		marginVertical: 6,
+	},
+	selectedAnswer: {
+		borderWidth: 2,
 	},
 });

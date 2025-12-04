@@ -60,7 +60,7 @@ const Results = () => {
 				<View style={styles.contentContainer}>
 					<Image
 						source={require("@/assets/images/W1_Q1_intro.png")}
-						style={styles.quiz_image}
+						style={[styles.image]}
 						resizeMode="contain"
 					/>
 

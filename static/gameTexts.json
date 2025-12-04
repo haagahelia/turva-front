@@ -52,8 +52,9 @@
 			"title": "Maailmat",
 			"explanation": "Jokainen maailma sisältää useita tietovisoja, voittamalla ne etenet pelissä!",
 			"backHome": "Takaisin Koti-sivulle",
-      "backToWorld": "Takaisin Maailmaan",
-      "clearEachQuiz": "Onnistutko voittamaan jokaisen tietovisan tässä maailmassa?"
+			"backToWorldList": "Takaisin Maailmat -sivulle",
+			"backToWorld": "Takaisin Maailmaan",
+			"clearEachQuiz": "Onnistutko voittamaan jokaisen tietovisan tässä maailmassa?"
 		}
 	},
 	"en": {
@@ -61,15 +62,11 @@
 		"onboarding": [
 			{
 				"title": "🎮 Welcome to the TurvallisuusMestari-game!",
-				"description": [
-					"Add en text"
-				]
+				"description": ["Add en text"]
 			},
 			{
 				"title": "🌍 Worlds and Levels",
-				"description": [
-					"Add en text"
-				]
+				"description": ["Add en text"]
 			},
 			{
 				"title": "📋 How to play?",
@@ -82,15 +79,11 @@
 			},
 			{
 				"title": "🏅 Prize",
-				"description": [
-					"Add en text"
-				]
+				"description": ["Add en text"]
 			},
 			{
 				"title": "💡 Hint",
-				"description": [
-					"Add en text"
-				]
+				"description": ["Add en text"]
 			},
 			{
 				"title": "Are you ready?",
@@ -109,8 +102,9 @@
 			"title": "Worlds",
 			"explanation": "Each World contains several Quizzes that you can beat to advance in the game!",
 			"backHome": "Back to Home Screen",
-      "backToWorld": "Back to World",
-      "clearEachQuiz": "Can you beat every Quiz in this World?"
+			"backToWorldList": "Back to Worlds List",
+			"backToWorld": "Back to World",
+			"clearEachQuiz": "Can you beat every Quiz in this World?"
 		}
 	}
 }

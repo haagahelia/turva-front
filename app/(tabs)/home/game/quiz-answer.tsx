@@ -1,6 +1,7 @@
 import { Answer } from '@/src/types/types';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import { styles } from './gameStyles';
 
 interface QuizAnswerProps {
   answer: Answer;
@@ -24,15 +25,6 @@ const QuizAnswer = ({ answer, isSelected, onSelect }: QuizAnswerProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  answer: {
-    padding: 16,
-    borderRadius: 20,
-    marginVertical: 6,
-  },
-  selectedAnswer: {
-    borderWidth: 2,
-  },
-});
+
 
 export default QuizAnswer;
