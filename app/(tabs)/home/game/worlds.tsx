@@ -3,8 +3,9 @@ import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { styles } from "./gameStyles";
 import { loadHome, loadWorld } from "./quiz-route-functions";
 
 const Worlds = () => {
@@ -52,7 +53,8 @@ const Worlds = () => {
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<Text style={styles.textContainer}>{uiText.worlds.title}</Text>
+			<ScrollView>
+			<Text style={[styles.textContainer, styles.bold]}>{uiText.worlds.title}</Text>
 			<Text style={styles.textContainer}>
 				{uiText.worlds.explanation}
 			</Text>
@@ -96,39 +98,9 @@ const Worlds = () => {
 					</Button>
 				</View>
 			)}
+			</ScrollView>
 		</ImageBackground>
 	);
 };
-
-const styles = StyleSheet.create({
-	background: {
-		flex: 1,
-	},
-	container: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	button: {
-		borderRadius: 24,
-		marginTop: 8,
-	},
-	textContainer: {
-		padding: 16,
-		borderRadius: 12,
-		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginBottom: 20,
-		borderColor: "#00629F",
-		borderWidth: 2,
-	},
-	textContainerStyle: {
-		color: "#000000",
-		fontSize: 16,
-	},
-	answer: {
-		padding: 16,
-		borderRadius: 20,
-		marginVertical: 6,
-	},
-});
 
 export default Worlds;

@@ -7,11 +7,11 @@ import {
 	Image,
 	ImageBackground,
 	Linking,
-	StyleSheet,
-	View,
+	ScrollView,
+	View
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { Button, Text } from "react-native-paper";
+import { styles } from "./gameStyles";
 import { loadQuiz, loadWorld } from "./quiz-route-functions";
 
 const QuizIntro = () => {
@@ -186,73 +186,5 @@ const QuizIntro = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	background: {
-		flex: 1,
-		width: "100%",
-		height: "100%",
-	},
-	scrollViewStyle: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	contentContainer: {
-		flexGrow: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-	},
-	textContainer: {
-		padding: 16,
-		borderRadius: 12,
-		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginTop: 10,
-		marginBottom: 10,
-		borderColor: "#00629F",
-		borderWidth: 2,
-	},
-	textContainerStyle: {
-		color: "#000000",
-		fontSize: 16,
-	},
-	bold: {
-		fontWeight: "bold",
-	},
-	button: {
-		borderRadius: 24,
-		alignSelf: "center",
-		marginBottom: 20,
-	},
-	quiz_image: {
-		height: 250,
-		aspectRatio: 1,
-		alignSelf: "center",
-	},
-	marginTop190: {
-		marginTop: 190,
-	},
-	title: {
-		color: "#00629F", // main color
-		fontSize: 16, // large size
-		fontWeight: "bold", // make it bold
-		textAlign: "center", // center above image
-		textShadowColor: "rgba(0, 0, 0, 0.25)", // subtle shadow
-		textShadowOffset: { width: 2, height: 2 },
-		textShadowRadius: 4,
-		letterSpacing: 1, // space between letters
-		textTransform: "uppercase", // optional uppercase
-		backgroundColor: "white",
-		padding: 10,
-		borderRadius: 20,
-		borderColor: "#00629F",
-		borderWidth: 10,
-		marginBottom: 20,
-	},
-	quiz_link: {
-		fontSize: 16,
-		lineHeight: 24,
-		color: "#0066cc",
-		textDecorationLine: "underline",
-	},
-});
+
 export default QuizIntro;

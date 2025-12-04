@@ -3,9 +3,9 @@ import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { Image, ScrollView, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { styles } from "./gameStyles";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
 import { loadResultsScreen, loadWorld } from "./quiz-route-functions";
@@ -192,21 +192,6 @@ const Quiz = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	answerContainer: {
-		marginBottom: 24,
-		marginHorizontal: 10,
-	},
-	button: {
-		borderRadius: 24,
-		alignSelf: "center",
-		marginBottom: 20,
-	},
-	quiz_image: {
-		height: 250,
-		aspectRatio: 1,
-		alignSelf: "center",
-	},
-});
+
 
 export default Quiz;

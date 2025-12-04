@@ -3,9 +3,9 @@ import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import results_json from "@/static/quiz_results.json";
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView } from "moti";
-import { Image, ImageBackground, StyleSheet, View } from "react-native";
+import { Image, ImageBackground, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
+import { styles } from "./gameStyles";
 import { loadQuiz, loadWorld } from "./quiz-route-functions";
 
 const Results = () => {
@@ -60,7 +60,7 @@ const Results = () => {
 				<View style={styles.contentContainer}>
 					<Image
 						source={require("@/assets/images/W1_Q1_intro.png")}
-						style={styles.image}
+						style={styles.quiz_image}
 						resizeMode="contain"
 					/>
 
@@ -109,59 +109,5 @@ const Results = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	background: {
-		flex: 1,
-		width: "100%",
-		height: "100%",
-	},
-	image: {
-		marginTop: 120,
-		width: 200,
-		height: 200,
-		marginBottom: 20,
-		alignSelf: "center",
-	},
-	contentContainer: {
-		flexGrow: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-	},
-	textContainer: {
-		padding: 16,
-		borderRadius: 12,
-		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginBottom: 20,
-		borderColor: "#00629F",
-		borderWidth: 2,
-	},
-	title: {
-		textAlign: "center",
-		fontSize: 22,
-		marginBottom: 10,
-		fontWeight: "bold",
-	},
-	text: {
-		textAlign: "center",
-		fontSize: 16,
-		marginBottom: 10,
-		fontWeight: "bold",
-	},
-	score: {
-		textAlign: "center",
-		fontSize: 30,
-		marginBottom: 10,
-		fontWeight: "bold",
-	},
-	button: {
-		borderRadius: 24,
-		alignSelf: "center",
-		marginBottom: 20,
-	},
-	scrollViewStyle: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-});
+
 export default Results;

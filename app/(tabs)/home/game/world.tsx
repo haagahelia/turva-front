@@ -2,10 +2,11 @@ import { QuizType } from "@/src/types/types";
 import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView, View } from "moti";
+import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { styles } from "./gameStyles";
 import { loadQuizIntro, loadWorlds } from "./quiz-route-functions";
 
 const World = () => {
@@ -122,45 +123,5 @@ const World = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	background: {
-		flex: 1,
-	},
-	container: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	button: {
-		borderRadius: 24,
-		marginTop: 8,
-	},
-	textContainer: {
-		padding: 16,
-		borderRadius: 12,
-		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginBottom: 20,
-		borderColor: "#00629F",
-		borderWidth: 2,
-	},
-	textContainerStyle: {
-		color: "#000000",
-		fontSize: 16,
-	},
-	answer: {
-		padding: 16,
-		borderRadius: 20,
-		marginVertical: 6,
-	},
-	scrollViewStyle: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	contentContainer: {
-		flexGrow: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-	},
-});
 
 export default World;
