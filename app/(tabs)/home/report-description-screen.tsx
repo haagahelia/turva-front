@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { Image, ScrollView, StyleSheet } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLanguageStore } from "../../../src/zustand/store";
 
 export default function SecurityReport() {
     const theme = useTheme();
@@ -12,10 +13,11 @@ export default function SecurityReport() {
     const { type } = useLocalSearchParams<{ type: ReportType }>();
     const reportType: ReportType = type === "harassment" ? "harassment" : "security";
 
-    const data = reportContent[reportType];
+    const data2 = reportContent[reportType];
 
     // We will add language switching later. Hardcoded FI or EN here:
-    const lang: "en" | "fi" = "fi";
+    const { language } = useLanguageStore();
+    const data = data2;
 
     return (
         <SafeAreaView
@@ -34,18 +36,18 @@ export default function SecurityReport() {
 
                 {/* TITLE */}
                 <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-                    {data.title[lang]}
+                    {data.title[language]}
                 </Text>
 
                 {/* DESCRIPTION */}
                 <Text style={[styles.description, { color: theme.colors.onBackground }]}>
-                    {data.description[lang]}
+                    {data.description[language]}
                 </Text>
 
                 {/* DESCRIPTION 2*/}
                 {data.description2 && (
                     <Text style={[styles.description2, { color: theme.colors.onBackground }]}>
-                        {data.description2[lang]}
+                        {data.description2[language]}
                     </Text>
                 )}
 
@@ -56,10 +58,10 @@ export default function SecurityReport() {
                     style={styles.button}
                     labelStyle={{ fontSize: 18 }}
                     onPress={() => {
-                        router.push(`/home/report-form-screen?type=${reportType}&lang=${lang}` as any);
+                        router.push(`/home/report-form-screen?type=${reportType}&lang=${language}` as any);
                     }}
                 >
-                    {data.buttonText[lang]}
+                    {data.buttonText[language]}
                 </Button>
 
 
