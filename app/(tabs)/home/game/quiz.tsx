@@ -51,7 +51,7 @@ const Quiz = () => {
 			// EXTRACT the Quiz content data
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
-			console.log(quizJson[lang]);
+			console.log(quizJson[lang].questions);
 			
 			setQuizJson(quizJson);
 			setQuizData(quizJson[lang]);

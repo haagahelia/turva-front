@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		paddingHorizontal: 20,
-		justifyContent: "space-between"},
+		justifyContent: "space-between",
+	},
 	button: {
 		borderRadius: 24,
 		alignSelf: "center",
@@ -47,12 +48,6 @@ export const styles = StyleSheet.create({
 	},
 	bold: {
 		fontWeight: "bold",
-	},
-
-	quiz_image: {
-		height: 250,
-		aspectRatio: 1,
-		alignSelf: "center",
 	},
 	marginTop190: {
 		marginTop: 190,
@@ -99,6 +94,12 @@ export const styles = StyleSheet.create({
 		alignSelf: "center",
 	},
 
+	quiz_image: {
+		width: 250,
+		aspectRatio: 1,
+		alignSelf: "center",
+	},
+
 	text: {
 		textAlign: "center",
 		fontSize: 16,
@@ -111,12 +112,6 @@ export const styles = StyleSheet.create({
 		marginBottom: 10,
 		fontWeight: "bold",
 	},
-
-
-
-
-
-	
 
 	description: {
 		fontSize: 16,
@@ -131,6 +126,4 @@ export const styles = StyleSheet.create({
 	flex2: {
 		flex: 2,
 	},
-
-
 });

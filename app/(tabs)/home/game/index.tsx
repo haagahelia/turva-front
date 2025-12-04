@@ -14,10 +14,13 @@ type OnboardingData = {
 
 const Onboarding = () => {
 	const theme = useTheme();
-	const [key, setKey] = useState(0);
-	const [index, setIndex] = useState(0);
 	const { language } = useLanguageStore();
 	const text = TextData[language].common;
+
+	const [key, setKey] = useState(0);
+	const [index, setIndex] = useState(0);
+	
+	
 
 	const onboarding: OnboardingData[] = TextData[language].onboarding;
 	const current = onboarding[index];
@@ -71,7 +74,7 @@ const Onboarding = () => {
 					</Text>
 				))}
 				<Button mode="contained" onPress={handleNext} style={styles.button}>
-					{index === onboarding.length - 1 ? "Valmiina!" : "Jatka"}
+					{index === onboarding.length - 1 ? text.ready : text.next}
 				</Button>
 				{index > 0 && (
 					<Button onPress={handlePrevious} style={styles.button}>

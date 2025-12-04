@@ -44,7 +44,9 @@
 			"answerAll": "Vastaa kaikkiin kysymyksiin.",
 			"end": "Päätä testi",
 			"start": "Aloita testi",
-			"back": "Takaisin"
+			"back": "Takaisin",
+			"ready": "Valmiina!",
+			"next": "Jatka"
 		},
 		"worlds": {
 			"title": "Maailmat",
@@ -60,46 +62,48 @@
 			{
 				"title": "🎮 Welcome to the TurvallisuusMestari-game!",
 				"description": [
-					"Tämä peli on suunniteltu tukemaan ammattikorkeakouluopiskelijoiden turvallisuusperehdytystä hauskalla ja helposti lähestyttävällä tavalla. Pelaamalla oppii, miten voit toimia vastuullisesti, tunnistaa riskejä ja parantaa turvallisuutta omassa opiskeluympäristössä."
+					"Add en text"
 				]
 			},
 			{
 				"title": "🌍 Worlds and Levels",
 				"description": [
-					"Peli koostuu maailmoista, joissa käsitellään turvallisuusteemoja ja jokainen maailma sisältää seitsemän (7) tehtävätasoa."
+					"Add en text"
 				]
 			},
 			{
-				"title": "📋 Miten peli toimii?",
+				"title": "📋 How to play?",
 				"description": [
-					"👉 Jokainen tehtävätaso sisältää lyhyen teorian, jonka jälkeen vastataan neljään kysymykseen.",
-					"👉 Jokaisessa kysymyksessä on neljä vastausvaihtoehtoa, joista vain yksi on oikein.",
-					"👉 Vastaamalla kaikkiin neljään kysymykseen oikein pääsee etenemään maailmassa seuraavalle tasolle. Taso pitää siis pelata kunnes vastaat oikein kaikkiin kysymyksiin.",
-					"👉 Jokaisesta oikein vastatusta kysymyksestä saa yhden pisteen. Peli mittaa myös ajan, joka menee vastauksiin."
+					"Add en text",
+					"Add en text",
+					"Add en text",
+					"Add en text"
 				]
 			},
 			{
 				"title": "🏅 Prize",
 				"description": [
-					"Suoritettuasi maailman kaikki tehtävätasot, saat digitaalisen merkin, joka osoittaa, että olet sisäistänyt maailman turvallisuusteemat."
+					"Add en text"
 				]
 			},
 			{
 				"title": "💡 Hint",
 				"description": [
-					"Ota oppiminen tosissasi, mutta pelaa rennolla asenteella. Tässä pelissä harjoitellaan asioita, joista voi olla oikeassa elämässä suurta hyötyä."
+					"Add en text"
 				]
 			},
 			{
 				"title": "Are you ready?",
-				"description": ["Aloita pelaaminen ja testaa turvallisuustaitosi!"]
+				"description": ["Start playing and test your security knowledge!"]
 			}
 		],
 		"common": {
 			"answerAll": "Answer all questions.",
 			"end": "End quiz",
 			"start": "Start quiz",
-			"back": "Back"
+			"back": "Back",
+			"ready": "Ready to go!",
+			"next": "Next"
 		},
 		"worlds": {
 			"title": "Worlds",
