@@ -8,16 +8,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Checkmark from "../../../src/components/Checkmark";
 import FeedbackModal from "../../../src/components/FeedbackModal";
 import { briefingItems } from "../../../src/mockData";
-import { useSafetyStore, useLanguageStore } from "../../../src/zustand/store";
+import { useLanguageStore, useSafetyStore } from "../../../src/zustand/store";
 
 export default function SafetyBriefing() {
   const theme = useTheme();
   const { language } = useLanguageStore();
   const text = TextData[language];
-  const { completed, readCount, markCompleted, initializeReadCount } =
+  const { completed, markCompleted, initializeReadCount } =
     useSafetyStore();
-  
+
   const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
+
+  // Get the navigation list for the current language
+  const itemsForLanguage = briefingItems[0][language];
+  const readCount = itemsForLanguage.filter(item =>
+    completed.includes(`/(tabs)/home/safety-info?itemId=${item.id}`)
+  ).length;
+
 
   // Initialize read count on component mount
   useEffect(() => {
@@ -52,7 +59,7 @@ export default function SafetyBriefing() {
           <Text
             style={[styles.subtitle, { color: theme.colors.onSurfaceVariant }]}
           >
-           {text.choose}
+            {text.choose}
           </Text>
         </View>
 
@@ -99,7 +106,7 @@ export default function SafetyBriefing() {
               <Text
                 style={[styles.progressText, { color: theme.colors.primary }]}
               >
-                {readCount} / {briefingItems.length} {text.done}
+                {readCount} / {itemsForLanguage.length} {text.done}
               </Text>
             </View>
           </Card.Content>
@@ -107,34 +114,19 @@ export default function SafetyBriefing() {
 
         {/* Briefing Items */}
         <View style={styles.itemsContainer}>
-          {briefingItems.map((item) => {
+          {itemsForLanguage.map((item) => {
             const routeStr = `/(tabs)/home/safety-info?itemId=${item.id}`;
             const isCompleted = completed.includes(routeStr);
 
             return (
-              <Card
-                key={item.id}
-                style={[
-                  styles.itemCard,
-                  {
-                    backgroundColor: theme.colors.tertiaryContainer,
-                    borderColor: isCompleted
-                      ? theme.colors.primary
-                      : "transparent",
-                    borderWidth: 2,
-                  },
-                ]}
-              >
+              <Card key={item.id} style={[/* styles */]}>
                 <Card.Content style={styles.cardContent}>
                   <Button
                     mode="text"
                     onPress={() => handleItemPress(item.id)}
                     style={styles.itemButton}
                     contentStyle={styles.itemButtonContent}
-                    labelStyle={[
-                      styles.itemLabel,
-                      { color: theme.colors.onSurface },
-                    ]}
+                    labelStyle={[styles.itemLabel, { color: theme.colors.onSurface }]}
                   >
                     <View style={styles.itemTextContainer}>
                       <Text

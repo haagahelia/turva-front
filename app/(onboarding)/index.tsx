@@ -1,64 +1,27 @@
+import { ONBOARDING_STEPS, type Language } from "@/src/onBoardingSteps";
+import { useLanguageStore } from "@/src/zustand/store";
 import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter, type Href } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-    Animated,
-    Image,
-    ImageSourcePropType,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  Animated,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
 } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-type OnboardingStep = {
-  key: string;
-  title: string;
-  description: string;
-  image: ImageSourcePropType;
-};
 
 const ONBOARDING_KEY = "IsOnboardingComplete";
 const INTRO_FADE_DURATION = 800;
 const INTRO_FADE_OUT_DELAY = 400;
 const HOME_ROUTE: Href = "/(tabs)/home";
 
-const AnimatedImage = Animated.createAnimatedComponent(Image);
-
-const ONBOARDING_STEPS: OnboardingStep[] = [
-  {
-    key: "first-step",
-    title: "Welcome to TurvaApp!",
-    description:
-      "Let's learn about safety, together!",
-    image: require("@/assets/images/HH_SafetyCharacters.png"),
-  },
-  {
-    key: "second-step",
-    title: "Learn The Basics",
-    description:
-      "TurvaApp helps you learn about safety as well as how to apply what you've learned in real life scenarios.",
-    image: require("@/assets/images/HH_Rules.png"),
-  },
-  {
-    key: "third-step",
-    title: "Test Your Knowledge",
-    description:
-      "Learn by completing the safety orientation and test your knowledge with playing the quiz game TurvallisuusMestari.",
-    image: require("@/assets/images/HH_SafetyWalk.png"),
-  },
-  {
-    key: "fourth-step",
-    title: "Report Inappropriate Behavior",
-    description:
-      "On TurvaApp, it's also possible to send safety observation reports, report inappropriate behavior and much more. So, let's get to it, shall we?",
-    image: require("@/assets/images/HH_SafetyWalk.png"),
-  },
-];
-const FINAL_STAGE = ONBOARDING_STEPS.length + 1;
+//It was not used in the code
+//const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 export default function OnboardingScreen() {
   const [stage, setStage] = useState(1);
@@ -66,6 +29,11 @@ export default function OnboardingScreen() {
   const navigation = useRouter();
   const theme = useTheme();
   const { colors } = theme;
+
+  const language = useLanguageStore((state) => state.language) as Language;
+
+  const steps = ONBOARDING_STEPS[language]; // get steps for current language
+  const FINAL_STAGE = steps.length + 1;
 
   useEffect(() => {
     if (stage !== 1) {
@@ -104,8 +72,8 @@ export default function OnboardingScreen() {
       return undefined;
     }
 
-    return ONBOARDING_STEPS[stage - 2];
-  }, [stage]);
+    return steps[stage - 2];
+  }, [stage, steps]);
 
   const persistCompletion = useCallback(async () => {
     try {
@@ -124,7 +92,7 @@ export default function OnboardingScreen() {
     }
 
     persistCompletion();
-  }, [persistCompletion, stage]);
+  }, [persistCompletion, stage, FINAL_STAGE]);
 
   const handlePrevious = useCallback(() => {
     setStage((previous) => {
@@ -181,7 +149,7 @@ export default function OnboardingScreen() {
             </View>
             <View style={styles.footer}>
               <View style={styles.dotsWrapper}>
-                {ONBOARDING_STEPS.map((step, index) => {
+                {steps.map((step, index) => {
                   const isActive = stage - 2 === index;
 
                   return (
@@ -214,7 +182,7 @@ export default function OnboardingScreen() {
                     { color: colors.onPrimary },
                   ]}
                 >
-                  {stage === FINAL_STAGE ? "Login" : "Next"}
+                  {currentStep?.buttonLabel}
                 </Text>
               </Pressable>
             </View>
@@ -306,4 +274,3 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
 });
-

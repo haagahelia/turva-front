@@ -1,5 +1,6 @@
 import { ReportType } from "@/src/content/reportContent";
 import { ReportField, reportFields, reportSubmitButtonText } from "@/src/content/reportFormFields";
+import { useLanguageStore } from "@/src/zustand/store";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -10,7 +11,7 @@ type FormState = Record<string, string>;
 
 export default function ReportFormScreen() {
     const theme = useTheme();
-    const { type, lang } = useLocalSearchParams<{ type: string; lang: string }>();
+    const { type } = useLocalSearchParams<{ type: string }>();
     const reportType: ReportType = type === "harassment" ? "harassment" : "security";
 
     const fields: ReportField[] = reportFields[reportType];
@@ -27,8 +28,8 @@ export default function ReportFormScreen() {
     }, [reportType]);
 
 
-    // Hardcode language for now
-    const language: "en" | "fi" = lang === "fi" ? "fi" : "en";
+    // Language support
+    const { language } = useLanguageStore();
 
     const handleChange = (name: string, value: string) => {
         setFormState(prev => ({ ...prev, [name]: value }));
