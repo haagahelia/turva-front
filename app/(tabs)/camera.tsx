@@ -7,6 +7,10 @@ import { Animated, Image, StyleSheet, TouchableOpacity, View } from "react-nativ
 import { Dialog, Portal, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useLanguageStore } from "@/src/zustand/store";
+import homeTexts from "@/static/homeTexts.json";
+
+
 export default function CameraScreen() {
   const theme = useTheme();
   const [facing, setFacing] = useState<"front" | "back">("back");
@@ -19,6 +23,10 @@ export default function CameraScreen() {
   //For custom alert
   const [dialogVisible, setDialogVisible] = useState(false);
   const [scannedUrl, setScannedUrl] = useState<string | null>(null);
+
+  // Language support
+  const { language } = useLanguageStore();
+  const t = homeTexts[language].camera;
 
 
   const animationValue = useRef(new Animated.Value(0)).current;
@@ -71,7 +79,7 @@ export default function CameraScreen() {
     return (
       <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
         <Text style={[styles.text, { color: theme.colors.onBackground }]}>
-          Requesting camera permission...
+          {t.requestingPermission}
         </Text>
       </SafeAreaView>
     );
@@ -87,7 +95,7 @@ export default function CameraScreen() {
             resizeMode="contain"
           />
           <Text style={[styles.text, { color: theme.colors.onBackground }]}>
-            We need access to your camera <Text>😊</Text>
+            {t.permissionMessage}
           </Text>
           <TouchableOpacity
             style={[styles.permissionButton, { backgroundColor: theme.colors.primary }]}
@@ -97,7 +105,7 @@ export default function CameraScreen() {
                 console.log("Camera permission granted!");
                 // You can now show the CameraView
               } else if (!newPermission.canAskAgain) {
-                alert("Camera access is blocked. Please enable it in your phone settings.");
+                alert(t.permissionBlocked);
               } else {
                 console.log("Permission denied, you can ask again later");
               }
@@ -105,7 +113,7 @@ export default function CameraScreen() {
 
           >
             <Text style={[styles.permissionText, { color: theme.colors.onPrimary }]}>
-              Grant Permission
+              {t.grantPermission}
             </Text>
           </TouchableOpacity>
 
@@ -147,14 +155,14 @@ export default function CameraScreen() {
         <Portal>
           <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)}>
             <Dialog.Title>
-              Open link? <Ionicons name="link-outline" size={20} color={theme.colors.primary} />
+              {t.dialogTitle} <Ionicons name="link-outline" size={20} color={theme.colors.primary} />
             </Dialog.Title>
             <Dialog.Content>
               <Text>{scannedUrl}</Text>
             </Dialog.Content>
             <Dialog.Actions>
               <TouchableOpacity onPress={() => setDialogVisible(false)}>
-                <Text style={{ color: theme.colors.error, marginRight: 20 }}>Cancel</Text>
+                <Text style={{ color: theme.colors.error, marginRight: 20 }}>{t.dialogCancel}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={async () => {
@@ -162,7 +170,7 @@ export default function CameraScreen() {
                   setDialogVisible(false);
                 }}
               >
-                <Text style={{ color: theme.colors.primary }}>Open</Text>
+                <Text style={{ color: theme.colors.primary }}>{t.dialogOpen}</Text>
               </TouchableOpacity>
             </Dialog.Actions>
           </Dialog>
@@ -178,7 +186,7 @@ export default function CameraScreen() {
           onPress={() => setFacing(facing === "back" ? "front" : "back")}
         >
           <Ionicons name="camera-reverse-outline" size={28} color={theme.colors.onSurface} />
-          <Text style={[styles.buttonText, { color: theme.colors.onSurface }]}>Käännä kamera</Text>
+          <Text style={[styles.buttonText, { color: theme.colors.onSurface }]}>{t.flipButton}</Text>
         </TouchableOpacity>
 
         {/* Activate scanning */}
@@ -190,7 +198,7 @@ export default function CameraScreen() {
           }}
         >
           <Ionicons name="qr-code-outline" size={28} color={theme.colors.onSurface} />
-          <Text style={[styles.buttonText, { color: theme.colors.onSurface }]}>Lue QR-koodi</Text>
+          <Text style={[styles.buttonText, { color: theme.colors.onSurface }]}>{t.scanButton}</Text>
         </TouchableOpacity>
       </View>
     </View>
