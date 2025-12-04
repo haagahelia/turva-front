@@ -1,4 +1,5 @@
-import { Answer, Language, QuizLang, Section } from "@/src/types/types";
+import { Answer, QuizLang, QuizType, Section } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -11,7 +12,11 @@ import { loadResultsScreen, loadWorld } from "./quiz-route-functions";
 
 const Quiz = () => {
 	const theme = useTheme();
-	const lang: Language = "fi";
+	const { language } = useLanguageStore();
+	const lang = language;
+	const uiText = (TextData as any)[lang];
+	const commonText = TextData[lang].common;
+
 	const [isLoading, setLoading] = useState(true);
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
@@ -27,9 +32,9 @@ const Quiz = () => {
 	console.log("World Name after loading Quiz.tsx:");
 	console.log(world_name_en, world_name_fi);
 
-	const commonText = TextData[lang].common;
-	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
+	const [quizJson, setQuizJson] = useState<QuizType | null>(null);
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
+	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -46,8 +51,10 @@ const Quiz = () => {
 			// EXTRACT the Quiz content data
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
-			console.log(quizJson.en);
-			setQuizData(quizJson.en);
+			console.log(quizJson[lang]);
+			
+			setQuizJson(quizJson);
+			setQuizData(quizJson[lang]);
 
 			// TOGGLE Loading state OFF
 			setLoading(false);
@@ -64,6 +71,9 @@ const Quiz = () => {
 			getQuizFromApiAsync();
 		}
 	});
+
+	// Use effect based on lang update explained by Claude.ai
+	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang]); // Runs whenever lang changes
 
 	const toggleSelected = (answer: Answer) => {
 		setSelectedAnswers((prev) => {
@@ -85,10 +95,8 @@ const Quiz = () => {
 	};
 
 	const isAllAnswered = quizData?.questions
-	.filter(section => section.type === "quiz_question")
-	.every((q) =>
-		selectedAnswers.some((a) => a.question_title === q.title)
-	);
+		.filter((section) => section.type === "quiz_question")
+		.every((q) => selectedAnswers.some((a) => a.question_title === q.title));
 
 	const quizRenderer = (section: Section) => {
 		// Use a case switch to return the right kind of component for each section
@@ -158,7 +166,7 @@ const Quiz = () => {
 							loadResultsScreen(
 								quiz_id,
 								world_id,
-								world_name_en, 
+								world_name_en,
 								world_name_fi,
 								JSON.stringify(selectedAnswers)
 							)
@@ -178,7 +186,7 @@ const Quiz = () => {
 				buttonColor="#00629F"
 				textColor="#FFFFFF"
 			>
-				Back to World
+				{uiText.worlds.backToWorld}
 			</Button>
 		</ScrollView>
 	);
