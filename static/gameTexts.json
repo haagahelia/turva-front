@@ -61,33 +61,33 @@
 		"title": "TurvallisuusMestari-game",
 		"onboarding": [
 			{
-				"title": "🎮 Welcome to the TurvallisuusMestari-game!",
-				"description": ["Add en text"]
+				"title": "🎮 Welcome to the TurvallisuusMestari game!",
+				"description": ["This game is designed to support the safety orientation of university students in a fun and accessible way. By playing, you will learn how to act responsibly, identify risks, and improve safety in your own study environment. "]
 			},
 			{
-				"title": "🌍 Worlds and Levels",
-				"description": ["Add en text"]
+				"title": "🌍 Worlds and Stages",
+				"description": ["The game consists of worlds which deal with safety themes. Each world contains seven (7) stages. "]
 			},
 			{
-				"title": "📋 How to play?",
+				"title": "📋 How does the game work?",
 				"description": [
-					"Add en text",
-					"Add en text",
-					"Add en text",
-					"Add en text"
+					"👉 Each stage includes a short theory section, followed by four multiple-choice questions. ",
+					"👉 Each question has four answers to choose from, but only one is correct. ",
+					"👉 Answer all four questions correctly to advance to the next stage. You can play the questions as many times as you want until you get them all right. ",
+					"👉 You will receive 1 point for each question you answer correctly. The game also measures the time it takes you to answer the questions.  "
 				]
 			},
 			{
-				"title": "🏅 Prize",
-				"description": ["Add en text"]
+				"title": "🏅  Award",
+				"description": ["Once you have successfully completed all stages of the world, you will receive a digital badge showing that you have mastered the world's safety themes. "]
 			},
 			{
-				"title": "💡 Hint",
-				"description": ["Add en text"]
+				"title": "💡 Tip",
+				"description": ["Take learning seriously but play with a relaxed attitude. This game helps you practice things that are very useful in real life. "]
 			},
 			{
 				"title": "Are you ready?",
-				"description": ["Start playing and test your security knowledge!"]
+				"description": ["Are you ready? Start playing and test your safety skills! "]
 			}
 		],
 		"common": {
