@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { briefingItems } from "../mockData";
 import { createThemeSlice, StoreState } from "./themeSlice";
 import { createLanguageSlice, LanguageSlice } from "./languageSlice";
+import { createOnboardingSlice, OnboardingSlice } from "./onboardingSlice";
 
 export const useThemeStore = create<StoreState>()(
   persist(
@@ -24,6 +25,18 @@ export const useLanguageStore = create<LanguageSlice>()(
     }),
     {
       name: "language-storage",
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
+
+export const useOnboardingStore = create<OnboardingSlice>()(
+  persist(
+    (...a) => ({
+      ...createOnboardingSlice(...a),
+    }),
+    {
+      name: "onboarding-storage",
       storage: createJSONStorage(() => AsyncStorage),
     }
   )
