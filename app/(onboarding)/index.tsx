@@ -31,6 +31,7 @@ export default function OnboardingScreen() {
   const { colors } = theme;
 
   const language = useLanguageStore((state) => state.language) as Language;
+  const { toggleLanguage } = useLanguageStore();
 
   const steps = ONBOARDING_STEPS[language]; // get steps for current language
   const FINAL_STAGE = steps.length + 1;
@@ -185,7 +186,27 @@ export default function OnboardingScreen() {
                   {currentStep?.buttonLabel}
                 </Text>
               </Pressable>
+              <View style={{alignItems: 'center'}}>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={toggleLanguage}
+                  style={({ pressed }) => ({
+                    opacity: pressed ? 0.5 : 1,  
+                  })}
+                >
+                  <Text
+                    style={{
+                      color: colors.primary,
+                      textDecorationLine: "underline",
+                      fontSize: 18,
+                      paddingVertical: 4,
+                    }}
+                  >
+                    {language === "en" ? "Suomeksi" : "In English"}
+                  </Text>
+                </Pressable>
             </View>
+          </View>
           </>
         )}
       </View>
