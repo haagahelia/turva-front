@@ -1,7 +1,6 @@
 import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/drawerTexts.json";
 import { FlatList, StyleSheet, View } from 'react-native';
-import { ScrollView } from "react-native-gesture-handler";
 import { Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ContactCard from '../../../src/components/ContactCard';
@@ -93,34 +92,34 @@ export default function CrisisTeamContactScreen() {
   const text = TextData[language].crisisTeamContact;
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}>
-      <ScrollView>
-      <View style={styles.header}>
-        <Text
-          variant="headlineLarge"
-          style={[styles.title, { color: theme.colors.onBackground }]}
-        >
-         {text.title}
-        </Text>
-        <Text
-          variant="bodyLarge"
-          style={[styles.description, { color: theme.colors.onSurfaceVariant }]}
-        >
-          {text.description}
-        </Text>
-      </View>
+  <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}>
+    <FlatList
+      data={crisisTeamMembers[language]}
+      keyExtractor={(item, index) => `${item.name}-${index}`}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.contactsContainer}
+      ListHeaderComponent={
+        <View style={styles.header}>
+          <Text
+            variant="headlineLarge"
+            style={[styles.title, { color: theme.colors.onBackground }]}
+          >
+            {text.title}
+          </Text>
+          <Text
+            variant="bodyLarge"
+            style={[styles.description, { color: theme.colors.onSurfaceVariant }]}
+          >
+            {text.description}
+          </Text>
+        </View>
+      }
+      renderItem={({ item: member }) => (
+        <ContactCard member={member} />
+      )}
+    />
+  </SafeAreaView>
 
-      <FlatList
-        data={crisisTeamMembers[language]}
-        keyExtractor={(item, index) => `${item.name}-${index}`}
-        contentContainerStyle={styles.contactsContainer}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item: member }) => (
-          <ContactCard member={member} />
-        )}
-      />
-      </ScrollView>
-    </SafeAreaView>
   );
 }
 
