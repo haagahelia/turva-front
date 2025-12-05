@@ -1,3 +1,4 @@
+import { useLanguageStore } from '@/src/zustand/store';
 import TextData from '@/static/drawerTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import * as WebBrowser from "expo-web-browser";
@@ -11,8 +12,8 @@ export default function NewsScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
-    const lang = 'fi';
-  const text = TextData[lang].news;
+  const {language} = useLanguageStore()
+  const text = TextData[language].news;
 
   useEffect(() => {
     if (isFocused) {

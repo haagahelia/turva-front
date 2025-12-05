@@ -1,5 +1,7 @@
+import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/drawerTexts.json";
 import { FlatList, StyleSheet, View } from 'react-native';
+import { ScrollView } from "react-native-gesture-handler";
 import { Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ContactCard from '../../../src/components/ContactCard';
@@ -10,7 +12,7 @@ type Contact = {
   phone: string;
 }
 // Temporary later can be fetched from backend
-const crisisTeamMembers: Contact[] = [
+const crisisTeamMembers = { fi: [
   {
     name: 'Teemu Kokko',
     role: 'Rehtori',
@@ -32,25 +34,67 @@ const crisisTeamMembers: Contact[] = [
     phone: '040 488 7008',
   },
   {
-    name: 'Hannu Hyttinen',
+    name: 'Jenni Most',
     role: 'Toimitilapäällikkö',
     phone: '040 488 7144',
+  },
+  {
+    name: 'Virpi Virtanen',
+    role: 'ICT-infrastruktuuripäällikkö',
+    phone: '050 911 1644',
   },
   {
     name: 'Mia Kivelä',
     role: 'Turvallisuuspäällikkö',
     phone: '050 911 1644',
   },
-];
+], en: [
+  {
+    name: 'Teemu Kokko',
+    role: 'Rector',
+    phone: '050 555 1131',
+  },
+  {
+    name: 'Minna Hiillos',
+    role: 'Vice Rector',
+    phone: '050 583 9521',
+  },
+  {
+    name: 'Kari Salmi',
+    role: 'Administrative Director',
+    phone: '0400 675 114',
+  },
+  {
+    name: 'Ari Nevalainen',
+    role: 'Communications Manager',
+    phone: '040 488 7008',
+  },
+  {
+    name: 'Jenni Most',
+    role: 'Facilities Manager',
+    phone: '040 488 7144',
+  },
+  {
+    name: 'Virpi Virtanen',
+    role: 'ICT-infrastructure Manager',
+    phone: '050 911 1644',
+  },
+  {
+    name: 'Mia Kivelä',
+    role: 'Security Manager',
+    phone: '050 911 1644',
+  },
+]};
 
 // Kriisiryhmän yhteystiedot screen
 export default function CrisisTeamContactScreen() {
   const theme = useTheme();
-  const lang = 'fi'
-  const text = TextData[lang].crisisTeamContact;
+  const {language} = useLanguageStore();
+  const text = TextData[language].crisisTeamContact;
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}>
+      <ScrollView>
       <View style={styles.header}>
         <Text
           variant="headlineLarge"
@@ -67,7 +111,7 @@ export default function CrisisTeamContactScreen() {
       </View>
 
       <FlatList
-        data={crisisTeamMembers}
+        data={crisisTeamMembers[language]}
         keyExtractor={(item, index) => `${item.name}-${index}`}
         contentContainerStyle={styles.contactsContainer}
         showsVerticalScrollIndicator={false}
@@ -75,6 +119,7 @@ export default function CrisisTeamContactScreen() {
           <ContactCard member={member} />
         )}
       />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -86,7 +131,7 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 24,
     paddingTop: 8,
-    paddingBottom: 20,
+    paddingBottom: 25,
   },
   title: {
     fontWeight: '700',

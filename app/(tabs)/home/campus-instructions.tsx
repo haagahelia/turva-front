@@ -1,3 +1,4 @@
+import { useLanguageStore } from '@/src/zustand/store';
 import TextData from '@/static/drawerTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons"; // arrow icon
 import { useIsFocused } from "@react-navigation/native";
@@ -11,10 +12,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 
 //List of all links
-const links = [
+const links = { fi: [
   {
-    title: "Haaga Helian turvallisuusopas (kirjaudu)",
-    url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/Jaetut%20asiakirjat/Forms/AllItems.aspx?id=%2Fsites%2FKorkeakoulumme%2FJaetut%20asiakirjat%2FOpiskelijoille%20linkitetyt%20tiedostot%2FTurvallisuus%2FHaaga%2DHelian%2Dturvallisuusopas%2Epdf&parent=%2Fsites%2FKorkeakoulumme%2FJaetut%20asiakirjat%2FOpiskelijoille%20linkitetyt%20tiedostot%2FTurvallisuus",
+    title: "Haaga-Helian turvallisuusopas (kirjaudu)",
+    url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/Jaetut%20asiakirjat/Forms/AllItems.aspx?id=/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Haaga-Helian-turvallisuusopas.pdf&parent=/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus",
   },
   {
     title: "Turvallisuuskävelyohje opiskelijoille (kirjaudu)",
@@ -31,21 +32,56 @@ const links = [
   //Campus buttons
   {
     title: "Pasila",
-    url: "https://pelsu-files-production-eu-west-1.s3.eu-west-1.amazonaws.com/uploads/74247d41-ddff-4103-82a4-8b6e359c2c8b/Opetustalo_aluekuva_2-2020.pdf",
+    url: "https://www.pelsu.fi/opetustalo/",
   }, {
     title: "Malmi",
-    url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/SiteAssets/Forms/AllItems.aspx?id=%2Fsites%2FKorkeakoulumme%2FSiteAssets%2FSitePages%2FTurvallisuus%2Dja%2Dkriisitoimintaohje%2FPerho%2DLiiketalousopisto%2DMalmin%2Dkampuksen%2Dpelastussuunnitelma%2D2022%2Epdf&parent=%2Fsites%2FKorkeakoulumme%2FSiteAssets%2FSitePages%2FTurvallisuus%2Dja%2Dkriisitoimintaohje",
+    url: "https://haagahelia.sharepoint.com/:b:/r/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Malmi-pelastussuunnitelma.pdf?csf=1&web=1&e=VHp4UZ",
   }, {
     title: "Porvoo",
+    url: "https://haagahelia.sharepoint.com/:b:/r/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Porvoo-Campus-pelastussuunnitelma.pdf?csf=1&web=1&e=Ncrevk",
+  }, {
+    title: "Haaga",
+    url: "https://m.fimx.fi/JULPE/public/index/frekzmmu",
+  }, {
+    title: "Vierumäki",
+    url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/Jaetut%20asiakirjat/Forms/AllItems.aspx?id=/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Vierumaki-Turvallisuus-kriisitoimintaopas.pdf&parent=/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus",
+  },
+],
+en: [
+  {
+    title: "Haaga-Helia's Safety Guide (login)",
+    url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Safety-handbook.pdf?web=1",
+  },
+  {
+    title: "Safety Walk Guidance for students (login)",
+    url: "https://haagahelia.sharepoint.com/:b:/r/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Turvallisuuskavely-opiskelijat-en.pdf?csf=1&web=1&e=T9XLr9",
+  },
+  {
+    title: "Safety Walk Guidance for tutors  (login)",
+    url: "https://haagahelia.sharepoint.com/:b:/r/sites/Korkeakoulumme/Jaetut%20asiakirjat/Opiskelijoille%20linkitetyt%20tiedostot/Turvallisuus/Turvallisuuskavely-ohje-pitajalle-en.pdf?csf=1&web=1&e=8qeupz",
+  },
+  {
+    title: "Exiting the Building",
+    url: "https://www.youtube.com/watch?v=M-NIH-_SD44",
+  },
+  //Campus buttons
+  {
+    title: "Pasila (in Finnish only)",
+    url: "https://pelsu-files-production-eu-west-1.s3.eu-west-1.amazonaws.com/uploads/74247d41-ddff-4103-82a4-8b6e359c2c8b/Opetustalo_aluekuva_2-2020.pdf",
+  }, {
+    title: "Malmi (in Finnish only)",
+    url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/SiteAssets/Forms/AllItems.aspx?id=%2Fsites%2FKorkeakoulumme%2FSiteAssets%2FSitePages%2FTurvallisuus%2Dja%2Dkriisitoimintaohje%2FPerho%2DLiiketalousopisto%2DMalmin%2Dkampuksen%2Dpelastussuunnitelma%2D2022%2Epdf&parent=%2Fsites%2FKorkeakoulumme%2FSiteAssets%2FSitePages%2FTurvallisuus%2Dja%2Dkriisitoimintaohje",
+  }, {
+    title: "Porvoo (in Finnish only)",
     url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/SiteAssets/Forms/AllItems.aspx?id=%2Fsites%2FKorkeakoulumme%2FSiteAssets%2FSitePages%2FTurvallisuus%2Dja%2Dkriisitoimintaohje%2F784766814Pelastussuunnitelma%5F2024%2Epdf&parent=%2Fsites%2FKorkeakoulumme%2FSiteAssets%2FSitePages%2FTurvallisuus%2Dja%2Dkriisitoimintaohje",
   }, {
     title: "Haaga",
-    url: "https://m.fimx.fi/app_pub/reldocopen.php?DocKey=ac6c66bb01768d5e795375b0adc71e81&view=1",
+    url: "https://m.fimx.fi/JULPE/public/index/frekzmmu/en",
   }, {
-    title: "Vierumäki",
+    title: "Vierumäki (in Finnish only)",
     url: "https://haagahelia.sharepoint.com/sites/Korkeakoulumme/Jaetut%20asiakirjat/Forms/AllItems.aspx?id=%2Fsites%2FKorkeakoulumme%2FJaetut%20asiakirjat%2FOpiskelijoille%20linkitetyt%20tiedostot%2FTurvallisuus%2FVierumaki%2DTurvallisuus%2Dkriisitoimintaopas%2Epdf&parent=%2Fsites%2FKorkeakoulumme%2FJaetut%20asiakirjat%2FOpiskelijoille%20linkitetyt%20tiedostot%2FTurvallisuus",
   },
-];
+]};
 
 // Kampuskohtaiset ohjeet screen
 export default function CampusInstructionsScreen() {
@@ -54,9 +90,8 @@ export default function CampusInstructionsScreen() {
   const [key, setKey] = useState(0);
   const [showCampuses, setShowCampuses] = useState(false);
   const [showGuidelines, setShowGuidelines] = useState(false);
-  const lang = 'fi';
-  const text = TextData[lang].campusInstructions;
-
+  const { language } = useLanguageStore();
+  const text = TextData[language].campusInstructions;
 
   useEffect(() => {
     if (isFocused) {
@@ -75,8 +110,8 @@ export default function CampusInstructionsScreen() {
   };
 
   // Split links
-  const generalLinks = links.slice(0, 4);
-  const campusLinks = links.slice(4);
+  const generalLinks = links[language].slice(0, 4);
+  const campusLinks = links[language].slice(4);
 
   return (
     <SafeAreaView

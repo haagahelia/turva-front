@@ -1,3 +1,4 @@
+import { useLanguageStore } from '@/src/zustand/store';
 import TextData from '@/static/drawerTexts.json';
 import { useIsFocused } from "@react-navigation/native";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
@@ -11,8 +12,8 @@ export default function RulesAndRegulationsScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
-  const lang= 'fi';
-  const text = TextData[lang].rules;
+  const {language} = useLanguageStore()
+  const text = TextData[language].rules;
 
   useEffect(() => {
     if (isFocused) {

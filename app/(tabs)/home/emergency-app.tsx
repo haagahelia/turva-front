@@ -1,3 +1,4 @@
+import { useLanguageStore } from '@/src/zustand/store';
 import TextData from '@/static/drawerTexts.json';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
@@ -8,7 +9,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const links = [
+const links = {fi:[
   {
     title: "Lataa 112 Suomi -sovellus",
     url: "https://112.fi/112-suomi",
@@ -17,15 +18,24 @@ const links = [
     title: "Näin käytät 112 Suomi -mobilisovellusta",
     url: "https://www.youtube.com/watch?v=FvxMY_N_g5g",
   },
-];
+], en: [
+  {
+    title: "Download 112 Suomi -app",
+    url: "https://112.fi/en/112-suomi-application",
+  },
+  {
+    title: "How to use 112 Suomi -app",
+    url: "https://www.youtube.com/watch?v=C1qfRmXPJiY",
+  },
+]};
 
 // Lataa 112-sovellus screen
 export default function EmergencyAppScreen() {
   const theme = useTheme();
   const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
-  const lang = 'fi';
-  const text = TextData[lang].emergencyApp;
+  const {language} = useLanguageStore()
+  const text = TextData[language].emergencyApp;
 
   useEffect(() => {
     if (isFocused) {
@@ -79,7 +89,7 @@ export default function EmergencyAppScreen() {
         </MotiView>
 
         {/* 3. Link Buttons */}
-        {links.map((link, index) => (
+        {links[language].map((link, index) => (
           <MotiView
             key={`button-${key}-${index}`}
             from={{ opacity: 0, scale: 0.8 }}
