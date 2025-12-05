@@ -58,7 +58,7 @@ export const loadQuiz = (
 	console.log("Quiz BUTTON PRESSED!");
 	console.log(quiz_id);
 	router.push({
-		pathname: "./quiz",
+		pathname: "/(tabs)/home/game/quiz",
 		params: { 
 			quiz_id: quiz_id, 
 			world_id: world_id, 
@@ -78,7 +78,7 @@ export const loadResultsScreen = (
 	console.log("Results BUTTON PRESSED!");
 	console.log(quiz_id);
 	router.push({
-		pathname: "./results",
+		pathname: "/(tabs)/home/game/results",
 		params: {
 			quiz_id: quiz_id,
 			answers: answers,

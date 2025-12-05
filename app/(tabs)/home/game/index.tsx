@@ -1,6 +1,5 @@
 import { useLanguageStore, useOnboardingStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
-import { router } from "expo-router";
 import { MotiImage } from "moti";
 import { useEffect, useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
@@ -49,7 +48,7 @@ const Onboarding = () => {
 			setIndex(index + 1);
 		}
 		if (index === onboarding.length - 1) {
-			router.push("/(tabs)/home/game/worlds");
+			loadWorlds();
 			completeGameOnboarding();
 		}
 		scrollViewRef.current?.scrollTo(0, 0, true);
