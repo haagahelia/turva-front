@@ -1,102 +1,110 @@
 {
-  "fi": {
-    "title": "TurvallisuusMestari-peli",
-    "onboarding": [
-      {
-        "title": "🎮 Tervetuloa pelaamaan TurvallisuusMestari-peliä!",
-        "description": [
-          "Tämä peli on suunniteltu tukemaan ammattikorkeakouluopiskelijoiden turvallisuusperehdytystä hauskalla ja helposti lähestyttävällä tavalla. Pelaamalla oppii, miten voit toimia vastuullisesti, tunnistaa riskejä ja parantaa turvallisuutta omassa opiskeluympäristössä."
-        ]
-      },
-      {
-        "title": "🌍 Maailmat ja tasot",
-        "description": [
-          "Peli koostuu maailmoista, joissa käsitellään turvallisuusteemoja ja jokainen maailma sisältää seitsemän (7) tehtävätasoa."
-        ]
-      },
-      {
-        "title": "📋 Miten peli toimii?",
-        "description": [
-          "👉 Jokainen tehtävätaso sisältää lyhyen teorian, jonka jälkeen vastataan neljään kysymykseen.",
-          "👉 Jokaisessa kysymyksessä on neljä vastausvaihtoehtoa, joista vain yksi on oikein.",
-          "👉 Vastaamalla kaikkiin neljään kysymykseen oikein pääsee etenemään maailmassa seuraavalle tasolle. Taso pitää siis pelata kunnes vastaat oikein kaikkiin kysymyksiin.",
-          "👉 Jokaisesta oikein vastatusta kysymyksestä saa yhden pisteen. Peli mittaa myös ajan, joka menee vastauksiin."
-        ]
-      },
-      {
-        "title": "🏅 Palkinto",
-        "description": [
-          "Suoritettuasi maailman kaikki tehtävätasot, saat digitaalisen merkin, joka osoittaa, että olet sisäistänyt maailman turvallisuusteemat."
-        ]
-      },
-      {
-        "title": "💡 Vinkki",
-        "description": [
-          "Ota oppiminen tosissasi, mutta pelaa rennolla asenteella. Tässä pelissä harjoitellaan asioita, joista voi olla oikeassa elämässä suurta hyötyä."
-        ]
-      },
-      {
-        "title": "Oletko valmis?",
-        "description": [
-          "Aloita pelaaminen ja testaa turvallisuustaitosi!"
-        ]
-      }
-    ],
-    "common": {
-      "answerAll": "Vastaa kaikkiin kysymyksiin.",
-      "end": "Päätä testi",
-      "start": "Aloita testi",
-      "back":"Takaisin"
-    }
-  },
-  "en": {
-    "title": "TurvallisuusMestari-game",
-    "onboarding": [
-      {
-        "title": "🎮 Welcome to the TurvallisuusMestari-game!",
-        "description": [
-          "Tämä peli on suunniteltu tukemaan ammattikorkeakouluopiskelijoiden turvallisuusperehdytystä hauskalla ja helposti lähestyttävällä tavalla. Pelaamalla oppii, miten voit toimia vastuullisesti, tunnistaa riskejä ja parantaa turvallisuutta omassa opiskeluympäristössä."
-        ]
-      },
-      {
-        "title": "🌍 Worlds and Levels",
-        "description": [
-          "Peli koostuu maailmoista, joissa käsitellään turvallisuusteemoja ja jokainen maailma sisältää seitsemän (7) tehtävätasoa."
-        ]
-      },
-      {
-        "title": "📋 Miten peli toimii?",
-        "description": [
-          "👉 Jokainen tehtävätaso sisältää lyhyen teorian, jonka jälkeen vastataan neljään kysymykseen.",
-          "👉 Jokaisessa kysymyksessä on neljä vastausvaihtoehtoa, joista vain yksi on oikein.",
-          "👉 Vastaamalla kaikkiin neljään kysymykseen oikein pääsee etenemään maailmassa seuraavalle tasolle. Taso pitää siis pelata kunnes vastaat oikein kaikkiin kysymyksiin.",
-          "👉 Jokaisesta oikein vastatusta kysymyksestä saa yhden pisteen. Peli mittaa myös ajan, joka menee vastauksiin."
-        ]
-      },
-      {
-        "title": "🏅 Prize",
-        "description": [
-          "Suoritettuasi maailman kaikki tehtävätasot, saat digitaalisen merkin, joka osoittaa, että olet sisäistänyt maailman turvallisuusteemat."
-        ]
-      },
-      {
-        "title": "💡 Hint",
-        "description": [
-          "Ota oppiminen tosissasi, mutta pelaa rennolla asenteella. Tässä pelissä harjoitellaan asioita, joista voi olla oikeassa elämässä suurta hyötyä."
-        ]
-      },
-      {
-        "title": "Are you ready?",
-        "description": [
-          "Aloita pelaaminen ja testaa turvallisuustaitosi!"
-        ]
-      }
-    ],
-    "common": {
-      "answerAll": "Answer all questions.",
-      "end": "End quiz",
-      "start": "Start quiz",
-      "back": "Back"
-    }
-  }
+	"fi": {
+		"title": "TurvallisuusMestari-peli",
+		"onboarding": [
+			{
+				"title": "🎮 Tervetuloa pelaamaan TurvallisuusMestari-peliä!",
+				"description": [
+					"Tämä peli on suunniteltu tukemaan ammattikorkeakouluopiskelijoiden turvallisuusperehdytystä hauskalla ja helposti lähestyttävällä tavalla. Pelaamalla oppii, miten voit toimia vastuullisesti, tunnistaa riskejä ja parantaa turvallisuutta omassa opiskeluympäristössä."
+				]
+			},
+			{
+				"title": "🌍 Maailmat ja tasot",
+				"description": [
+					"Peli koostuu maailmoista, joissa käsitellään turvallisuusteemoja ja jokainen maailma sisältää seitsemän (7) tehtävätasoa."
+				]
+			},
+			{
+				"title": "📋 Miten peli toimii?",
+				"description": [
+					"👉 Jokainen tehtävätaso sisältää lyhyen teorian, jonka jälkeen vastataan neljään kysymykseen.",
+					"👉 Jokaisessa kysymyksessä on neljä vastausvaihtoehtoa, joista vain yksi on oikein.",
+					"👉 Vastaamalla kaikkiin neljään kysymykseen oikein pääsee etenemään maailmassa seuraavalle tasolle. Taso pitää siis pelata kunnes vastaat oikein kaikkiin kysymyksiin.",
+					"👉 Jokaisesta oikein vastatusta kysymyksestä saa yhden pisteen. Peli mittaa myös ajan, joka menee vastauksiin."
+				]
+			},
+			{
+				"title": "🏅 Palkinto",
+				"description": [
+					"Suoritettuasi maailman kaikki tehtävätasot, saat digitaalisen merkin, joka osoittaa, että olet sisäistänyt maailman turvallisuusteemat."
+				]
+			},
+			{
+				"title": "💡 Vinkki",
+				"description": [
+					"Ota oppiminen tosissasi, mutta pelaa rennolla asenteella. Tässä pelissä harjoitellaan asioita, joista voi olla oikeassa elämässä suurta hyötyä."
+				]
+			},
+			{
+				"title": "Oletko valmis?",
+				"description": ["Aloita pelaaminen ja testaa turvallisuustaitosi!"]
+			}
+		],
+		"common": {
+			"answerAll": "Vastaa kaikkiin kysymyksiin.",
+			"end": "Päätä testi",
+			"start": "Aloita testi",
+			"back": "Takaisin",
+			"ready": "Valmiina!",
+			"next": "Jatka"
+		},
+		"worlds": {
+			"title": "Maailmat",
+			"explanation": "Jokainen maailma sisältää useita tietovisoja, voittamalla ne etenet pelissä!",
+			"backHome": "Takaisin Koti-sivulle",
+			"backToWorldList": "Takaisin Maailmat -sivulle",
+			"backToWorld": "Takaisin Maailmaan",
+			"clearEachQuiz": "Onnistutko voittamaan jokaisen tietovisan tässä maailmassa?"
+		}
+	},
+	"en": {
+		"title": "TurvallisuusMestari-game",
+		"onboarding": [
+			{
+				"title": "🎮 Welcome to the TurvallisuusMestari-game!",
+				"description": ["Add en text"]
+			},
+			{
+				"title": "🌍 Worlds and Levels",
+				"description": ["Add en text"]
+			},
+			{
+				"title": "📋 How to play?",
+				"description": [
+					"Add en text",
+					"Add en text",
+					"Add en text",
+					"Add en text"
+				]
+			},
+			{
+				"title": "🏅 Prize",
+				"description": ["Add en text"]
+			},
+			{
+				"title": "💡 Hint",
+				"description": ["Add en text"]
+			},
+			{
+				"title": "Are you ready?",
+				"description": ["Start playing and test your security knowledge!"]
+			}
+		],
+		"common": {
+			"answerAll": "Answer all questions.",
+			"end": "End quiz",
+			"start": "Start quiz",
+			"back": "Back",
+			"ready": "Ready to go!",
+			"next": "Next"
+		},
+		"worlds": {
+			"title": "Worlds",
+			"explanation": "Each World contains several Quizzes that you can beat to advance in the game!",
+			"backHome": "Back to Home Screen",
+			"backToWorldList": "Back to Worlds List",
+			"backToWorld": "Back to World",
+			"clearEachQuiz": "Can you beat every Quiz in this World?"
+		}
+	}
 }

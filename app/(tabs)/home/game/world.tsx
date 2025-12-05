@@ -1,12 +1,19 @@
 import { QuizType } from "@/src/types/types";
-import { router, useLocalSearchParams } from "expo-router";
-import { ScrollView, View } from "moti";
+import { useLanguageStore } from "@/src/zustand/store";
+import TextData from "@/static/gameTexts.json";
+import { useLocalSearchParams } from "expo-router";
+import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { styles } from "./gameStyles";
+import { loadQuizIntro, loadWorlds } from "./quiz-route-functions";
 
 const World = () => {
 	const theme = useTheme();
+	const { language } = useLanguageStore();
+	const uiText = (TextData as any)[language];
+
 	const [isLoading, setLoading] = useState(true);
 	const [quizData, setQuizData] = useState<QuizType[]>([]);
 
@@ -14,11 +21,10 @@ const World = () => {
 	console.log("World ID after loading World.tsx:");
 	console.log(world_id);
 
-	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	const { world_name_en } = useLocalSearchParams<{ world_name_en: string }>();
+	const { world_name_fi } = useLocalSearchParams<{ world_name_fi: string }>();
 	console.log("World Name after loading World.tsx:");
-	console.log(world_name);
-
-	
+	console.log(world_name_en, world_name_fi);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -52,26 +58,6 @@ const World = () => {
 		}
 	});
 
-	const loadQuiz = (quiz_id: number) => {
-		console.log("BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./quiz-introduction",
-			params: {
-				quiz_id: quiz_id,
-				world_id: world_id,
-				world_name: world_name
-			},
-		});
-	};
-
-	const loadWorlds = () => {
-		console.log("BUTTON PRESSED!");
-		router.push({
-			pathname: "./worlds",
-		});
-	};
-
 	return (
 		<ImageBackground
 			source={require("@/assets/images/WorldNavigation.png")}
@@ -82,10 +68,11 @@ const World = () => {
 				style={styles.scrollViewStyle}
 				contentContainerStyle={styles.contentContainer}
 			>
-				<Text style={styles.textContainer}>{world_name}</Text>
 				<Text style={styles.textContainer}>
-					Clear each Quiz in this World!{" "}
+					{language === "en" && world_name_en}
+					{language === "fi" && world_name_fi}
 				</Text>
+				<Text style={styles.textContainer}>{uiText.worlds.clearEachQuiz}</Text>
 
 				{isLoading ? (
 					// STATE 1: JSON CONTENT NOT LOADED
@@ -101,10 +88,18 @@ const World = () => {
 										styles.answer,
 										{ backgroundColor: theme.colors.primaryContainer },
 									]}
-									onPress={() => loadQuiz(quiz.quiz_id)}
+									onPress={() =>
+										loadQuizIntro(
+											quiz.quiz_id.toString(),
+											world_id,
+											world_name_en,
+											world_name_fi
+										)
+									}
 								>
 									<Text style={styles.textContainerStyle}>
-										{quiz.quiz_name}
+										{language === "en" && quiz.quiz_name_en}
+										{language === "fi" && quiz.quiz_name_fi}
 									</Text>
 								</TouchableOpacity>
 							</View>
@@ -121,52 +116,12 @@ const World = () => {
 					buttonColor="#00629F"
 					textColor="#FFFFFF"
 				>
-					Back to Worlds List
+					{uiText.worlds.backToWorldList}
 				</Button>
 			</ScrollView>
 		</ImageBackground>
 	);
 };
 
-const styles = StyleSheet.create({
-	background: {
-		flex: 1,
-	},
-	container: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	button: {
-		borderRadius: 24,
-		marginTop: 8,
-	},
-	textContainer: {
-		padding: 16,
-		borderRadius: 12,
-		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginBottom: 20,
-		borderColor: "#00629F",
-		borderWidth: 2,
-	},
-	textContainerStyle: {
-		color: "#000000",
-		fontSize: 16,
-	},
-	answer: {
-		padding: 16,
-		borderRadius: 20,
-		marginVertical: 6,
-	},
-	scrollViewStyle: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	contentContainer: {
-		flexGrow: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 10,
-	},
-});
 
 export default World;

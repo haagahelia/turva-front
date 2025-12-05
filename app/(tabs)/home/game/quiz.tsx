@@ -1,16 +1,22 @@
-import { Answer, Language, QuizLang } from "@/src/types/types";
+import { Answer, QuizLang, QuizType, Section } from "@/src/types/types";
+import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { Image, ScrollView, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { styles } from "./gameStyles";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
+import { loadResultsScreen, loadWorld } from "./quiz-route-functions";
 
 const Quiz = () => {
 	const theme = useTheme();
-	const lang: Language = "fi";
+	const { language } = useLanguageStore();
+	const lang = language;
+	const uiText = (TextData as any)[lang];
+	const commonText = TextData[lang].common;
+
 	const [isLoading, setLoading] = useState(true);
 
 	const { quiz_id } = useLocalSearchParams<{ quiz_id: string }>();
@@ -21,13 +27,14 @@ const Quiz = () => {
 	console.log("World ID after loading Quiz.tsx:");
 	console.log(world_id);
 
-	const { world_name } = useLocalSearchParams<{ world_name: string }>();
+	const { world_name_en } = useLocalSearchParams<{ world_name_en: string }>();
+	const { world_name_fi } = useLocalSearchParams<{ world_name_fi: string }>();
 	console.log("World Name after loading Quiz.tsx:");
-	console.log(world_name);
+	console.log(world_name_en, world_name_fi);
 
-	const commonText = TextData[lang].common;
-	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
+	const [quizJson, setQuizJson] = useState<QuizType | null>(null);
 	const [quizData, setQuizData] = useState<QuizLang | null>(null);
+	const [selectedAnswers, setSelectedAnswers] = useState<Answer[]>([]);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -44,8 +51,10 @@ const Quiz = () => {
 			// EXTRACT the Quiz content data
 			const quizJson = responseJson[0].quiz_content;
 			console.log("Quiz Content:");
-			console.log(quizJson.en);
-			setQuizData(quizJson.en);
+			console.log(quizJson[lang].questions);
+			
+			setQuizJson(quizJson);
+			setQuizData(quizJson[lang]);
 
 			// TOGGLE Loading state OFF
 			setLoading(false);
@@ -62,6 +71,9 @@ const Quiz = () => {
 			getQuizFromApiAsync();
 		}
 	});
+
+	// Use effect based on lang update explained by Claude.ai
+	useEffect(() => {quizJson && setQuizData(quizJson[lang])}, [lang, quizJson]); // Runs whenever lang changes
 
 	const toggleSelected = (answer: Answer) => {
 		setSelectedAnswers((prev) => {
@@ -82,34 +94,47 @@ const Quiz = () => {
 		);
 	};
 
-	const isAllAnswered = quizData?.questions.every((q) =>
-		selectedAnswers.some((a) => a.question_title === q.title)
-	);
+	const isAllAnswered = quizData?.questions
+		.filter((section) => section.type === "quiz_question")
+		.every((q) => selectedAnswers.some((a) => a.question_title === q.title));
 
-	const loadResultsScreen = (answers: string) => {
-		console.log("BUTTON PRESSED!");
-		console.log(quiz_id);
-		router.push({
-			pathname: "./results",
-			params: {
-				quiz_id: quiz_id,
-				answers: answers,
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
-	};
-
-	const loadWorld = () => {
-		console.log("BUTTON PRESSED!");
-		console.log(world_id);
-		router.push({
-			pathname: "./world",
-			params: {
-				world_id: world_id,
-				world_name: world_name,
-			},
-		});
+	const quizRenderer = (section: Section) => {
+		// Use a case switch to return the right kind of component for each section
+		switch (section.type) {
+			case "quiz_question":
+				return (
+					<View key={section.title} style={styles.answerContainer}>
+						<QuizQuestion
+							title={section.title}
+							type={section.type}
+							content={section.content}
+							answers={section.answers}
+						/>
+						{section.answers.map((answer) => {
+							const fullAnswer = {
+								...answer,
+								question_title: section.title,
+							};
+							return (
+								<QuizAnswer
+									key={answer.title}
+									answer={fullAnswer}
+									isSelected={isAnswerSelected(fullAnswer)}
+									onSelect={toggleSelected}
+								/>
+							);
+						})}
+					</View>
+				);
+			case "image":
+				return (
+					<Image
+						source={{ uri: section.url }}
+						style={styles.quiz_image}
+						resizeMode="contain"
+					/>
+				);
+		}
 	};
 
 	return (
@@ -130,67 +155,43 @@ const Quiz = () => {
 					>
 						{commonText.answerAll}
 					</Text>
-					{quizData?.questions.map((question) => (
-						<View key={question.title} style={styles.answerContainer}>
-							<QuizQuestion
-								title={question.title}
-								type={question.type}
-								content={question.content}
-								answers={question.answers}
-							/>
-							{question.answers.map((answer) => {
-								const fullAnswer = {
-									...answer,
-									question_title: question.title,
-								};
-								return (
-									<QuizAnswer
-										key={answer.title}
-										answer={fullAnswer}
-										isSelected={isAnswerSelected(fullAnswer)}
-										onSelect={toggleSelected}
-									/>
-								);
-							})}
-						</View>
-					))}
+					{/* Render each segment - they could be questions but also images etc */}
+					{quizData?.questions.map((question) => quizRenderer(question))}
 					<Button
 						style={{ margin: 10, marginBottom: 50 }}
 						mode="contained"
 						disabled={!isAllAnswered}
 						//disabled={false}
-						onPress={() => loadResultsScreen(JSON.stringify(selectedAnswers))}
+						onPress={() =>
+							loadResultsScreen(
+								quiz_id,
+								world_id,
+								world_name_en,
+								world_name_fi,
+								JSON.stringify(selectedAnswers)
+							)
+						}
 					>
 						{commonText.end}
 					</Button>
-
-					<Button
-						icon="gamepad-variant-outline"
-						onPress={() => loadWorld()}
-						style={styles.button}
-						mode="contained"
-						//override to make the color of the button always as in light theme
-						buttonColor="#00629F"
-						textColor="#FFFFFF"
-					>
-						Back to World
-					</Button>
 				</View>
 			)}
+
+			<Button
+				icon="gamepad-variant-outline"
+				onPress={() => loadWorld(world_id, world_name_en, world_name_fi)}
+				style={styles.button}
+				mode="contained"
+				//override to make the color of the button always as in light theme
+				buttonColor="#00629F"
+				textColor="#FFFFFF"
+			>
+				{uiText.worlds.backToWorld}
+			</Button>
 		</ScrollView>
 	);
 };
 
-const styles = StyleSheet.create({
-	answerContainer: {
-		marginBottom: 24,
-		marginHorizontal: 10,
-	},
-	button: {
-		borderRadius: 24,
-		alignSelf: "center",
-		marginBottom: 20,
-	},
-});
+
 
 export default Quiz;

@@ -1,12 +1,18 @@
 import { WorldType } from "@/src/types/types";
-import { router } from "expo-router";
+import { useLanguageStore } from "@/src/zustand/store";
+import TextData from "@/static/gameTexts.json";
 import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { styles } from "./gameStyles";
+import { loadHome, loadWorld } from "./quiz-route-functions";
 
 const Worlds = () => {
 	const theme = useTheme();
+	const { language } = useLanguageStore();
+	const uiText = (TextData as any)[language];
+
 	const [isLoading, setLoading] = useState(true);
 	const [worlds, setWorlds] = useState<WorldType[]>([]);
 
@@ -41,32 +47,16 @@ const Worlds = () => {
 		}
 	});
 
-	const loadWorld = (world_id: number, world_name: string) => {
-		console.log("BUTTON PRESSED!");
-		console.log(world_id);
-		router.push({
-			pathname: "./world",
-			params: { world_id: world_id, world_name: world_name },
-		});
-	};
-
-	const loadHome = () => {
-		console.log("HOME Button pressed!");
-		router.push({
-			pathname: "/(tabs)/home",
-		});
-	};
-
 	return (
 		<ImageBackground
 			source={require("@/assets/images/WorldNavigation.png")}
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<Text style={styles.textContainer}>This is the worlds screen</Text>
+			<ScrollView>
+			<Text style={[styles.textContainer, styles.bold]}>{uiText.worlds.title}</Text>
 			<Text style={styles.textContainer}>
-				From here, the user should be able to access different levels / quizzes
-				in the game{" "}
+				{uiText.worlds.explanation}
 			</Text>
 
 			{isLoading ? (
@@ -83,10 +73,13 @@ const Worlds = () => {
 									styles.answer,
 									{ backgroundColor: theme.colors.primaryContainer },
 								]}
-								onPress={() => loadWorld(world.world_id, world.world_name)}
+								onPress={() =>
+									loadWorld(world.world_id.toString(), world.world_name_en, world.world_name_fi)
+								}
 							>
 								<Text style={styles.textContainerStyle}>
-									{world.world_name}
+									{language === "en" && world.world_name_en}
+									{language === "fi" && world.world_name_fi}
 								</Text>
 							</TouchableOpacity>
 						</View>
@@ -101,43 +94,13 @@ const Worlds = () => {
 						buttonColor="#00629F"
 						textColor="#FFFFFF"
 					>
-						Back to Home Screen
+						{uiText.worlds.backHome}
 					</Button>
 				</View>
 			)}
+			</ScrollView>
 		</ImageBackground>
 	);
 };
-
-const styles = StyleSheet.create({
-	background: {
-		flex: 1,
-	},
-	container: {
-		flex: 1,
-		paddingHorizontal: 20,
-	},
-	button: {
-		borderRadius: 24,
-		marginTop: 8,
-	},
-	textContainer: {
-		padding: 16,
-		borderRadius: 12,
-		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
-		marginBottom: 20,
-		borderColor: "#00629F",
-		borderWidth: 2,
-	},
-	textContainerStyle: {
-		color: "#000000",
-		fontSize: 16,
-	},
-	answer: {
-		padding: 16,
-		borderRadius: 20,
-		marginVertical: 6,
-	},
-});
 
 export default Worlds;
