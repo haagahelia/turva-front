@@ -8,9 +8,10 @@ const API_URL = (process.env.EXPO_PUBLIC_API_URL || "").replace(/\/$/, "");
 export default function LoginScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const [step, setStep] = useState<"email" | "code">("email");
+  const [step, setStep] = useState<"credentials" | "code">("credentials");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
@@ -23,7 +24,7 @@ export default function LoginScreen() {
       const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ username, email }),
       });
       if (!response.ok) {
         throw new Error(`Failed to send code (Status: ${response.status})`);
@@ -46,7 +47,7 @@ export default function LoginScreen() {
       const response = await fetch(`${API_URL}/auth/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
+        body: JSON.stringify({ username, email, verificationCode: code }),
       });
       if (!response.ok) {
         throw new Error(`Verification failed (Status: ${response.status})`);
@@ -61,6 +62,7 @@ export default function LoginScreen() {
   };
 
   const emailHasError = !!email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const canProceed = username.trim() !== "" && email.trim() !== "" && !emailHasError;
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -71,9 +73,19 @@ export default function LoginScreen() {
               <View>
                 <Text variant="headlineSmall">Login</Text>
                 <Text variant="bodyMedium" style={{ opacity: 0.7 }}>
-                  Enter your email to receive a one-time code
+                  Enter your username and email to receive a one-time code
                 </Text>
               </View>
+
+              <TextInput
+                label="Username"
+                mode="outlined"
+                autoCapitalize="none"
+                value={username}
+                onChangeText={setUsername}
+                disabled={step === "code"}
+                left={<TextInput.Icon icon="account-outline" />}
+              />
 
               <TextInput
                 label="Email"
@@ -120,11 +132,11 @@ export default function LoginScreen() {
               )}
 
               <View style={{ gap: 8 }}>
-                {step === "email" ? (
+                {step === "credentials" ? (
                   <Button
                     mode="contained"
                     onPress={sendLoginCode}
-                    disabled={!email || emailHasError || !API_URL}
+                    disabled={!canProceed || !API_URL}
                     loading={loading}
                     style={{ borderRadius: 12 }}
                     contentStyle={{ paddingVertical: 6 }}

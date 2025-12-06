@@ -8,9 +8,11 @@ const API_URL = (process.env.EXPO_PUBLIC_API_URL || "").replace(/\/$/, "");
 export default function SignupScreen() {
   const router = useRouter();
   const theme = useTheme();
+  const [organizationId, setOrganizationId] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const [step, setStep] = useState<"email" | "code">("email");
+  const [step, setStep] = useState<"credentials" | "code">("credentials");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
@@ -20,11 +22,15 @@ export default function SignupScreen() {
     setInfo(null);
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/auth/signup`, {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ organizationId, username, email }),
       });
+      
+      const responseData = await response.json();
+      console.log("Register response:", responseData);
+      
       if (!response.ok) throw new Error("Failed to send code");
       setInfo("We sent a verification code to your email.");
       setStep("code");
@@ -44,7 +50,7 @@ export default function SignupScreen() {
       const response = await fetch(`${API_URL}/auth/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),
+        body: JSON.stringify({ username, email, verificationCode: code }),
       });
       if (!response.ok) throw new Error("Verification failed");
       setInfo("Your account has been created and verified.");
@@ -57,6 +63,7 @@ export default function SignupScreen() {
   };
 
   const emailHasError = !!email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const canProceed = organizationId.trim() !== "" && username.trim() !== "" && email.trim() !== "" && !emailHasError;
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -67,9 +74,29 @@ export default function SignupScreen() {
               <View>
                 <Text variant="headlineSmall">Create your account</Text>
                 <Text variant="bodyMedium" style={{ opacity: 0.7 }}>
-                  Enter your email to receive a verification code
+                  Enter your organization ID, username, and email to receive a verification code
                 </Text>
               </View>
+
+              <TextInput
+                label="Organization ID"
+                mode="outlined"
+                autoCapitalize="none"
+                value={organizationId}
+                onChangeText={setOrganizationId}
+                disabled={step === "code"}
+                left={<TextInput.Icon icon="office-building-outline" />}
+              />
+
+              <TextInput
+                label="Username"
+                mode="outlined"
+                autoCapitalize="none"
+                value={username}
+                onChangeText={setUsername}
+                disabled={step === "code"}
+                left={<TextInput.Icon icon="account-outline" />}
+              />
 
               <TextInput
                 label="Email"
@@ -116,11 +143,11 @@ export default function SignupScreen() {
               )}
 
               <View style={{ gap: 8 }}>
-                {step === "email" ? (
+                {step === "credentials" ? (
                   <Button
                     mode="contained"
                     onPress={sendSignupCode}
-                    disabled={!email || emailHasError || !API_URL}
+                    disabled={!canProceed || !API_URL}
                     loading={loading}
                     style={{ borderRadius: 12 }}
                     contentStyle={{ paddingVertical: 6 }}
