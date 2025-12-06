@@ -10,7 +10,7 @@ export const loadHome = () => {
 export const loadWorlds = () => {
 	console.log("Worlds BUTTON PRESSED!");
 	router.push({
-		pathname: "./worlds",
+		pathname: "/(tabs)/home/game/worlds",
 	});
 };
 export const loadWorld = (
@@ -21,7 +21,7 @@ export const loadWorld = (
 	console.log("World BUTTON PRESSED!");
 	console.log(world_id);
 	router.push({
-		pathname: "./world",
+		pathname: "/(tabs)/home/game/world",
 		params: {
 			world_id: world_id,
 			world_name_en: world_name_en,
@@ -39,7 +39,7 @@ export const loadQuizIntro = (
 	console.log("Quiz Intro BUTTON PRESSED!");
 	console.log(quiz_id);
 	router.push({
-		pathname: "./quiz-introduction",
+		pathname: "/(tabs)/home/game/quiz-introduction",
 		params: {
 			quiz_id: quiz_id,
 			world_id: world_id,
@@ -58,7 +58,7 @@ export const loadQuiz = (
 	console.log("Quiz BUTTON PRESSED!");
 	console.log(quiz_id);
 	router.push({
-		pathname: "./quiz",
+		pathname: "/(tabs)/home/game/quiz",
 		params: { 
 			quiz_id: quiz_id, 
 			world_id: world_id, 
@@ -78,7 +78,7 @@ export const loadResultsScreen = (
 	console.log("Results BUTTON PRESSED!");
 	console.log(quiz_id);
 	router.push({
-		pathname: "./results",
+		pathname: "/(tabs)/home/game/results",
 		params: {
 			quiz_id: quiz_id,
 			answers: answers,

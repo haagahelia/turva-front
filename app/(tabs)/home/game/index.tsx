@@ -1,11 +1,11 @@
-import { useLanguageStore } from "@/src/zustand/store";
+import { useLanguageStore, useOnboardingStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
-import { router } from "expo-router";
 import { MotiImage } from "moti";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { styles } from "./gameStyles";
+import { loadWorlds } from "./quiz-route-functions";
 
 type OnboardingData = {
 	title: string;
@@ -20,7 +20,11 @@ const Onboarding = () => {
 	const [key, setKey] = useState(0);
 	const [index, setIndex] = useState(0);
 	
-	
+	const {
+		hasCompletedGameOnboarding,
+		completeGameOnboarding,
+		resetGameOnboarding
+	} = useOnboardingStore();
 
 	const onboarding: OnboardingData[] = TextData[language].onboarding;
 	const current = onboarding[index];
@@ -29,12 +33,23 @@ const Onboarding = () => {
 	// https://stackoverflow.com/questions/68252416/react-native-reset-scrollview-to-the-top-after-render
 	const scrollViewRef = useRef<ScrollView>(null);
 
+	useEffect(() => {
+		if (hasCompletedGameOnboarding) {
+			loadWorlds();
+			//resetGameOnboarding(); //FOR DEV PURPOSES ONLY! RESETS ONBOARDING EVERY TIME YOU ENTER GAME
+			//console.log(hasCompletedGameOnboarding);
+		}
+	}, [hasCompletedGameOnboarding]);
+
+
+
 	const handleNext = () => {
 		if (index < onboarding.length - 1) {
 			setIndex(index + 1);
 		}
 		if (index === onboarding.length - 1) {
-			router.push("/(tabs)/home/game/worlds");
+			loadWorlds();
+			completeGameOnboarding();
 		}
 		scrollViewRef.current?.scrollTo(0, 0, true);
 	};
