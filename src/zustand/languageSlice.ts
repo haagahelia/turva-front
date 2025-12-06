@@ -15,10 +15,10 @@ export const createLanguageSlice: StateCreator<
   [],
   LanguageSlice
 > = (set, get) => ({
-  language: "en",
+  language: "fi",
   setLanguage: (lang) => set({ language: lang }),
   toggleLanguage: () =>
-    set({ language: get().language === "en" ? "fi" : "en" }),
+    set({ language: get().language === "fi" ? "en" : "fi" }),
 });
 
 // Usage example:
