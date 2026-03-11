@@ -8,6 +8,7 @@ import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { styles } from "./gameStyles";
 import { loadQuizIntro, loadWorlds } from "./quiz-route-functions";
+import { API_URL } from "@/src/config/api";
 
 const World = () => {
 	const theme = useTheme();
@@ -30,9 +31,7 @@ const World = () => {
 	const getQuizFromApiAsync = async () => {
 		try {
 			// FETCH
-			const response = await fetch(
-				`https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/world/${world_id}/quizzes`
-			);
+			const response = await fetch(`${API_URL}/api/quiz/world/${world_id}/quizzes`);
 
 			// READ response as JSON
 			console.log(response);
