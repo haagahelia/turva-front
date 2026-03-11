@@ -9,6 +9,7 @@ import { styles } from "./gameStyles";
 import QuizAnswer from "./quiz-answer";
 import QuizQuestion from "./quiz-question";
 import { loadResultsScreen, loadWorld } from "./quiz-route-functions";
+import { API_URL } from "@/src/config/api";
 
 const Quiz = () => {
 	const theme = useTheme();
@@ -40,9 +41,7 @@ const Quiz = () => {
 	const getQuizFromApiAsync = async () => {
 		try {
 			// FETCH
-			const response = await fetch(
-				`https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/${quiz_id}`
-			);
+			const response = await fetch(`${API_URL}/api/quiz/${quiz_id}`);
 
 			// READ response as JSON
 			const responseJson = await response.json();

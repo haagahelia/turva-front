@@ -7,6 +7,7 @@ import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { styles } from "./gameStyles";
 import { loadHome, loadWorld } from "./quiz-route-functions";
+import { API_URL } from "@/src/config/api";
 
 const Worlds = () => {
 	const theme = useTheme();
@@ -19,25 +20,18 @@ const Worlds = () => {
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
 		try {
-			// FETCH
-			const response = await fetch(
-				"https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/world"
-			);
+			const response = await fetch(`${API_URL}/api/world`);
 
-			// READ response as JSON
+			if (!response.ok) {
+				const text = await response.text();
+				throw new Error(`API error ${response.status}: ${text}`);
+			}
+
 			const responseJson = await response.json();
-			console.log("Response:");
-			console.log(responseJson);
-			// EXTRACT the Quiz content data
 			setWorlds(responseJson);
-
-			// TOGGLE Loading state OFF
 			setLoading(false);
-			return responseJson;
-
-			// ERROR HANDLING
 		} catch (error) {
-			console.error(error);
+			console.error("Fetch error:", error);
 		}
 	};
 

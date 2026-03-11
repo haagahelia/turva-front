@@ -13,6 +13,7 @@ import {
 import { Button, Text } from "react-native-paper";
 import { styles } from "./gameStyles";
 import { loadQuiz, loadWorld } from "./quiz-route-functions";
+import { API_URL } from "@/src/config/api";
 
 const QuizIntro = () => {
 	//Maybe we do not need dark theme in game, because the background is always light
@@ -57,9 +58,7 @@ const QuizIntro = () => {
 	const getQuizFromApiAsync = async () => {
 		try {
 			// FETCH
-			const response = await fetch(
-				`https://turva-back-softala-turvallisuus-app.2.rahtiapp.fi/api/quiz/${quiz_id}`
-			);
+			const response = await fetch(`${API_URL}/api/quiz/${quiz_id}`);
 
 			// READ response as JSON
 			const responseJson = await response.json();
