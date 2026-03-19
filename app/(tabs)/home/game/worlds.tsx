@@ -17,12 +17,14 @@ const Worlds = () => {
 	const [isLoading, setLoading] = useState(true);
 	const [worlds, setWorlds] = useState<WorldType[]>([]);
 
+	const [quizzes, setQuizzes] = useState([]);
+
 	const isWorldUnlocked = useGameProgressStore(
 		(state) => state.isWorldUnlocked
 	);
 
 	// Function Source: reactnative.dev -> docs -> network
-	const getQuizFromApiAsync = async () => {
+	const getWorldsFromApiAsync = async () => {
 		try {
 			const response = await fetch(`${API_URL}/api/world`);
 
@@ -33,17 +35,36 @@ const Worlds = () => {
 
 			const responseJson = await response.json();
 			setWorlds(responseJson);
-			setLoading(false);
 		} catch (error) {
-			console.error("Fetch error:", error);
+			console.error("World fetch error:", error);
+		}
+	};
+
+	const getQuizzesFromApiAsync = async () => {
+		try {
+			const response = await fetch(`${API_URL}/api/quiz`);
+
+			if (!response.ok) {
+				const text = await response.text();
+				throw new Error(`API error ${response.status}: ${text}`);
+			}
+
+			const responseJson = await response.json();
+			setQuizzes(responseJson);
+		} catch (error) {
+			console.error("Quiz fetch error:", error);
 		}
 	};
 
 	useEffect(() => {
-		if (isLoading) {
-			getQuizFromApiAsync();
-		}
-	});
+		const loadData = async () => {
+			await getWorldsFromApiAsync();
+			await getQuizzesFromApiAsync();
+			setLoading(false);
+		};
+
+		loadData();
+	}, []);
 
 	return (
 		<ImageBackground
@@ -65,7 +86,7 @@ const Worlds = () => {
 				) : (
 					<View>
 						{worlds.map((world) => {
-							const unlocked = isWorldUnlocked(world.world_id, worlds, []);
+							const unlocked = isWorldUnlocked(world.world_id, worlds, quizzes);
 
 							return (
 								<View key={world.world_id} style={styles.textContainer}>

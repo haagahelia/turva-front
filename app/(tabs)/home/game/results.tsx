@@ -15,14 +15,6 @@ const Results = () => {
 	const uiText = (TextData as any)[lang];
 	const setQuizResult = useGameProgressStore((state) => state.setQuizResult);
 
-	useEffect(() => {
-		setQuizResult({
-			quizId: Number(quiz_id),
-			correctAnswers: correctCount,
-			totalAnswers: totalCount,
-		});
-	}, []);
-
 	// ROUTIMG PARAMS
 	const { answers } = useLocalSearchParams<{ answers: string }>();
 
@@ -43,6 +35,16 @@ const Results = () => {
 	const selectedAnswers: Answer[] = JSON.parse(answers);
 	const correctCount = selectedAnswers.filter((a) => a.is_correct).length;
 	const totalCount = selectedAnswers.length; // total number of questions
+
+	useEffect(() => {
+		if (!quiz_id || !selectedAnswers) return;
+
+		setQuizResult({
+			quizId: Number(quiz_id),
+			correctAnswers: correctCount,
+			totalAnswers: totalCount,
+		});
+	}, [quiz_id, correctCount, totalCount]);
 
 	// Load and type results.json
 	const resultsData = results_json as unknown as ResultsTexts;
