@@ -58,8 +58,11 @@ export default function SecurityReport() {
                     style={styles.button}
                     labelStyle={{ fontSize: 18 }}
                     onPress={() => {
-                        router.push(`/home/report-form-screen?type=${reportType}&lang=${language}` as any);
-                    }}
+                        const route = type === "security" 
+                            ? "https://palveluportaali.haaga-helia.fi/ssc/app#/order/1924144/"
+                            : "https://link.webropolsurveys.com/S/823DFAABB4E383E2"
+                         router.push(route);
+}}
                 >
                     {data.buttonText[language]}
                 </Button>
