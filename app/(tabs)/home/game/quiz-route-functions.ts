@@ -15,8 +15,8 @@ export const loadWorlds = () => {
 };
 export const loadWorld = (
 	world_id: string,
-	world_name_en: string,
-	world_name_fi: string
+	world_name_en?: string,
+	world_name_fi?: string
 ) => {
 	console.log("World BUTTON PRESSED!");
 	console.log(world_id);
@@ -24,8 +24,8 @@ export const loadWorld = (
 		pathname: "/(tabs)/home/game/world",
 		params: {
 			world_id: world_id,
-			world_name_en: world_name_en,
-			world_name_fi: world_name_fi,
+			world_name_en: world_name_en ?? "en_name_missing",
+			world_name_fi: world_name_fi ?? "fi_name_missing",
 		},
 	});
 };
@@ -43,8 +43,8 @@ export const loadQuizIntro = (
 		params: {
 			quiz_id: quiz_id,
 			world_id: world_id,
-			world_name_en: world_name_en,
-			world_name_fi: world_name_fi,
+			//world_name_en: world_name_en,
+			//world_name_fi: world_name_fi,
 		},
 	});
 };
@@ -62,8 +62,8 @@ export const loadQuiz = (
 		params: { 
 			quiz_id: quiz_id, 
 			world_id: world_id, 
-			world_name_en: world_name_en,
-			world_name_fi: world_name_fi  
+			//world_name_en: world_name_en,
+			//world_name_fi: world_name_fi  
 		},
 	});
 };

@@ -94,8 +94,10 @@ const Quiz = () => {
 	};
 
 	const isAllAnswered = quizData?.questions
-		.filter((section) => section.type === "quiz_question")
-		.every((q) => selectedAnswers.some((a) => a.question_title === q.title));
+		?.filter((section) => section.type === "quiz_question")
+		?.every((q) =>
+			selectedAnswers.some((a) => a.question_title === q.title)
+		);
 
 	const quizRenderer = (section: Section) => {
 		// Use a case switch to return the right kind of component for each section
@@ -109,7 +111,7 @@ const Quiz = () => {
 							content={section.content}
 							answers={section.answers}
 						/>
-						{section.answers.map((answer) => {
+						{(section.answers ?? []).map((answer) => {
 							const fullAnswer = {
 								...answer,
 								question_title: section.title,
@@ -155,7 +157,7 @@ const Quiz = () => {
 						{commonText.answerAll}
 					</Text>
 					{/* Render each segment - they could be questions but also images etc */}
-					{quizData?.questions.map((question) => quizRenderer(question))}
+					{(quizData?.questions ?? []).map((question) => quizRenderer(question))}
 					<Button
 						style={{ margin: 10, marginBottom: 50 }}
 						mode="contained"
