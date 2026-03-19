@@ -5,6 +5,7 @@ import { briefingItems } from "../mockData";
 import { createThemeSlice, StoreState } from "./themeSlice";
 import { createLanguageSlice, LanguageSlice } from "./languageSlice";
 import { createOnboardingSlice, OnboardingSlice } from "./onboardingSlice";
+import { createGameProgressSlice, GameProgressSlice } from "./gameProgressSlice";
 
 export const useThemeStore = create<StoreState>()(
   persist(
@@ -25,6 +26,18 @@ export const useLanguageStore = create<LanguageSlice>()(
     }),
     {
       name: "language-storage",
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
+
+export const useGameProgressStore = create<GameProgressSlice>()(
+  persist(
+    (...a) => ({
+      ...createGameProgressSlice(...a),
+    }),
+    {
+      name: "game-progress-storage",
       storage: createJSONStorage(() => AsyncStorage),
     }
   )
