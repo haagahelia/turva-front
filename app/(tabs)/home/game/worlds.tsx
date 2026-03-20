@@ -13,6 +13,7 @@ const Worlds = () => {
 	const theme = useTheme();
 	const { language } = useLanguageStore();
 	const uiText = (TextData as any)[language];
+	const resetGameProgress = useGameProgressStore((state) => state.resetGameProgress);
 
 	const [isLoading, setLoading] = useState(true);
 	const [worlds, setWorlds] = useState<WorldType[]>([]);
@@ -26,6 +27,8 @@ const Worlds = () => {
 	// Function Source: reactnative.dev -> docs -> network
 	const getWorldsFromApiAsync = async () => {
 		try {
+			// DEV RESET - RESETS GAME PROGRESS EVERY TIME YOU ENTER WORLDS - REMOVE "//" WHEN NEEDED!
+			//resetGameProgress();
 			const response = await fetch(`${API_URL}/api/world`);
 
 			if (!response.ok) {

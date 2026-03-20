@@ -10,7 +10,7 @@ export type GameProgressSlice = {
   quizResults: Record<number, QuizResult>;
 
   setQuizResult: (result: QuizResult) => void;
-
+  resetGameProgress: () => void;
   isQuizCompleted: (quizId: number) => boolean;
   isWorldCompleted: (worldId: number, quizzes: any[]) => boolean;
   isWorldUnlocked: (worldId: number, worlds: any[], quizzes: any[]) => boolean;
@@ -26,6 +26,10 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
         [result.quizId]: result,
       },
     })),
+
+  resetGameProgress: () => {
+    set({ quizResults: {} });
+  },
 
   isQuizCompleted: (quizId) => {
     const result = get().quizResults[quizId];

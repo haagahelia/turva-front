@@ -42,6 +42,7 @@ const Quiz = () => {
 		try {
 			// FETCH
 			const response = await fetch(`${API_URL}/api/quiz/${quiz_id}`);
+			
 
 			// READ response as JSON
 			const responseJson = await response.json();
@@ -115,6 +116,7 @@ const Quiz = () => {
 							const fullAnswer = {
 								...answer,
 								question_title: section.title,
+								is_correct: answer.is_correct,
 							};
 							return (
 								<QuizAnswer
