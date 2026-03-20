@@ -42,6 +42,7 @@ const Quiz = () => {
 		try {
 			// FETCH
 			const response = await fetch(`${API_URL}/api/quiz/${quiz_id}`);
+			
 
 			// READ response as JSON
 			const responseJson = await response.json();
@@ -94,8 +95,10 @@ const Quiz = () => {
 	};
 
 	const isAllAnswered = quizData?.questions
-		.filter((section) => section.type === "quiz_question")
-		.every((q) => selectedAnswers.some((a) => a.question_title === q.title));
+		?.filter((section) => section.type === "quiz_question")
+		?.every((q) =>
+			selectedAnswers.some((a) => a.question_title === q.title)
+		);
 
 	const quizRenderer = (section: Section) => {
 		// Use a case switch to return the right kind of component for each section
@@ -109,10 +112,11 @@ const Quiz = () => {
 							content={section.content}
 							answers={section.answers}
 						/>
-						{section.answers.map((answer) => {
+						{(section.answers ?? []).map((answer) => {
 							const fullAnswer = {
 								...answer,
 								question_title: section.title,
+								is_correct: answer.is_correct,
 							};
 							return (
 								<QuizAnswer
@@ -155,7 +159,7 @@ const Quiz = () => {
 						{commonText.answerAll}
 					</Text>
 					{/* Render each segment - they could be questions but also images etc */}
-					{quizData?.questions.map((question) => quizRenderer(question))}
+					{(quizData?.questions ?? []).map((question) => quizRenderer(question))}
 					<Button
 						style={{ margin: 10, marginBottom: 50 }}
 						mode="contained"

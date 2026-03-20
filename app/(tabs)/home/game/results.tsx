@@ -1,8 +1,9 @@
 import { Answer, ResultsTexts, WorldResults } from "@/src/types/types";
-import { useLanguageStore } from "@/src/zustand/store";
+import { useGameProgressStore, useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import results_json from "@/static/quiz_results.json";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect } from "react";
 import { Image, ImageBackground, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { styles } from "./gameStyles";
@@ -12,6 +13,7 @@ const Results = () => {
 	const { language } = useLanguageStore();
 	const lang = language;
 	const uiText = (TextData as any)[lang];
+	const setQuizResult = useGameProgressStore((state) => state.setQuizResult);
 
 	// ROUTIMG PARAMS
 	const { answers } = useLocalSearchParams<{ answers: string }>();
@@ -33,6 +35,16 @@ const Results = () => {
 	const selectedAnswers: Answer[] = JSON.parse(answers);
 	const correctCount = selectedAnswers.filter((a) => a.is_correct).length;
 	const totalCount = selectedAnswers.length; // total number of questions
+
+	useEffect(() => {
+		if (!quiz_id || !selectedAnswers) return;
+
+		setQuizResult({
+			quizId: Number(quiz_id),
+			correctAnswers: correctCount,
+			totalAnswers: totalCount,
+		});
+	}, [quiz_id, correctCount, totalCount]);
 
 	// Load and type results.json
 	const resultsData = results_json as unknown as ResultsTexts;

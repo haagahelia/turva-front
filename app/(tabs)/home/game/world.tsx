@@ -25,7 +25,8 @@ const World = () => {
 	const { world_name_en } = useLocalSearchParams<{ world_name_en: string }>();
 	const { world_name_fi } = useLocalSearchParams<{ world_name_fi: string }>();
 	console.log("World Name after loading World.tsx:");
-	console.log(world_name_en, world_name_fi);
+	console.log(`English: ${world_name_en}`);
+	console.log(`Finnish: ${world_name_fi}`);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
