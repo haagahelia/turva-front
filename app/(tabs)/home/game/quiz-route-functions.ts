@@ -43,8 +43,8 @@ export const loadQuizIntro = (
 		params: {
 			quiz_id: quiz_id,
 			world_id: world_id,
-			//world_name_en: world_name_en,
-			//world_name_fi: world_name_fi,
+			world_name_en: world_name_en,
+			world_name_fi: world_name_fi,
 		},
 	});
 };
@@ -62,8 +62,8 @@ export const loadQuiz = (
 		params: { 
 			quiz_id: quiz_id, 
 			world_id: world_id, 
-			//world_name_en: world_name_en,
-			//world_name_fi: world_name_fi  
+			world_name_en: world_name_en,
+			world_name_fi: world_name_fi,
 		},
 	});
 };
