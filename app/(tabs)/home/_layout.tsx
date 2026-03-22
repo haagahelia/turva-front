@@ -68,6 +68,7 @@ export default function HomeDrawerLayout() {
     <>
       <StatusBar style={theme.dark ? "light" : "dark"} />
       <Drawer
+        initialRouteName="index"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
           headerShown: true,
@@ -84,7 +85,7 @@ export default function HomeDrawerLayout() {
           headerTintColor: theme.colors.onSurface,
           headerRight: () => (
             <Pressable
-              onPress={() => router.push("/(tabs)/home/profile")}
+              onPress={() => router.navigate("/(tabs)/home/profile")}
               hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
               style={{ marginRight: 12 }}
             >
@@ -103,6 +104,15 @@ export default function HomeDrawerLayout() {
         }}
       >
         <Drawer.Screen
+          name="index"
+          options={{
+            title: `${text.navigationTitles.index}`,
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
           name="profile"
           options={{
             // Hide from drawer menu but keep it as a route
@@ -110,15 +120,6 @@ export default function HomeDrawerLayout() {
             title: `${text.navigationTitles.profile}`,
             drawerIcon: ({ color, size }) => (
               <Ionicons name="person" size={size} color={color} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="index"
-          options={{
-            title: `${text.navigationTitles.index}`,
-            drawerIcon: ({ color, size }) => (
-              <Ionicons name="home" size={size} color={color} />
             ),
           }}
         />
