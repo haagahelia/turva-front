@@ -19,6 +19,7 @@ const ONBOARDING_KEY = "IsOnboardingComplete";
 const INTRO_FADE_DURATION = 800;
 const INTRO_FADE_OUT_DELAY = 400;
 const HOME_ROUTE: Href = "/(tabs)/home";
+const AUTHS_ROUTE: Href = "/(auth)/login"
 
 //It was not used in the code
 //const AnimatedImage = Animated.createAnimatedComponent(Image);
@@ -82,7 +83,7 @@ export default function OnboardingScreen() {
     } catch (error) {
       console.warn("Failed to persist onboarding completion", error);
     } finally {
-      navigation.replace(HOME_ROUTE);
+      navigation.replace(AUTHS_ROUTE);
     }
   }, [navigation]);
 
@@ -186,12 +187,12 @@ export default function OnboardingScreen() {
                   {currentStep?.buttonLabel}
                 </Text>
               </Pressable>
-              <View style={{alignItems: 'center'}}>
+              <View style={{ alignItems: 'center' }}>
                 <Pressable
                   accessibilityRole="button"
                   onPress={toggleLanguage}
                   style={({ pressed }) => ({
-                    opacity: pressed ? 0.5 : 1,  
+                    opacity: pressed ? 0.5 : 1,
                   })}
                 >
                   <Text
@@ -205,8 +206,8 @@ export default function OnboardingScreen() {
                     {language === "en" ? "Suomeksi" : "In English"}
                   </Text>
                 </Pressable>
+              </View>
             </View>
-          </View>
           </>
         )}
       </View>
