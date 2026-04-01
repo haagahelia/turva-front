@@ -1,55 +1,54 @@
 {
-    "fi": {
-            "safetyBriefingTitle": "Turvallisuusperehdetys",
-            "choose": "Valitse aihe tutustuaksesi turvallisuusohjeisiin.",
-            "description": [
-                "🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä!",
-                "Tässä turvallisuusperehdytyksessä saat tietoa näistä turvallisuuteen liittyvistä asioista: ", 
-                    [
-                    "turvallisuuskävely", 
-                    "valmius- ja kriisiryhmä",
-                    "turvaopas" ,
-                    "pelastussuunnitelma" ,
-                    "järjestyssäännöt" ,
-                    "turvallisuushavaintoilmoitus" ,
-                    "poistuminen rakennuksesta" ,
-                    "sisälle suojautuminen" 
-                    ] 
-                ], 
-        "done":"Suoritettu",
-        "common": {
-            "follow": "Seuraa myös turvallisuuden sivustoa",
-            "followLinkText":"Turvallinen Haaga-Helia",
-            "campuses": "Haaga-Helia toimii viidellä kampuksella Pasilassa, Haagassa, Malmilla, Porvoossa ja Vierumäellä. Kampuksilla on tallentava kameravalvonta.",
-            "campusLinkText": "Tietoa kampuksista, saavutettavuudesta ja niiden aukioloajoista."
-        },
-        "feedback":"Anna palautetta"
+  "fi": {
+    "safetyBriefingTitle": "Turvallisuusperehdytys",
+    "choose": "Valitse aihe tutustuaksesi turvallisuusohjeisiin.",
+    "description": [
+      "🎓 Haaga-Helian turvallisuustyön tavoitteena on, että jokainen kampuksella työskentelevä, opiskeleva tai vieraileva henkilö tuntee olonsa turvalliseksi. Olet osaltasi rakentamassa turvallista ja viihtyisää työ- ja oppimisympäristöä sekä hyvinvoivaa haagaheliayhteisöä. Turvallisuus ja hyvinvointi tehdään fiksummin yhdessä!",
+      "Tässä turvallisuusperehdytyksessä saat tietoa näistä turvallisuuteen liittyvistä asioista: ",
+      [
+        "turvallisuuskävely",
+        "valmius- ja kriisiryhmä",
+        "turvaopas",
+        "pelastussuunnitelma",
+        "järjestyssäännöt",
+        "turvallisuushavaintoilmoitus",
+        "poistuminen rakennuksesta",
+        "sisälle suojautuminen"
+      ]
+    ],
+    "done": "Suoritettu",
+    "common": {
+      "follow": "Seuraa myös turvallisuuden sivustoa",
+      "followLinkText": "Turvallinen Haaga-Helia",
+      "campuses": "Haaga-Helia toimii viidellä kampuksella Pasilassa, Haagassa, Malmilla, Porvoossa ja Vierumäellä. Kampuksilla on tallentava kameravalvonta.",
+      "campusLinkText": "Tietoa kampuksista, saavutettavuudesta ja niiden aukioloajoista."
     },
-    "en": {
-            "safetyBriefingTitle": "Safety briefing",
-            "choose":"Pick a topic to get to know the safety instructions.",
-            "description": [
-                "🎓 The aim of Haaga-Helias safety work is to ensure that every person on campus feels safe, whether they are working, studying or just visiting. You are for your part contributing to the creation of a safe and comfortable working and learning environment and a thriving Haaga-Helia community. Safety and well-being are achieved more effectively when we work together! ",
-                "In this safety orientation you will receive information on the following safety-related matters: ", 
-            [
-            "safety walk", 
-            "preparedness and crisis team",
-            "safety guide" ,
-            "rescue plan" ,
-            "rules and regulations" ,
-            "safety observation report" ,
-            "exiting the building" ,
-            "taking shelter indoors" 
-            ] 
-        ], 
-        "done":"Done",
-        "common": {
-            "follow": "Also check out Haaga-Helia’s safety webpage",
-            "followLinkText":"Safe Haaga-Helia",
-            "campuses": "Haaga-Helia operates on five different campuses in Pasila, Haaga, Malmi, Porvoo and Vierumäki. All campuses have recording CCTV surveillance.",
-            "campusLinkText": "Information about campuses, accessibility and opening hours (About Haaga-Helia)"
-        },
-        "feedback":"Give us feedback!"
-        
-    }
+    "feedback": "Anna palautetta"
+  },
+  "en": {
+    "safetyBriefingTitle": "Safety briefing",
+    "choose": "Pick a topic to get to know the safety instructions.",
+    "description": [
+      "🎓 The aim of Haaga-Helias safety work is to ensure that every person on campus feels safe, whether they are working, studying or just visiting. You are for your part contributing to the creation of a safe and comfortable working and learning environment and a thriving Haaga-Helia community. Safety and well-being are achieved more effectively when we work together! ",
+      "In this safety orientation you will receive information on the following safety-related matters: ",
+      [
+        "safety walk",
+        "preparedness and crisis team",
+        "safety guide",
+        "rescue plan",
+        "rules and regulations",
+        "safety observation report",
+        "exiting the building",
+        "taking shelter indoors"
+      ]
+    ],
+    "done": "Done",
+    "common": {
+      "follow": "Also check out Haaga-Helia’s safety webpage",
+      "followLinkText": "Safe Haaga-Helia",
+      "campuses": "Haaga-Helia operates on five different campuses in Pasila, Haaga, Malmi, Porvoo and Vierumäki. All campuses have recording CCTV surveillance.",
+      "campusLinkText": "Information about campuses, accessibility and opening hours (About Haaga-Helia)"
+    },
+    "feedback": "Give us feedback!"
+  }
 }
