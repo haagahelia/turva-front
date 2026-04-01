@@ -1,125 +1,89 @@
+import { API_URL } from "@/src/config/api";
 import { useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/drawerTexts.json";
-import { FlatList, StyleSheet, View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ContactCard from '../../../src/components/ContactCard';
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Text, useTheme } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ContactCard from "../../../src/components/ContactCard";
 
 type Contact = {
-  name: string;
-  role: string;
+  contact_id: number;
+  name_fi: string;
+  name_en: string;
+  role_fi: string;
+  role_en: string;
   phone: string;
-}
-// Temporary later can be fetched from backend
-const crisisTeamMembers = { fi: [
-  {
-    name: 'Teemu Kokko',
-    role: 'Rehtori',
-    phone: '050 555 1131',
-  },
-  {
-    name: 'Minna Hiillos',
-    role: 'Vararehtori',
-    phone: '050 583 9521',
-  },
-  {
-    name: 'Kari Salmi',
-    role: 'Hallintojohtaja',
-    phone: '0400 675 114',
-  },
-  {
-    name: 'Ari Nevalainen',
-    role: 'Viestintäpäällikkö',
-    phone: '040 488 7008',
-  },
-  {
-    name: 'Jenni Most',
-    role: 'Toimitilapäällikkö',
-    phone: '040 488 7144',
-  },
-  {
-    name: 'Virpi Virtanen',
-    role: 'ICT-infrastruktuuripäällikkö',
-    phone: '050 911 1644',
-  },
-  {
-    name: 'Mia Kivelä',
-    role: 'Turvallisuuspäällikkö',
-    phone: '050 911 1644',
-  },
-], en: [
-  {
-    name: 'Teemu Kokko',
-    role: 'Rector',
-    phone: '050 555 1131',
-  },
-  {
-    name: 'Minna Hiillos',
-    role: 'Vice Rector',
-    phone: '050 583 9521',
-  },
-  {
-    name: 'Kari Salmi',
-    role: 'Administrative Director',
-    phone: '0400 675 114',
-  },
-  {
-    name: 'Ari Nevalainen',
-    role: 'Communications Manager',
-    phone: '040 488 7008',
-  },
-  {
-    name: 'Jenni Most',
-    role: 'Facilities Manager',
-    phone: '040 488 7144',
-  },
-  {
-    name: 'Virpi Virtanen',
-    role: 'ICT-infrastructure Manager',
-    phone: '050 911 1644',
-  },
-  {
-    name: 'Mia Kivelä',
-    role: 'Security Manager',
-    phone: '050 911 1644',
-  },
-]};
+  order_number: number;
+};
 
 // Kriisiryhmän yhteystiedot screen
 export default function CrisisTeamContactScreen() {
   const theme = useTheme();
-  const {language} = useLanguageStore();
+  const { language } = useLanguageStore();
   const text = TextData[language].crisisTeamContact;
 
-  return (
-  <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={[]}>
-    <FlatList
-      data={crisisTeamMembers[language]}
-      keyExtractor={(item, index) => `${item.name}-${index}`}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.contactsContainer}
-      ListHeaderComponent={
-        <View style={styles.header}>
-          <Text
-            variant="headlineLarge"
-            style={[styles.title, { color: theme.colors.onBackground }]}
-          >
-            {text.title}
-          </Text>
-          <Text
-            variant="bodyLarge"
-            style={[styles.description, { color: theme.colors.onSurfaceVariant }]}
-          >
-            {text.description}
-          </Text>
-        </View>
-      }
-      renderItem={({ item: member }) => (
-        <ContactCard member={member} />
-      )}
-    />
-  </SafeAreaView>
+  const [crisisTeamMembers, setCrisisTeamMembers] = useState<Contact[]>([]);
 
+  const getCrisisTeamFromApiAsync = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/crisis-team/`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setCrisisTeamMembers(data);
+    } catch (error) {
+      console.error("Error fetching crisis team data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getCrisisTeamFromApiAsync();
+  }, []);
+
+  const getMemberForLanguage = (contact: Contact) => {
+    return {
+      name: language === "fi" ? contact.name_fi : contact.name_en,
+      role: language === "fi" ? contact.role_fi : contact.role_en,
+      phone: contact.phone,
+    };
+  };
+
+  return (
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+      edges={[]}
+    >
+      <FlatList
+        data={crisisTeamMembers}
+        keyExtractor={(item) => `${item.contact_id}`}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.contactsContainer}
+        ListHeaderComponent={
+          <View style={styles.header}>
+            <Text
+              variant="headlineLarge"
+              style={[styles.title, { color: theme.colors.onBackground }]}
+            >
+              {text.title}
+            </Text>
+            <Text
+              variant="bodyLarge"
+              style={[
+                styles.description,
+                { color: theme.colors.onSurfaceVariant },
+              ]}
+            >
+              {text.description}
+            </Text>
+          </View>
+        }
+        renderItem={({ item }) => (
+          <ContactCard member={getMemberForLanguage(item)} />
+        )}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -133,7 +97,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
   },
   title: {
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 16,
     lineHeight: 32,
     marginTop: 40,
@@ -147,5 +111,3 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
 });
-
-
