@@ -4,24 +4,28 @@ import { useGameProgressStore, useLanguageStore } from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, TouchableOpacity, Image, useWindowDimensions} from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { styles } from "./gameStyles";
 import { loadHome, loadWorld } from "./quiz-route-functions";
 
 const Worlds = () => {
+	const { width, height } = useWindowDimensions();
 	const theme = useTheme();
 	const { language } = useLanguageStore();
 	const uiText = (TextData as any)[language];
 	const resetGameProgress = useGameProgressStore((state) => state.resetGameProgress);
-
+	const completeWorld = useGameProgressStore((state) => state.completeWorld);
 	const [isLoading, setLoading] = useState(true);
 	const [worlds, setWorlds] = useState<WorldType[]>([]);
-
 	const [quizzes, setQuizzes] = useState([]);
 
 	const isWorldUnlocked = useGameProgressStore(
 		(state) => state.isWorldUnlocked
+	);
+
+	const isWorldCompleted = useGameProgressStore(
+  		(state) => state.isWorldCompleted	
 	);
 
 	// Function Source: reactnative.dev -> docs -> network
@@ -29,6 +33,8 @@ const Worlds = () => {
 		try {
 			// DEV RESET - RESETS GAME PROGRESS EVERY TIME YOU ENTER WORLDS - REMOVE "//" WHEN NEEDED!
 			//resetGameProgress();
+			// DEV COMPLETE - SETS WORLD(ID) COMPLETE AND ALL THE WORLDS BEFORE IT - REMOVE "//" WHEN NEEDED!
+			//completeWorld(2, worlds);
 			const response = await fetch(`${API_URL}/api/world`);
 
 			if (!response.ok) {
@@ -59,6 +65,22 @@ const Worlds = () => {
 		}
 	};
 
+	const getWorldImage = (worldId: number, unlocked: boolean, completed: boolean) => {
+  		if (completed) {
+    		return require("@/assets/images/world_completed.png");
+  		}
+  		if (unlocked) {
+    		return require("@/assets/images/world_unlocked.png");
+  		}
+  			return require("@/assets/images/world_locked.png");
+		};
+
+	const worldPositions: Record<number, { x: number; y: number }> = {
+  		1: { x: 0.18, y: 0.35 },
+		2: { x: 0.4, y: 0.32 },
+  		3: { x: 0.62, y: 0.28 },
+	};
+
 	useEffect(() => {
 		const loadData = async () => {
 			await getWorldsFromApiAsync();
@@ -71,11 +93,11 @@ const Worlds = () => {
 
 	return (
 		<ImageBackground
-			source={require("@/assets/images/WorldNavigation.png")}
+			source={require("@/assets/images/world_navigation_background.png")}
 			style={styles.background}
 			resizeMode="cover"
 		>
-			<ScrollView>
+			<View>
 				<Text style={[styles.textContainer, styles.bold]}>{uiText.worlds.title}</Text>
 				<Text style={styles.textContainer}>
 					{uiText.worlds.explanation}
@@ -87,23 +109,22 @@ const Worlds = () => {
 						<Text>Fetching and reading Quiz data...</Text>
 					</View>
 				) : (
-					<View>
+					<View style={{ position: "relative" }}>
 						{worlds.map((world) => {
 							const unlocked = isWorldUnlocked(world.world_id, worlds, quizzes);
-
+							const completed = unlocked && isWorldCompleted(world.world_id, quizzes);
+							const coord = worldPositions[world.world_id];
 							return (
-								<View key={world.world_id} style={styles.textContainer}>
+								<View
+									key={world.world_id}
+									style={{
+  										position: "absolute",
+										top: height * coord.y,
+										left: width * coord.x,
+									}}
+								>
 									<TouchableOpacity
 										disabled={!unlocked}
-										style={[
-											styles.answer,
-											{
-												backgroundColor: unlocked
-													? theme.colors.primaryContainer
-													: "#999",
-												opacity: unlocked ? 1 : 0.5,
-											},
-										]}
 										onPress={() =>
 											unlocked &&
 											loadWorld(
@@ -112,17 +133,20 @@ const Worlds = () => {
 												world.world_name_fi
 											)
 										}
-									>
-										<Text style={styles.textContainerStyle}>
-											{language === "en" && world.world_name_en}
-											{language === "fi" && world.world_name_fi}
-											{!unlocked && " 🔒"}
-										</Text>
+									>	
+										<Image 
+											source={getWorldImage(world.world_id, unlocked, completed)}
+											style={styles.worldImage}
+										/>
 									</TouchableOpacity>
+									<Text style={styles.textContainerStyle}>
+										{language === "en" && world.world_name_en}
+										{language === "fi" && world.world_name_fi}
+										{!unlocked && "🔒"}
+									</Text>
 								</View>
-							);
+							)
 						})}
-
 						<Button
 							icon="gamepad-variant-outline"
 							onPress={() => loadHome()}
@@ -136,7 +160,7 @@ const Worlds = () => {
 						</Button>
 					</View>
 				)}
-			</ScrollView>
+			</View>
 		</ImageBackground>
 	);
 };

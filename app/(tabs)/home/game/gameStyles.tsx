@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
 	},
 	textContainerStyle: {
 		color: "#000000",
-		fontSize: 16,
+		fontSize: 10,
 	},
 
 	scrollViewStyle: {
@@ -131,7 +131,14 @@ export const styles = StyleSheet.create({
 		borderRadius: 20,
 		marginVertical: 6,
 	},
+
 	selectedAnswer: {
 		borderWidth: 2,
 	},
+
+	worldImage: {
+		width: 80,
+		height: 92
+	},
+
 });
