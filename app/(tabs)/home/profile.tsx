@@ -1,7 +1,8 @@
 import TextData from '@/static/homeTexts.json';
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Alert,
   Keyboard,
@@ -11,6 +12,7 @@ import {
   View,
 } from "react-native";
 import {
+  ActivityIndicator,
   Avatar,
   Button,
   Card,
@@ -34,12 +36,70 @@ export default function ProfileScreen() {
   const theme = useTheme();
   const router = useRouter();
   const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [userName, setUserName] = useState("John Doe");
+  const [userName, setUserName] = useState("");
   const [isEditingName, setIsEditingName] = useState(false);
-  const [playerPoints] = useState(1250);
-  const [totalTime] = useState("2h 45min");
+  const [playerPoints, setPlayerPoints] = useState(0);
+  const [totalTime, setTotalTime] = useState("0h 0min");
+  const [isLoading, setIsLoading] = useState(true);
   const { language } = useLanguageStore();
   const text = TextData[language].profile;
+
+  useEffect(() => {
+    // Fetch user profile data from the backend
+    const fetchProfileAndStats = async () => {
+    try {
+      // const token = "" // Temporary token for testing, replace with actual token retrieval when auth is implemented
+      const token = await AsyncStorage.getItem("AuthToken");
+
+      if (!token) {
+        setIsLoading(false);
+        return;
+      }
+
+      const profileResponse = await fetch(`http://localhost:3000/api/user/profile`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (!profileResponse.ok) {
+        throw new Error("Failed to fetch profile data");
+      }
+
+      const profileData = await profileResponse.json();
+      setUserName(profileData.profileName);
+      setProfileImage(profileData.profilePictureUrl);
+
+      const fetchUserId = profileData.userId;
+
+      const statsResponse = await fetch(`http://localhost:3000/api/quiz-result/user/${fetchUserId}/stats`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (statsResponse.ok) {
+        const stats = await statsResponse.json();
+        setPlayerPoints(stats.points);
+        const hours = Math.floor(stats.totalTimeSeconds / 3600);
+        const minutes = Math.floor((stats.totalTimeSeconds % 3600) / 60);
+        setTotalTime(`${hours}h ${minutes}min`);
+      } else {
+        throw new Error("Failed to fetch quiz statistics");
+      }
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchProfileAndStats();
+  }, []);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -60,7 +120,7 @@ export default function ProfileScreen() {
     });
 
     if (!result.canceled && result.assets[0]) {
-      setProfileImage(result.assets[0].base64 || null);
+      setProfileImage(`data:image/jpeg;base64,${result.assets[0].base64}`);
     }
   };
 
@@ -85,18 +145,27 @@ export default function ProfileScreen() {
     >
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.content}>
+          {isLoading ? (
+            <View style={styles.profileSection}>
+              <ActivityIndicator size="large" color={theme.colors.primary} />
+              <Text style={{ marginTop: 16, color: theme.colors.onBackground }}>
+                Loading profile...
+                </Text>
+                </View>
+          ) : (
+            <>
           <View style={styles.profileSection}>
             <TouchableOpacity onPress={pickImage}>
               {profileImage ? (
                 <Avatar.Image
                   size={120}
-                  source={{ uri: `data:image/jpeg;base64,${profileImage}` }}
+                  source={{ uri: profileImage }}
                   style={styles.avatar}
                 />
               ) : (
                 <Avatar.Text
                   size={120}
-                  label="JD"
+                  label={userName ? userName.split(" ").map((n) => n[0]).join("") : "?"}
                   style={[
                     styles.avatar,
                     { backgroundColor: theme.colors.primary },
@@ -246,6 +315,8 @@ export default function ProfileScreen() {
               </Text>
             </View>
           </View>
+          </>
+          )}
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
