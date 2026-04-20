@@ -5,11 +5,11 @@ import { useRouter, type Href } from "expo-router";
 import React, { useState } from "react";
 import { ImageBackground, Pressable, SafeAreaView, StyleSheet, View } from "react-native";
 import { Button, Surface, TextInput, Title, useTheme } from "react-native-paper";
+import { useAuthStore } from "@/src/zustand/authStore";
 
 const SIGNUP_ROUTE: Href = "/(auth)/signup"
 const PREVIOUS_ROUTE: Href = "/(onboarding)"
 const HOME_ROUTE: Href = "/(tabs)/home";
-
 
 type Language = "en" | "fi";
 
@@ -49,8 +49,40 @@ export default function LoginScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const login = useAuthStore((state) => state.login);
+    const setLoading = useAuthStore((state) => state.setLoading);
+    const setError = useAuthStore((state) => state.setError);
+    const isLoading = useAuthStore((state) => state.isLoading);
+    const error = useAuthStore((state) => state.error);
+
     const language = useLanguageStore((state) => state.language) as Language;
     const text = LoginTexts[language];
+
+    const handleMockLogin = () => {
+        setError(null);
+
+        if (!email || !password) {
+            setError("Please enter both email and password");
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            login("mock-token-111", {
+                id: "1",
+                email: email.trim(),
+                username: email.trim(),
+            });
+
+            navigation.replace(HOME_ROUTE);
+
+        } catch {
+            setError("Login failed");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <ImageBackground
@@ -104,7 +136,8 @@ export default function LoginScreen() {
 
                                 <Button
                                     mode="contained"
-                                    onPress={() => navigation.replace(HOME_ROUTE)}
+                                    onPress={handleMockLogin}
+                                    disabled={isLoading}
                                     contentStyle={styles.buttonContent}
                                     style={styles.button}
                                     buttonColor={theme.colors.primary}
