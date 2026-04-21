@@ -139,7 +139,7 @@ const Worlds = () => {
 											style={styles.worldImage}
 										/>
 									</TouchableOpacity>
-									<Text style={styles.textContainerStyle}>
+									<Text style={styles.worldText}>
 										{language === "en" && world.world_name_en}
 										{language === "fi" && world.world_name_fi}
 										{!unlocked && "🔒"}
