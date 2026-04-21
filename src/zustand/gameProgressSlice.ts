@@ -57,6 +57,7 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
 
     const sendToBackend = async () => {
       try {
+        // const token = "" // Temporary token for testing, replace with actual token retrieval when auth is implemented
         const token = await AsyncStorage.getItem("authToken");
         if (!token) throw new Error("No auth token found");
 
@@ -92,7 +93,6 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
   },
 
   resetGameProgress: () => set(initialState),
-  
   //DEV FORCE COMPLETE
   completeWorld: (worldId, worlds) =>
     set((state) => {
