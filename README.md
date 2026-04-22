@@ -1,4 +1,4 @@
-# TurvaApp - Security App 🔒
+# TurvaOppi - Security App 🔒
 
 A security application developed for **Haaga-Helia University of Applied Sciences**.
 
