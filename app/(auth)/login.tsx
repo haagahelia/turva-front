@@ -61,7 +61,7 @@ export default function LoginScreen() {
     const handleMockLogin = () => {
         setError(null);
 
-        if (!email || !password) {
+        if (!email.trim() || !password.trim()) {
             setError("Please enter both email and password");
             return;
         }
@@ -156,7 +156,7 @@ export default function LoginScreen() {
                                     {text.login}
                                 </Button>
 
-                                {/* Only visible in development mode remove when no longer needed */}
+                                {/* Only visible in development mode */}
                                 {__DEV__ && (
                                     <View style={{ marginTop: 12 }}>
 
