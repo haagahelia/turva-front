@@ -46,7 +46,7 @@ export default function ProfileScreen() {
   const token = useAuthStore((state) => state.token);
   const logout = useAuthStore((state) => state.logout);
 
-  const handleMockLogout = () => {
+  const handleLogout = () => {
     logout();
     router.replace("/(auth)/login");
   };
@@ -275,7 +275,7 @@ export default function ProfileScreen() {
                   styles.actionButton,
                   { backgroundColor: theme.colors.errorContainer },
                 ]}
-                onPress={handleMockLogout}
+                onPress={handleLogout}
               >
                 <IconButton
                   icon="logout"

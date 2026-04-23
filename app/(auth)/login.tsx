@@ -53,11 +53,11 @@ export default function LoginScreen() {
     const setLoading = useAuthStore((state) => state.setLoading);
     const setError = useAuthStore((state) => state.setError);
     const isLoading = useAuthStore((state) => state.isLoading);
-    const error = useAuthStore((state) => state.error);
 
     const language = useLanguageStore((state) => state.language) as Language;
     const text = LoginTexts[language];
 
+    // Temporary mock login until backend authentication is ready - replace with real API call when available
     const handleMockLogin = () => {
         setError(null);
 
@@ -82,6 +82,16 @@ export default function LoginScreen() {
         } finally {
             setLoading(false);
         }
+    };
+
+    // Development-only shortcut for faster testing - remove when no longer needed
+    const handleDevLogin = () => {
+        login("dev-token-123", {
+            id: "1",
+            email: "dev@test.com",
+            username: "dev",
+        });
+        navigation.replace(HOME_ROUTE);
     };
 
     return (
@@ -145,6 +155,20 @@ export default function LoginScreen() {
                                 >
                                     {text.login}
                                 </Button>
+
+                                {/* Only visible in development mode remove when no longer needed */}
+                                {__DEV__ && (
+                                    <View style={{ marginTop: 12 }}>
+
+                                        <Button
+                                        mode="outlined"
+                                        onPress={handleDevLogin}
+                                        style={{ marginTop: 6 }}
+                                        >
+                                        Dev Login
+                                        </Button>
+                                    </View>
+                                    )}
 
                                 <View style={styles.row}>
                                     <Button onPress={() => navigation.replace(SIGNUP_ROUTE)}>{text.signup}</Button>
