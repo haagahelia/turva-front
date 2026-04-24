@@ -43,6 +43,7 @@ const Results = () => {
 			quizId: Number(quiz_id),
 			correctAnswers: correctCount,
 			totalAnswers: totalCount,
+			worldId: Number(world_id),
 		});
 	}, [quiz_id, correctCount, totalCount]);
 

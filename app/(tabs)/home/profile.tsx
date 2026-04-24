@@ -1,7 +1,7 @@
 import TextData from '@/static/homeTexts.json';
 import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Alert,
@@ -44,8 +44,9 @@ export default function ProfileScreen() {
   const { language } = useLanguageStore();
   const text = TextData[language].profile;
 
-  useEffect(() => {
     // Fetch user profile data from the backend
+    useFocusEffect(
+  useCallback(() => {
     const fetchProfileAndStats = async () => {
     try {
       // const token = "" // Temporary token for testing, replace with actual token retrieval when auth is implemented
@@ -74,32 +75,50 @@ export default function ProfileScreen() {
 
       const fetchUserId = profileData.userId;
 
-      const statsResponse = await fetch(`http://localhost:3000/api/quiz-result/user/${fetchUserId}/stats`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      });
+      const [statsResponse, bonusResponse] = await Promise.all([
+        fetch(`http://localhost:3000/api/quiz-result/user/${fetchUserId}/stats`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }),
+        fetch(`http://localhost:3000/api/world-bonus/user/${fetchUserId}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        })
+      ]);
 
-      if (statsResponse.ok) {
-        const stats = await statsResponse.json();
-        setPlayerPoints(stats.points);
-        const hours = Math.floor(stats.totalTimeSeconds / 3600);
-        const minutes = Math.floor((stats.totalTimeSeconds % 3600) / 60);
-        setTotalTime(`${hours}h ${minutes}min`);
-      } else {
+      if (!statsResponse.ok) {
         throw new Error("Failed to fetch quiz statistics");
       }
+
+      const stats = await statsResponse.json();
+
+      let bonusPoints = 0;
+      if (bonusResponse.ok) {
+        const bonusData = await bonusResponse.json();
+        bonusPoints = bonusData.bonusPoints;
+      }
+
+      setPlayerPoints(stats.points + bonusPoints);
+
+      const hours = Math.floor(stats.totalTimeSeconds / 3600);
+      const minutes = Math.floor((stats.totalTimeSeconds % 3600) / 60);
+      setTotalTime(`${hours}h ${minutes}min`);
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+      console.error("Error fetching profile or stats:", error);
+      Alert.alert("Error", "Failed to load profile data. Please try again later.");
     } finally {
       setIsLoading(false);
     }
   };
 
   fetchProfileAndStats();
-  }, []);
+} , []));
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();

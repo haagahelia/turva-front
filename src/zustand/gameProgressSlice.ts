@@ -1,39 +1,98 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StateCreator } from "zustand";
+
+const WORLD_COMPLETION_BONUS = 10; // 10 points per completed world
 
 type QuizResult = {
   quizId: number;
   correctAnswers: number;
   totalAnswers: number;
+  worldId: number
 };
 
 export type GameProgressSlice = {
   quizResults: Record<number, QuizResult>;
+  totalPoints: number;
+  awardedQuizPoints: Record<number, number>;
+  claimedWorldBonuses: Record<number, boolean>;
+  completedWorlds: number[];
 
   setQuizResult: (result: QuizResult) => void;
   resetGameProgress: () => void;
-  completedWorlds: number[];
   completeWorld: (worldId: number, worlds: any[]) => void;
   isQuizCompleted: (quizId: number) => boolean;
   isWorldCompleted: (worldId: number, quizzes: any[]) => boolean;
   isWorldUnlocked: (worldId: number, worlds: any[], quizzes: any[]) => boolean;
+  getPointsSummary: () => { quizPoints: number; bonusPoints: number; total: number };
+};
+
+const initialState = {
+  quizResults: {} as Record<number, QuizResult>,
+  totalPoints: 0,
+  awardedQuizPoints: {} as Record<number, number>,
+  claimedWorldBonuses: {} as Record<number, boolean>,
+  completedWorlds: [] as number[],
 };
 
 export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, get) => ({
-  quizResults: {},
-  completedWorlds: [],
+  ...initialState,
 
-  setQuizResult: (result) =>
-    set((state) => ({
-      quizResults: {
-        ...state.quizResults,
-        [result.quizId]: result,
-      },
-    })),
+  setQuizResult: (result) => {
+    set((state) => {
+      const previouslyAwarded = state.awardedQuizPoints[result.quizId] ?? 0;
+      const deltaPoints = Math.max(0, result.correctAnswers - previouslyAwarded);
 
-  resetGameProgress: () => {
-    set({ quizResults: {}, completedWorlds: []});
+      return {
+        quizResults: {
+          ...state.quizResults,
+          [result.quizId]: result,
+        },
+        awardedQuizPoints: {
+          ...state.awardedQuizPoints,
+          [result.quizId]: previouslyAwarded + deltaPoints,
+        },
+        totalPoints: state.totalPoints + deltaPoints,
+      };
+    });
+
+    const sendToBackend = async () => {
+      try {
+        // const token = "" // Temporary token for testing, replace with actual token retrieval when auth is implemented
+        const token = await AsyncStorage.getItem("authToken");
+        if (!token) throw new Error("No auth token found");
+
+        const res = await fetch("http://localhost:3000/api/quiz-result", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            quiz_id: result.quizId,
+            correct_answers: result.correctAnswers,
+            time_spent_seconds: 0, // temporary value
+          }),
+        });
+
+        if (!res.ok) throw new Error(`Quiz result save failed: ${res.statusText}`);
+
+        const data = await res.json();
+
+        if (data.bonusAwarded) {
+          set((state) => ({
+            completedWorlds: [...state.completedWorlds, result.worldId],
+            totalPoints: state.totalPoints + WORLD_COMPLETION_BONUS,
+          }));
+        }
+      } catch (err) {
+        console.error("Error saving quiz result:", err);
+      }
+    };
+
+    sendToBackend();
   },
 
+  resetGameProgress: () => set(initialState),
   //DEV FORCE COMPLETE
   completeWorld: (worldId, worlds) =>
     set((state) => {
@@ -84,5 +143,13 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
     const previousWorld = sortedWorlds[index - 1];
 
     return get().isWorldCompleted(previousWorld.world_id, quizzes);
+  },
+
+  getPointsSummary: () => {
+    const state = get();
+    const quizPoints = Object.values(state.awardedQuizPoints).reduce((sum, p) => sum + p, 0);
+    const bonusPoints =
+      Object.values(state.claimedWorldBonuses).filter(Boolean).length * WORLD_COMPLETION_BONUS;
+    return { quizPoints, bonusPoints, total: quizPoints + bonusPoints };
   },
 });
