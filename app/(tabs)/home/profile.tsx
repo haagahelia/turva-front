@@ -1,7 +1,7 @@
 import TextData from '@/static/homeTexts.json';
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Alert,
@@ -22,6 +22,7 @@ import {
   useTheme,
 } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuthStore } from '@/src/zustand/authStore';
 import { useLanguageStore } from "@/src/zustand/store";
 
 
@@ -43,15 +44,19 @@ export default function ProfileScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const { language } = useLanguageStore();
   const text = TextData[language].profile;
+  const token = useAuthStore((state) => state.token);
+  const logout = useAuthStore((state) => state.logout);
+
+  const handleLogout = () => {
+    logout();
+    router.replace("/(auth)/login");
+  };
 
     // Fetch user profile data from the backend
     useFocusEffect(
   useCallback(() => {
     const fetchProfileAndStats = async () => {
     try {
-      // const token = "" // Temporary token for testing, replace with actual token retrieval when auth is implemented
-      const token = await AsyncStorage.getItem("AuthToken");
-
       if (!token) {
         setIsLoading(false);
         return;
@@ -118,7 +123,7 @@ export default function ProfileScreen() {
   };
 
   fetchProfileAndStats();
-} , []));
+  }, [token]);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -290,7 +295,7 @@ export default function ProfileScreen() {
                   styles.actionButton,
                   { backgroundColor: theme.colors.errorContainer },
                 ]}
-                onPress={() => {}}
+                onPress={handleLogout}
               >
                 <IconButton
                   icon="logout"
