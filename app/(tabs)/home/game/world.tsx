@@ -1,10 +1,10 @@
 import { QuizType } from "@/src/types/types";
-import { useLanguageStore } from "@/src/zustand/store";
+import { useLanguageStore, useGameProgressStore} from "@/src/zustand/store";
 import TextData from "@/static/gameTexts.json";
 import { useLocalSearchParams } from "expo-router";
 import { View } from "moti";
 import { useEffect, useState } from "react";
-import { ImageBackground, ScrollView, TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, TouchableOpacity, Image, } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
 import { styles } from "./gameStyles";
 import { loadQuizIntro, loadWorlds } from "./quiz-route-functions";
@@ -27,6 +27,10 @@ const World = () => {
 	console.log("World Name after loading World.tsx:");
 	console.log(`English: ${world_name_en}`);
 	console.log(`Finnish: ${world_name_fi}`);
+
+	const isQuizCompleted = useGameProgressStore(
+  		(state) => state.isQuizCompleted	
+	);
 
 	// Function Source: reactnative.dev -> docs -> network
 	const getQuizFromApiAsync = async () => {
@@ -60,20 +64,22 @@ const World = () => {
 
 	return (
 		<ImageBackground
-			source={require("@/assets/images/WorldNavigation.png")}
-			style={styles.background}
-			resizeMode="cover"
-		>
-			<ScrollView
-				style={styles.scrollViewStyle}
-				contentContainerStyle={styles.contentContainer}
-			>
-				<Text style={styles.textContainer}>
-					{language === "en" && world_name_en}
-					{language === "fi" && world_name_fi}
-				</Text>
-				<Text style={styles.textContainer}>{uiText.worlds.clearEachQuiz}</Text>
-
+			source={require("@/assets/images/world_background.png")}
+			style={{ flex: 1}}>
+			<ScrollView 
+				contentContainerStyle={{ 		
+					alignItems: "center",
+					paddingTop: 50
+				}}>
+				<View>
+					<Image source={require("@/assets/images/house_roof.png")}
+					style={styles.houseRoof}/>
+					<Text style={styles.houseTitle}>
+						{language === "en" && world_name_en}
+						{language === "fi" && world_name_fi}
+					</Text> 
+					{/* <Text style={styles.houseText}>{uiText.worlds.clearEachQuiz}</Text> */}
+				</View>
 				{isLoading ? (
 					// STATE 1: JSON CONTENT NOT LOADED
 					<View>
@@ -81,47 +87,64 @@ const World = () => {
 					</View>
 				) : (
 					<View>
-						{quizData?.map((quiz) => (
-							<View key={quiz.quiz_id} style={styles.textContainer}>
-								<TouchableOpacity
-									style={[
-										styles.answer,
-										{ backgroundColor: theme.colors.primaryContainer },
-									]}
-									onPress={() =>
-										loadQuizIntro(
-											quiz.quiz_id.toString(),
-											world_id,
-											world_name_en,
-											world_name_fi
-										)
-									}
-								>
-									<Text style={styles.textContainerStyle}>
-										{language === "en" && quiz.quiz_name_en}
-										{language === "fi" && quiz.quiz_name_fi}
-									</Text>
-								</TouchableOpacity>
-							</View>
-						))}
+						{[...quizData].reverse().map((quiz) => {
+							const completed = isQuizCompleted(quiz.quiz_id);
+							return (
+								<View key={quiz.quiz_id}>
+									<ImageBackground 
+											source={
+												completed
+													? require("@/assets/images/house_floor_completed.png")
+													: require("@/assets/images/house_floor_incompleted.png")
+											}
+											style={styles.houseFloor}>		
+										<TouchableOpacity
+											onPress={() =>
+												loadQuizIntro(
+													quiz.quiz_id.toString(),
+													world_id,
+													world_name_en,
+													world_name_fi
+												)
+											}
+										>
+											{completed ? (
+												<Text style={styles.houseFloorTextCompleted}>
+													{language === "en" && quiz.quiz_name_en}
+													{language === "fi" && quiz.quiz_name_fi}
+													{<Text> ✅</Text>}
+												</Text>
+											) : (
+												<Text style={styles.houseFloorTextIncompleted}>
+													{language === "en" && quiz.quiz_name_en}
+													{language === "fi" && quiz.quiz_name_fi}
+												</Text>
+											)}
+										</TouchableOpacity>
+									</ImageBackground>
+								</View>
+							);
+						})}	
 					</View>
 				)}
-
-				<Button
-					icon="gamepad-variant-outline"
-					onPress={() => loadWorlds()}
-					style={styles.button}
-					mode="contained"
-					//override to make the color of the button always as in light theme
-					buttonColor="#00629F"
-					textColor="#FFFFFF"
-				>
-					{uiText.worlds.backToWorldList}
-				</Button>
+				<View>
+					<Image source={require("@/assets/images/house_ground-floor.png")}
+					style={styles.houseGroundfloor}/>
+					<Button
+						icon="gamepad-variant-outline"
+						onPress={() => loadWorlds()}
+						style={styles.houseWorldButton}
+						mode="contained"
+						//override to make the color of the button always as in light theme
+						buttonColor="#00629F"
+						textColor="#FFFFFF"
+					>
+						{uiText.worlds.backToWorldList}
+					</Button>
+				</View>
 			</ScrollView>
 		</ImageBackground>
 	);
 };
-
 
 export default World;

@@ -1,6 +1,6 @@
-## TurvaApp – Project Guide
+## TurvaOppi – Project Guide
 
-This guide explains how TurvaApp is structured, how navigation works, and where to find key functionality in the codebase.
+This guide explains how TurvaOppi is structured, how navigation works, and where to find key functionality in the codebase.
 
 ---
 

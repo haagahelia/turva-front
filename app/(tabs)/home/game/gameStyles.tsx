@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
 	},
 	textContainerStyle: {
 		color: "#000000",
-		fontSize: 10,
+		fontSize: 16,
 	},
 
 	scrollViewStyle: {
@@ -141,4 +141,71 @@ export const styles = StyleSheet.create({
 		height: 92
 	},
 
+	worldText: {
+		color: "#000000",
+		fontSize: 10,
+	},
+
+	houseGroundfloor: {
+		width: 390, 
+		height: 190
+	},
+
+	houseRoof: {
+		width: 390, 
+		height: 212
+	},
+
+	houseFloor: {
+		width: 390, 
+		height: 56
+	},
+
+	houseWorldButton: {
+		borderRadius: 22,
+		alignSelf: "center",
+		bottom: 50
+	},
+
+	houseTitle: {
+		padding: 16,
+		borderRadius: 12,
+		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
+		borderColor: "#00629F",
+		borderWidth: 2,
+		position: "absolute",
+		alignSelf: "center",
+		top: 5
+	},
+
+	houseText: {
+		padding: 16,
+		borderRadius: 12,
+		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
+		borderColor: "#00629F",
+		borderWidth: 2,
+		position: "absolute",
+		alignSelf: "center",
+		top: 80
+	},
+
+	houseFloorTextIncompleted: {
+		padding: 5,
+		backgroundColor: "rgba(255, 255, 255, 0.8)", // translucent white
+		borderColor: "#00629F",
+		borderWidth: 2,
+		position: "absolute",
+		alignSelf: "center",
+		top: 12
+	},
+
+	houseFloorTextCompleted: {
+		padding: 5,
+		backgroundColor: "rgb(255, 217, 0)", // translucent yellow
+		borderColor: "#00629F",
+		borderWidth: 2,
+		position: "absolute",
+		alignSelf: "center",
+		top: 12
+	}
 });

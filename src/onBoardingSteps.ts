@@ -15,7 +15,7 @@ export const ONBOARDING_STEPS: Record<Language, OnboardingStep[]> = {
     en: [
         {
             key: "first-step",
-            title: "Welcome to TurvaApp!",
+            title: "Welcome to TurvaOppi!",
             description: "Let's learn about safety, together!",
             image: require("@/assets/images/HH_SafetyCharacters.png"),
             buttonLabel: "Next",
@@ -24,7 +24,7 @@ export const ONBOARDING_STEPS: Record<Language, OnboardingStep[]> = {
             key: "second-step",
             title: "Learn The Basics",
             description:
-                "TurvaApp helps you learn about safety as well as how to apply what you've learned in real life scenarios.",
+                "TurvaOppi helps you learn about safety as well as how to apply what you've learned in real life scenarios.",
             image: require("@/assets/images/HH_Rules.png"),
             buttonLabel: "Next",
         },
@@ -40,7 +40,7 @@ export const ONBOARDING_STEPS: Record<Language, OnboardingStep[]> = {
             key: "fourth-step",
             title: "Report Inappropriate Behavior",
             description:
-                "On TurvaApp, it's also possible to send safety observation reports, report inappropriate behavior and much more. So, let's get started!",
+                "On TurvaOppi, it's also possible to send safety observation reports, report inappropriate behavior and much more. So, let's get started!",
             image: require("@/assets/images/HH_SafetyWalk.png"),
             buttonLabel: "Login",
         },
@@ -48,7 +48,7 @@ export const ONBOARDING_STEPS: Record<Language, OnboardingStep[]> = {
     fi: [
         {
             key: "first-step",
-            title: "Tervetuloa TurvaAppiin!",
+            title: "Tervetuloa TurvaOppiin!",
             description: "Opitaan turvallisuudesta yhdessä!",
             image: require("@/assets/images/HH_SafetyCharacters.png"),
             buttonLabel: "Seuraava",
@@ -57,7 +57,7 @@ export const ONBOARDING_STEPS: Record<Language, OnboardingStep[]> = {
             key: "second-step",
             title: "Opi perusteet",
             description:
-                "TurvaApp auttaa sinua oppimaan turvallisuudesta sekä soveltamaan opittua käytännön tilanteissa.",
+                "TurvaOppi auttaa sinua oppimaan turvallisuudesta sekä soveltamaan opittua käytännön tilanteissa.",
             image: require("@/assets/images/HH_Rules.png"),
             buttonLabel: "Seuraava",
         },
@@ -73,7 +73,7 @@ export const ONBOARDING_STEPS: Record<Language, OnboardingStep[]> = {
             key: "fourth-step",
             title: "Ilmoita sopimattomasta käytöksestä",
             description:
-                "TurvaAppissa voit myös lähettää havaintoraportteja, ilmoittaa sopimattomasta käytöksestä ja paljon muuta. Aloitetaan siis!",
+                "TurvaOpissa voit myös lähettää havaintoraportteja, ilmoittaa sopimattomasta käytöksestä ja paljon muuta. Aloitetaan siis!",
             image: require("@/assets/images/HH_SafetyWalk.png"),
             buttonLabel: "Kirjaudu sisään",
         },
