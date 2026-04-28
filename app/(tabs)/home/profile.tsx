@@ -123,7 +123,7 @@ export default function ProfileScreen() {
   };
 
   fetchProfileAndStats();
-  }, [token]);
+  }, [token]));
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
