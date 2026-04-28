@@ -3,7 +3,8 @@ import { useLanguageStore } from "@/src/zustand/store";
 import { Feather } from "@expo/vector-icons";
 import { useRouter, type Href } from "expo-router";
 import React, { useState } from "react";
-import { ImageBackground, Pressable, SafeAreaView, StyleSheet, View } from "react-native";
+import { ImageBackground, Pressable, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Surface, TextInput, Title, useTheme } from "react-native-paper";
 
 type Language = "en" | "fi";
