@@ -6,6 +6,8 @@ import { createThemeSlice, StoreState } from "./themeSlice";
 import { createLanguageSlice, LanguageSlice } from "./languageSlice";
 import { createOnboardingSlice, OnboardingSlice } from "./onboardingSlice";
 import { createGameProgressSlice, GameProgressSlice } from "./gameProgressSlice";
+import {createTimeSlice, TimeSlice} from "./timeSlice";
+
 
 export const useThemeStore = create<StoreState>()(
   persist(
