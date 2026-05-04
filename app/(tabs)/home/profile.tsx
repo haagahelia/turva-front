@@ -125,7 +125,7 @@ export default function ProfileScreen() {
   };
 
   fetchProfileAndStats();
-  }, [token]);
+  }, [token]));
 
 const totalSeconds = Math.floor(activeTime / 1000);
 const hours = Math.floor(totalSeconds / 3600);
