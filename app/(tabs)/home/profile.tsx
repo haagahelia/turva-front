@@ -25,6 +25,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthStore } from '@/src/zustand/authStore';
 import { useLanguageStore } from "@/src/zustand/store";
+import {useTimeStore} from "@/src/zustand/timeStore";
 
 
 
@@ -41,7 +42,6 @@ export default function ProfileScreen() {
   const [userName, setUserName] = useState("");
   const [isEditingName, setIsEditingName] = useState(false);
   const [playerPoints, setPlayerPoints] = useState(0);
-  const [totalTime, setTotalTime] = useState("0h 0min");
   const [isLoading, setIsLoading] = useState(true);
   const { language } = useLanguageStore();
   const text = TextData[language].profile;
@@ -53,9 +53,14 @@ export default function ProfileScreen() {
     router.replace("/(auth)/login");
   };
 
+  const activeTime = useTimeStore((state) => state.activeTime);
+
+
     // Fetch user profile data from the backend
     useFocusEffect(
   useCallback(() => {
+    useTimeStore.getState().updateSession();
+
     const fetchProfileAndStats = async () => {
     try {
       if (!token) {
@@ -112,9 +117,6 @@ export default function ProfileScreen() {
 
       setPlayerPoints(stats.points + bonusPoints);
 
-      const hours = Math.floor(stats.totalTimeSeconds / 3600);
-      const minutes = Math.floor((stats.totalTimeSeconds % 3600) / 60);
-      setTotalTime(`${hours}h ${minutes}min`);
     } catch (error) {
       console.error("Error fetching profile or stats:", error);
       Alert.alert("Error", "Failed to load profile data. Please try again later.");
@@ -124,7 +126,12 @@ export default function ProfileScreen() {
   };
 
   fetchProfileAndStats();
-  }, [token]);
+  }, [token]));
+
+const totalSeconds = Math.floor(activeTime / 1000);
+const hours = Math.floor(totalSeconds / 3600);
+const minutes = Math.floor((totalSeconds % 3600) / 60);
+const formattedTime = `${hours}h ${minutes}min`;
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -272,7 +279,7 @@ export default function ProfileScreen() {
                     variant="headlineSmall"
                     style={[styles.statValue, { color: theme.colors.primary }]}
                   >
-                    {totalTime}
+                    {formattedTime}
                   </Text>
                 </View>
               </Card.Content>
