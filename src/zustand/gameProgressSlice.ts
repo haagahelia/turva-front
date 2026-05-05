@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "../config/api";
 import { StateCreator } from "zustand";
 
 const WORLD_COMPLETION_BONUS = 10; // 10 points per completed world
@@ -61,7 +62,7 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
         const token = await AsyncStorage.getItem("authToken");
         if (!token) throw new Error("No auth token found");
 
-        const res = await fetch("http://localhost:3000/api/quiz-result", {
+        const res = await fetch(`${API_URL}/api/quiz-result`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

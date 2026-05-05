@@ -2,6 +2,7 @@ import TextData from '@/static/homeTexts.json';
 import * as ImagePicker from "expo-image-picker";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState, useEffect } from "react";
+import { API_URL } from '@/src/config/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Alert,
@@ -67,7 +68,7 @@ export default function ProfileScreen() {
         return;
       }
 
-      const profileResponse = await fetch(`http://localhost:3000/api/user/profile`, {
+      const profileResponse = await fetch(`${API_URL}/api/user/profile`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -86,14 +87,14 @@ export default function ProfileScreen() {
       const fetchUserId = profileData.userId;
 
       const [statsResponse, bonusResponse] = await Promise.all([
-        fetch(`http://localhost:3000/api/quiz-result/user/${fetchUserId}/stats`, {
+        fetch(`${API_URL}/api/quiz-result/user/${fetchUserId}/stats`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
           }
         }),
-        fetch(`http://localhost:3000/api/world-bonus/user/${fetchUserId}`, {
+        fetch(`${API_URL}/api/world-bonus/user/${fetchUserId}`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
