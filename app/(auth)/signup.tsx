@@ -17,6 +17,12 @@ type SignupText = {
     email: string
     confirm: string
     signup: string
+    errors: {
+        requiredFields: string;
+        emailsDoNotMatch: string;
+        registerFailed: string;
+        serverConnectionFailed: string;
+    }
 }
 
 const SignupTexts: Record<Language, SignupText> = {
@@ -26,6 +32,12 @@ const SignupTexts: Record<Language, SignupText> = {
         email: "Email",
         confirm: "Confirm email",
         signup: "Sign up",
+        errors: {
+            requiredFields: "Fill in all fields",
+            emailsDoNotMatch: "Email addresses do not match",
+            registerFailed: "Registration failed",
+            serverConnectionFailed: "Could not connect to the server",
+        },
     },
     fi: {
         title: "Rekisteröidy",
@@ -33,6 +45,12 @@ const SignupTexts: Record<Language, SignupText> = {
         email: "Sähköposti",
         confirm: "Vahvista sähköposti",
         signup: "Rekisteröidy",
+        errors: {
+            requiredFields: "Täytä kaikki kentät",
+            emailsDoNotMatch: "Sähköpostit eivät täsmää",
+            registerFailed: "Rekisteröinti epäonnistui",
+            serverConnectionFailed: "Yhteys palvelimeen epäonnistui",
+        },
     },
 };
 
@@ -54,12 +72,12 @@ export default function SignupScreen() {
         setError("");
 
         if (!username.trim() || !email.trim() || !confirm.trim()) {
-            setError("Täytä kaikki kentät");
+            setError(text.errors.requiredFields);
             return;
         }
 
         if (email.trim() !== confirm.trim()) {
-            setError("Sähköpostit eivät täsmää");
+            setError(text.errors.emailsDoNotMatch);
             return;
         }
 
@@ -88,14 +106,14 @@ export default function SignupScreen() {
             const data = rawText ? JSON.parse(rawText) : {};
 
             if (!response.ok) {
-                setError(data.error ?? "Rekisteröinti epäonnistui");
+                setError(data.error ?? text.errors.registerFailed);
                 return;
             }
 
             navigation.replace(LOGIN_ROUTE);
         } catch (err) {
             console.log("Signup error:", err);
-            setError(`Yhteys palvelimeen epäonnistui: ${String(err)}`);
+            setError(text.errors.serverConnectionFailed);
         } finally {
             setLoading(false);
         }
