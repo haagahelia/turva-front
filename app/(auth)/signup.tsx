@@ -84,7 +84,7 @@ export default function SignupScreen() {
         try {
             setLoading(true);
 
-            const registerUrl = `${API_URL}/auth/register`;
+            const registerUrl = `${API_URL}/api/auth/register`;
 
             const response = await fetch(registerUrl, {
                 method: "POST",
@@ -160,6 +160,7 @@ export default function SignupScreen() {
                                     value={email}
                                     onChangeText={setEmail}
                                     keyboardType="email-address"
+                                    autoCapitalize="none"
                                     mode="outlined"
                                     style={styles.input}
                                 />
@@ -168,6 +169,7 @@ export default function SignupScreen() {
                                     value={confirm}
                                     onChangeText={setConfirm}
                                     keyboardType="email-address"
+                                    autoCapitalize="none"
                                     mode="outlined"
                                     style={styles.input}
                                 />

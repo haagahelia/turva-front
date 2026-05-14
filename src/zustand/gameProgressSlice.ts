@@ -1,6 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "../config/api";
 import { StateCreator } from "zustand";
+import { API_URL } from "../config/api";
+import { useAuthStore } from "./authStore";
 
 const WORLD_COMPLETION_BONUS = 10; // 10 points per completed world
 
@@ -59,9 +59,10 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
     const sendToBackend = async () => {
       try {
         // const token = "" // Temporary token for testing, replace with actual token retrieval when auth is implemented
-        const token = await AsyncStorage.getItem("authToken");
-        if (!token) throw new Error("No auth token found");
-
+        const token = useAuthStore.getState().token;
+        if (!token) {
+          throw new Error("No auth token found");
+        }
         const res = await fetch(`${API_URL}/api/quiz-result`, {
           method: "POST",
           headers: {
@@ -112,7 +113,7 @@ export const createGameProgressSlice: StateCreator<GameProgressSlice> = (set, ge
           new Set([...state.completedWorlds, ...worldsToComplete])
         ),
       };
-  }),
+    }),
 
   isQuizCompleted: (quizId) => {
     const result = get().quizResults[quizId];
