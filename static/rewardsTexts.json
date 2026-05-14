@@ -1,0 +1,124 @@
+{
+  "fi": {
+    "title": "Palkinnot",
+    "loading": "Ladataan palkintoja...",
+    "pointsLevel": "PISTEET TASO",
+    "timeLevel": "AIKA TASO",
+    "levelLabel": "Taso",
+    "nextLevel": "Seuraava →",
+    "pointsUnit": "pistettä",
+    "timeUnit": "min",
+    "achievements": "Saavutukset",
+    "haalarimerkki": "Haalarimerkki",
+    "haalarimerkkiProgress": "Suorita kaikki maailmat saadaksesi haalarimerkin!",
+    "haalarimerkkiWorldsCompleted": "maailmaa suoritettu",
+    "haalarimerkkiReady": "Olet suorittanut kaikki maailmat! Lunasta haalarimerkki infopisteeltä.",
+    "haalarimerkkiClaim": "Lunasta haalarimerkki",
+    "haalarimerkkiClaimed": "Haalarimerkki on jo lunastettu!",
+    "haalarimerkkiQrInfo": "Näytä tämä QR-koodi infopisteellä haalarimerkin lunastamiseksi.",
+    "haalarimerkkiQrOnce": "Koodi toimii vain kerran",
+    "achievementUnlocked": "✓",
+    "achievementLocked": "—",
+    "achievements_list": {
+      "first_quiz": {
+        "name": "Ensimmäinen askel",
+        "description": "1+ tietovisa suoritettu"
+      },
+      "perfect_score": {
+        "name": "Täydellinen suoritus",
+        "description": "100% oikein tietovisassa"
+      },
+      "first_world": {
+        "name": "Maailman tutkija",
+        "description": "1+ maailma suoritettu"
+      },
+      "all_worlds": {
+        "name": "Täydellinen pelaaja",
+        "description": "Kaikki maailmat suoritettu"
+      },
+      "dedicated": {
+        "name": "Ahkera oppija",
+        "description": "5+ tietovisaa suoritettu"
+      },
+      "master": {
+        "name": "Mestari",
+        "description": "100+ pistettä kerätty"
+      }
+    },
+    "pointLevels": {
+      "1": "Aloittelija",
+      "2": "Harjoittelija",
+      "3": "Edistynyt",
+      "4": "Asiantuntija",
+      "5": "Mestari"
+    },
+    "timeLevels": {
+      "1": "Utelias",
+      "2": "Harjoittelija",
+      "3": "Sitoutunut",
+      "4": "Kokenut",
+      "5": "Veteraani"
+    }
+  },
+  "en": {
+    "title": "Rewards",
+    "loading": "Loading rewards...",
+    "pointsLevel": "POINTS LEVEL",
+    "timeLevel": "TIME LEVEL",
+    "levelLabel": "Level",
+    "nextLevel": "Next →",
+    "pointsUnit": "points",
+    "timeUnit": "min",
+    "achievements": "Achievements",
+    "haalarimerkki": "Overall Patch",
+    "haalarimerkkiProgress": "Complete all worlds to earn the overall patch!",
+    "haalarimerkkiWorldsCompleted": "worlds completed",
+    "haalarimerkkiReady": "You have completed all worlds! Claim your overall patch at the info point.",
+    "haalarimerkkiClaim": "Claim overall patch",
+    "haalarimerkkiClaimed": "Overall patch has already been claimed!",
+    "haalarimerkkiQrInfo": "Show this QR code at the info point to claim your overall patch.",
+    "haalarimerkkiQrOnce": "Code can only be used once",
+    "achievementUnlocked": "✓",
+    "achievementLocked": "—",
+    "achievements_list": {
+      "first_quiz": {
+        "name": "First Step",
+        "description": "1+ quiz completed"
+      },
+      "perfect_score": {
+        "name": "Perfect Score",
+        "description": "100% correct in a quiz"
+      },
+      "first_world": {
+        "name": "World Explorer",
+        "description": "1+ world completed"
+      },
+      "all_worlds": {
+        "name": "Completionist",
+        "description": "All worlds completed"
+      },
+      "dedicated": {
+        "name": "Dedicated Learner",
+        "description": "5+ quizzes completed"
+      },
+      "master": {
+        "name": "Master",
+        "description": "100+ points collected"
+      }
+    },
+    "pointLevels": {
+      "1": "Beginner",
+      "2": "Trainee",
+      "3": "Advanced",
+      "4": "Expert",
+      "5": "Master"
+    },
+    "timeLevels": {
+      "1": "Curious",
+      "2": "Trainee",
+      "3": "Committed",
+      "4": "Experienced",
+      "5": "Veteran"
+    }
+  }
+}
