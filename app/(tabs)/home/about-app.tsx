@@ -1,3 +1,4 @@
+import { useLanguageStore } from "@/src/zustand/store";
 import textData from "@/static/drawerTexts.json";
 import { useIsFocused } from "@react-navigation/native";
 import { MotiImage, MotiView } from "moti"; // for smooth animations
@@ -5,7 +6,6 @@ import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLanguageStore } from "@/src/zustand/store";
 
 //In the future we can also add (for example): Name of the developer - what he did in the app (Back End Developer for example)
 const developers = [
@@ -16,8 +16,13 @@ const developers = [
   "Hallenberg Olivia",
   "Heikkinen Tatu",
   "Huttunen Jasmin",
+  "Kataja Nikolas",
   "Kuronen Santeri",
+  "Lindholm Alex",
+  "Luhtala Julius",
   "Mäkelä Mark",
+  "Petrov Leonid",
+  "Ryhänen Jarno",
   "Savolainen Ville",
 ];
 
@@ -59,12 +64,12 @@ export default function NewsScreen() {
         transition={{ type: "timing", duration: 500, delay: 150 }}
       >
         <Text style={[styles.title, { color: theme.colors.onBackground }]}>
-         {text.about.title}
+          {text.about.title}
         </Text>
         <Text
           style={[styles.description, { color: theme.colors.onBackground }]}
         >
-         {text.about.developers}
+          {text.about.developers}
         </Text>
       </MotiView>
 
