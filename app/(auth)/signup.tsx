@@ -1,11 +1,11 @@
-// app/(auth)/login.tsx
+import { API_URL } from "@/src/config/api";
 import { useLanguageStore } from "@/src/zustand/store";
 import { Feather } from "@expo/vector-icons";
 import { useRouter, type Href } from "expo-router";
 import React, { useState } from "react";
 import { ImageBackground, Pressable, StyleSheet, View } from "react-native";
+import { Button, Surface, Text, TextInput, Title, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, Surface, TextInput, Title, useTheme } from "react-native-paper";
 
 type Language = "en" | "fi";
 
@@ -13,26 +13,44 @@ const LOGIN_ROUTE: Href = "/(auth)/login"
 
 type SignupText = {
     title: string
+    username: string
     email: string
-    password: string
     confirm: string
     signup: string
+    errors: {
+        requiredFields: string;
+        emailsDoNotMatch: string;
+        registerFailed: string;
+        serverConnectionFailed: string;
+    }
 }
 
 const SignupTexts: Record<Language, SignupText> = {
     en: {
         title: "Sign up",
+        username: "Username",
         email: "Email",
-        password: "Password",
-        confirm: "Confirm password",
+        confirm: "Confirm email",
         signup: "Sign up",
+        errors: {
+            requiredFields: "Fill in all fields",
+            emailsDoNotMatch: "Email addresses do not match",
+            registerFailed: "Registration failed",
+            serverConnectionFailed: "Could not connect to the server",
+        },
     },
     fi: {
         title: "Rekisteröidy",
+        username: "Käyttäjänimi",
         email: "Sähköposti",
-        password: "Salasana",
-        confirm: "Vahvista salasana",
+        confirm: "Vahvista sähköposti",
         signup: "Rekisteröidy",
+        errors: {
+            requiredFields: "Täytä kaikki kentät",
+            emailsDoNotMatch: "Sähköpostit eivät täsmää",
+            registerFailed: "Rekisteröinti epäonnistui",
+            serverConnectionFailed: "Yhteys palvelimeen epäonnistui",
+        },
     },
 };
 
@@ -41,11 +59,65 @@ export default function SignupScreen() {
     const styles = makeStyles(theme);
     const navigation = useRouter();
 
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [confirm, setConfirm] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const language = useLanguageStore((state) => state.language) as Language;
     const text = SignupTexts[language];
+
+    const handleSignup = async () => {
+        setError("");
+
+        if (!username.trim() || !email.trim() || !confirm.trim()) {
+            setError(text.errors.requiredFields);
+            return;
+        }
+
+        if (email.trim() !== confirm.trim()) {
+            setError(text.errors.emailsDoNotMatch);
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            const registerUrl = `${API_URL}/api/auth/register`;
+
+            const response = await fetch(registerUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: username.trim(),
+                    email: email.trim(),
+                    organizationId: 1,
+                }),
+            });
+
+            const rawText = await response.text();
+
+            console.log("Response status:", response.status);
+            console.log("Response text:", rawText);
+
+            const data = rawText ? JSON.parse(rawText) : {};
+
+            if (!response.ok) {
+                setError(data.error ?? text.errors.registerFailed);
+                return;
+            }
+
+            navigation.replace(LOGIN_ROUTE);
+        } catch (err) {
+            console.log("Signup error:", err);
+            setError(text.errors.serverConnectionFailed);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <ImageBackground
@@ -75,6 +147,15 @@ export default function SignupScreen() {
                                 <Title style={styles.title}>{text.title}</Title>
 
                                 <TextInput
+                                    label={text.username}
+                                    value={username}
+                                    onChangeText={setUsername}
+                                    autoCapitalize="none"
+                                    mode="outlined"
+                                    style={styles.input}
+                                />
+
+                                <TextInput
                                     label={text.email}
                                     value={email}
                                     onChangeText={setEmail}
@@ -83,27 +164,23 @@ export default function SignupScreen() {
                                     mode="outlined"
                                     style={styles.input}
                                 />
-
-                                <TextInput
-                                    label={text.password}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    secureTextEntry
-                                    mode="outlined"
-                                    style={styles.input}
-                                />
                                 <TextInput
                                     label={text.confirm}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    secureTextEntry
+                                    value={confirm}
+                                    onChangeText={setConfirm}
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
                                     mode="outlined"
                                     style={styles.input}
                                 />
-
+                                {error ? (
+                                    <Text style={{ color: theme.colors.error, marginTop: 10 }}>
+                                        {error}
+                                    </Text>
+                                ) : null}
                                 <Button
                                     mode="contained"
-                                    onPress={() => navigation.replace(LOGIN_ROUTE)}
+                                    onPress={handleSignup}
                                     contentStyle={styles.buttonContent}
                                     style={styles.button}
                                     buttonColor={theme.colors.primary}

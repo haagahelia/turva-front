@@ -1,12 +1,12 @@
-// app/(auth)/login.tsx
+import { API_URL } from "@/src/config/api";
+import { useAuthStore } from "@/src/zustand/authStore";
 import { useLanguageStore } from "@/src/zustand/store";
 import { Feather } from "@expo/vector-icons";
 import { useRouter, type Href } from "expo-router";
 import React, { useState } from "react";
 import { ImageBackground, Pressable, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Surface, TextInput, Title, useTheme } from "react-native-paper";
-import { useAuthStore } from "@/src/zustand/authStore";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const SIGNUP_ROUTE: Href = "/(auth)/signup"
 const PREVIOUS_ROUTE: Href = "/(onboarding)"
@@ -17,7 +17,7 @@ type Language = "en" | "fi";
 type LoginText = {
     title: string
     email: string
-    password: string
+    username: string
     login: string
     signup: string
     forgot: string
@@ -27,7 +27,7 @@ const LoginTexts: Record<Language, LoginText> = {
     en: {
         title: "Sign in",
         email: "Email",
-        password: "Password",
+        username: "Username",
         login: "Sign in",
         signup: "Sign up",
         forgot: "Forgot password?"
@@ -35,7 +35,7 @@ const LoginTexts: Record<Language, LoginText> = {
     fi: {
         title: "Kirjaudu sisään",
         email: "Sähköposti",
-        password: "Salasana",
+        username: "Käyttäjänimi",
         login: "Kirjaudu",
         signup: "Rekisteröidy",
         forgot: "Unohditko salasanan?"
@@ -48,7 +48,7 @@ export default function LoginScreen() {
     const navigation = useRouter();
 
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
 
     const login = useAuthStore((state) => state.login);
     const setLoading = useAuthStore((state) => state.setLoading);
@@ -59,40 +59,49 @@ export default function LoginScreen() {
     const text = LoginTexts[language];
 
     // Temporary mock login until backend authentication is ready - replace with real API call when available
-    const handleMockLogin = () => {
+    const handleLogin = async () => {
         setError(null);
 
-        if (!email.trim() || !password.trim()) {
-            setError("Please enter both email and password");
+        if (!username.trim() || !email.trim()) {
+            setError("Please enter both username and email");
             return;
         }
 
-        setLoading(true);
-
         try {
-            login("mock-token-111", {
-                id: "1",
-                email: email.trim(),
-                username: email.trim(),
+            setLoading(true);
+
+            const response = await fetch(`${API_URL}/api/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: username.trim(),
+                    email: email.trim(),
+                }),
             });
 
-            navigation.replace(HOME_ROUTE);
+            const rawText = await response.text();
+            const data = rawText ? JSON.parse(rawText) : {};
 
-        } catch {
-            setError("Login failed");
+            if (!response.ok) {
+                setError(data.error ?? "Login failed");
+                return;
+            }
+
+            navigation.push({
+                pathname: "/(auth)/verify",
+                params: {
+                    username: username.trim(),
+                    email: email.trim(),
+                },
+            });
+        } catch (err) {
+            console.log("Login error:", err);
+            setError("Could not connect to the server");
         } finally {
             setLoading(false);
         }
-    };
-
-    // Development-only shortcut for faster testing - remove when no longer needed
-    const handleDevLogin = () => {
-        login("dev-token-123", {
-            id: "1",
-            email: "dev@test.com",
-            username: "dev",
-        });
-        navigation.replace(HOME_ROUTE);
     };
 
     return (
@@ -127,6 +136,16 @@ export default function LoginScreen() {
                                 <Title style={styles.title}>{text.title}</Title>
 
                                 <TextInput
+                                    label={text.username}
+                                    value={username}
+                                    onChangeText={setUsername}
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
+                                    mode="outlined"
+                                    style={styles.input}
+                                />
+
+                                <TextInput
                                     label={text.email}
                                     value={email}
                                     onChangeText={setEmail}
@@ -136,18 +155,9 @@ export default function LoginScreen() {
                                     style={styles.input}
                                 />
 
-                                <TextInput
-                                    label={text.password}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    secureTextEntry
-                                    mode="outlined"
-                                    style={styles.input}
-                                />
-
                                 <Button
                                     mode="contained"
-                                    onPress={handleMockLogin}
+                                    onPress={handleLogin}
                                     disabled={isLoading}
                                     contentStyle={styles.buttonContent}
                                     style={styles.button}
@@ -156,20 +166,6 @@ export default function LoginScreen() {
                                 >
                                     {text.login}
                                 </Button>
-
-                                {/* Only visible in development mode */}
-                                {__DEV__ && (
-                                    <View style={{ marginTop: 12 }}>
-
-                                        <Button
-                                        mode="outlined"
-                                        onPress={handleDevLogin}
-                                        style={{ marginTop: 6 }}
-                                        >
-                                        Dev Login
-                                        </Button>
-                                    </View>
-                                    )}
 
                                 <View style={styles.row}>
                                     <Button onPress={() => navigation.replace(SIGNUP_ROUTE)}>{text.signup}</Button>
