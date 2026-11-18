@@ -1,8 +1,7 @@
 import { ONBOARDING_STEPS, type Language } from "@/src/onBoardingSteps";
+import { useAuthStore } from "@/src/zustand/authStore";
 import { useLanguageStore } from "@/src/zustand/store";
 import { Feather } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter, type Href } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
@@ -10,16 +9,13 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const ONBOARDING_KEY = "IsOnboardingComplete";
 const INTRO_FADE_DURATION = 800;
 const INTRO_FADE_OUT_DELAY = 400;
-const HOME_ROUTE: Href = "/(tabs)/home";
-const AUTHS_ROUTE: Href = "/(auth)/login"
 
 //It was not used in the code
 //const AnimatedImage = Animated.createAnimatedComponent(Image);
@@ -27,7 +23,6 @@ const AUTHS_ROUTE: Href = "/(auth)/login"
 export default function OnboardingScreen() {
   const [stage, setStage] = useState(1);
   const fadeAnimation = useRef(new Animated.Value(0)).current;
-  const navigation = useRouter();
   const theme = useTheme();
   const { colors } = theme;
 
@@ -77,15 +72,9 @@ export default function OnboardingScreen() {
     return steps[stage - 2];
   }, [stage, steps]);
 
-  const persistCompletion = useCallback(async () => {
-    try {
-      await AsyncStorage.setItem(ONBOARDING_KEY, "true");
-    } catch (error) {
-      console.warn("Failed to persist onboarding completion", error);
-    } finally {
-      navigation.replace(AUTHS_ROUTE);
-    }
-  }, [navigation]);
+  const persistCompletion = useCallback(() => {
+    useAuthStore.getState().completeOnboarding();
+  }, []);
 
   const handleNext = useCallback(() => {
     if (stage < FINAL_STAGE) {
@@ -125,7 +114,11 @@ export default function OnboardingScreen() {
                     { backgroundColor: colors.surfaceVariant },
                   ]}
                 >
-                  <Feather name="arrow-left" size={20} color={colors.onSurface} />
+                  <Feather
+                    name="arrow-left"
+                    size={20}
+                    color={colors.onSurface}
+                  />
                 </Pressable>
               ) : null}
             </View>
@@ -134,10 +127,7 @@ export default function OnboardingScreen() {
                 {currentStep?.title}
               </Text>
               <Text
-                style={[
-                  styles.description,
-                  { color: colors.onSurfaceVariant },
-                ]}
+                style={[styles.description, { color: colors.onSurfaceVariant }]}
               >
                 {currentStep?.description}
               </Text>
@@ -187,7 +177,7 @@ export default function OnboardingScreen() {
                   {currentStep?.buttonLabel}
                 </Text>
               </Pressable>
-              <View style={{ alignItems: 'center' }}>
+              <View style={{ alignItems: "center" }}>
                 <Pressable
                   accessibilityRole="button"
                   onPress={toggleLanguage}

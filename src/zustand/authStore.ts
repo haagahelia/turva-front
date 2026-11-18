@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
-import { AuthState, User } from '../types/auth';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { AuthState, User } from "../types/auth";
 
 export const useAuthStore = create<AuthState>()(
   persist(
@@ -9,6 +9,7 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
       isLoggedIn: false,
+      isOnboardingComplete: false,
       hasHydrated: false,
       isLoading: false,
       error: null,
@@ -48,9 +49,13 @@ export const useAuthStore = create<AuthState>()(
       setHasHydrated: (value: boolean) => {
         set({ hasHydrated: value });
       },
+
+      completeOnboarding: () => {
+        set({ isOnboardingComplete: true });
+      },
     }),
     {
-      name: 'auth-storage',
+      name: "auth-storage",
       storage: createJSONStorage(() => AsyncStorage),
 
       // Avoids unnecessary data being stored in AsyncStorage
@@ -58,12 +63,13 @@ export const useAuthStore = create<AuthState>()(
         user: state.user,
         token: state.token,
         isLoggedIn: state.isLoggedIn,
+        isOnboardingComplete: state.isOnboardingComplete,
       }),
 
       // Prevents UI Flicker
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },
-    }
-  )
+    },
+  ),
 );
