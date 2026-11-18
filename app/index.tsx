@@ -4,13 +4,11 @@ import { useRouter, type Href } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-
 const ONBOARDING_KEY = "IsOnboardingComplete";
 const HOME_ROUTE: Href = "/(tabs)/home";
 const ONBOARDING_ROUTE = "/(onboarding)";
-const AUTH_ROUTE: Href = "/(auth)/login"
+const AUTH_ROUTE: Href = "/(auth)/login";
 const ONBOARDING_ROUTE_HREF = ONBOARDING_ROUTE as unknown as Href;
-
 
 export default function Index() {
   const router = useRouter();
@@ -19,10 +17,19 @@ export default function Index() {
   const hasHydrated = useAuthStore((s) => s.hasHydrated);
   useEffect(() => {
     let isMounted = true;
+    console.log(
+      "Index effect – hasHydrated:",
+      hasHydrated,
+      "isLoggedIn:",
+      isLoggedIn,
+    );
 
     const evaluateStartupStatus = async () => {
       try {
-        if (!hasHydrated) return;
+        if (!hasHydrated) {
+          console.log("Waiting for hydration…");
+          return;
+        }
         // To reset onboarding for testing
         //await AsyncStorage.removeItem(ONBOARDING_KEY);
         //console.log("Onboarding reset");
@@ -69,4 +76,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
