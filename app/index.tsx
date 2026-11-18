@@ -1,76 +1,30 @@
+import { Redirect } from "expo-router";
 import { useAuthStore } from "@/src/zustand/authStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter, type Href } from "expo-router";
-import { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-
-const ONBOARDING_KEY = "IsOnboardingComplete";
-const HOME_ROUTE: Href = "/(tabs)/home";
-const ONBOARDING_ROUTE = "/(onboarding)";
-const AUTH_ROUTE: Href = "/(auth)/login";
-const ONBOARDING_ROUTE_HREF = ONBOARDING_ROUTE as unknown as Href;
+import { useTheme } from "react-native-paper";
 
 export default function Index() {
-  const router = useRouter();
-  const [isChecking, setIsChecking] = useState(true);
+  const theme = useTheme();
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
-  const hasHydrated = useAuthStore((s) => s.hasHydrated);
-  useEffect(() => {
-    let isMounted = true;
-    console.log(
-      "Index effect – hasHydrated:",
-      hasHydrated,
-      "isLoggedIn:",
-      isLoggedIn,
-    );
+  const hasHydrated  = useAuthStore((s) => s.hasHydrated);
+  const onboardingDone = useAuthStore((s) => s.isOnboardingComplete);
 
-    const evaluateStartupStatus = async () => {
-      try {
-        if (!hasHydrated) {
-          console.log("Waiting for hydration…");
-          return;
-        }
-        // To reset onboarding for testing
-        //await AsyncStorage.removeItem(ONBOARDING_KEY);
-        //console.log("Onboarding reset");
-        const onboardingDone = await AsyncStorage.getItem(ONBOARDING_KEY);
-
-        if (onboardingDone !== "true") {
-          router.replace(ONBOARDING_ROUTE);
-          return;
-        }
-
-        router.replace(isLoggedIn ? HOME_ROUTE : AUTH_ROUTE);
-      } catch (error) {
-        console.warn("Failed to read startup status", error);
-        router.replace(ONBOARDING_ROUTE);
-      } finally {
-        if (isMounted) {
-          setIsChecking(false);
-        }
-      }
-    };
-
-    evaluateStartupStatus();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [router, hasHydrated, isLoggedIn]);
-
-  if (isChecking) {
+  if (!hasHydrated ) {
     return (
-      <View style={styles.container}>
+      <View
+        style={[styles.loading, { backgroundColor: theme.colors.background }]}
+      >
         <ActivityIndicator size="large" />
       </View>
     );
   }
 
-  return null;
+  if (!onboardingDone) return <Redirect href="/(onboarding)" />;
+  return <Redirect href={isLoggedIn ? "/(tabs)/home" : "/(auth)/login"} />;
 }
 
 const styles = StyleSheet.create({
-  container: {
+  loading: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

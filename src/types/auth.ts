@@ -11,6 +11,7 @@ export interface AuthState {
     hasHydrated: boolean;
     isLoading: boolean;
     error: string | null;
+    isOnboardingComplete: boolean;
 
     // Actions
     login: (token: string, user: User) => void;
@@ -18,6 +19,7 @@ export interface AuthState {
     setLoading: (isLoading: boolean) => void;
     setError: (error: string | null) => void;
     setHasHydrated: (value: boolean) => void;
+    completeOnboarding: () => void;
 }
 
 export interface LoginResponse {
